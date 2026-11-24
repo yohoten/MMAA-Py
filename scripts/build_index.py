@@ -1004,6 +1004,14 @@ function openNotebook(num){
 }
 
 function srcOf(c){ return Array.isArray(c.source) ? c.source.join('') : (c.source || ''); }
+// nbformat 允许 MIME 负载为字符串或字符串数组，渲染前统一成字符串。
+function asText(v){
+  if(v == null) return '';
+  if(Array.isArray(v)) return v.map(asText).join('');
+  if(typeof v === 'string') return v;
+  if(typeof v === 'object') return asText(v['text/plain']);
+  return String(v);
+}
 function safeUrl(u){
   const s = String(u || '').trim();
   if(/^javascript:/i.test(s)) return '#';
@@ -1080,20 +1088,23 @@ function mdToHtml(src){
 }
 function outputHtml(outs){
   return outs.map(o => {
-    if(o.output_type === 'stream') return `<div class="out">${esc((o.text || []).join(''))}</div>`;
-    if(o.output_type === 'error') return `<div class="out bad">${esc((o.traceback || []).join('\n'))}</div>`;
+    if(o.output_type === 'stream') return `<div class="out">${esc(asText(o.text))}</div>`;
+    if(o.output_type === 'error'){
+      const tb = Array.isArray(o.traceback) ? o.traceback.join('\n') : asText(o.traceback);
+      return `<div class="out bad">${esc(tb)}</div>`;
+    }
     const d = o.data || {};
     let html = '';
-    if(d['text/plain']) html += `<div class="out">${esc((d['text/plain'] || []).join(''))}</div>`;
+    if(d['text/plain']) html += `<div class="out">${esc(asText(d['text/plain']))}</div>`;
     if(d['image/png']){
       if(state.showImages){
-        const b64 = (d['image/png'] || []).join('');
+        const b64 = asText(d['image/png']).replace(/\s/g, '');
         html += `<div class="out"><img loading="lazy" alt="notebook 输出图片" src="data:image/png;base64,${b64}"></div>`;
       } else {
         html += `<div class="out muted">[图片输出已折叠，可在右上角开启“显示图片”]</div>`;
       }
     }
-    if(d['text/html']) html += `<div class="out muted">[HTML 输出已省略渲染，共 ${(d['text/html'] || []).join('').length} 字符]</div>`;
+    if(d['text/html']) html += `<div class="out muted">[HTML 输出已省略渲染，共 ${asText(d['text/html']).length} 字符]</div>`;
     return html;
   }).join('');
 }

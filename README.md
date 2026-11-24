@@ -1,10 +1,37 @@
-# Python数学建模算法与应用
+# Python 数学建模算法与应用
 
-# Mathematical Modeling Atlas
+> **Mathematical Modeling Atlas** — 以 Jupyter Notebook 为载体的数学建模学习仓库：教材正文、授课课件与实践代码按主题互相呼应。
 
-> 以 Jupyter Notebook 为载体的数学建模学习仓库：43 个实践 notebook（01—43）、20 章配套课件、35 份教材正文 PDF，以及按专题归档的历史资料与独立建模案例。35 篇教材参考实现已按主题并入对应 notebook。
->
-> 在线浏览：根目录 [`index.html`](index.html) 提供 notebook、数据与文档的检索、结构查看与按需预览；GitHub Pages 部署后即为仓库首页。
+[![Python 3.10 / 3.11](https://img.shields.io/badge/Python-3.10%20%7C%203.11-3776AB?logo=python&logoColor=white)](pyproject.toml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-1f6b3a)](LICENSE)
+[![GitHub Pages](https://img.shields.io/badge/site-GitHub%20Pages-0e6b5c)](https://yohoten.github.io/Mathematical-Modeling-Atlas/)
+
+> **在线浏览**：[`index.html`](index.html) 是单文件静态导航页，提供浏览、检索、结构查看、内容预览与工具集；部署在 [GitHub Pages](https://yohoten.github.io/Mathematical-Modeling-Atlas/) 后即为仓库首页。
+
+| 资源 | 规模 | 入口 |
+| --- | --- | --- |
+| 实践 notebook | 43 篇（01—43） | [`notebooks/README.md`](notebooks/README.md) |
+| 数据文件 | 28 个（含教材数据 10 个） | [`data/README.md`](data/README.md) |
+| 教材正文 | 35 份 PDF | [`docs/README.md`](docs/README.md) |
+| 授课课件 | 21 个 | [`ppts/README.md`](ppts/README.md) |
+| 历史资料 | 522 个文件（只读归档） | [`manual/README.md`](manual/README.md) |
+| 独立案例 | 3 个专题 | [`modelit/README.md`](modelit/README.md) |
+
+## 目录
+
+- [项目特色](#项目特色)
+- [项目结构](#项目结构)
+- [环境要求](#环境要求)
+- [快速开始](#快速开始)
+- [在线浏览与导航页](#在线浏览与导航页)
+- [规范与自动化门禁](#规范与自动化门禁)
+- [内容地图](#内容地图)
+- [推荐学习路径](#推荐学习路径)
+- [Notebook 命名与版式规范](#notebook-命名与版式规范)
+- [数据约定](#数据约定)
+- [已知事项与待办](#已知事项与待办)
+- [贡献指南](#贡献指南)
+- [许可证与第三方资料](#许可证与第三方资料)
 
 ## 项目特色
 
@@ -47,7 +74,7 @@ Python数学建模算法与应用/
 ├── requirements.txt            # pip 兼容入口（等价于 -e ".[dev]"）
 ├── .pre-commit-config.yaml     # 提交前钩子
 ├── .gitattributes              # 行尾规范 + Git LFS 规则说明
-├── .check_baseline.json        # 已确认问题的基线（修复后逐条删除）
+├── .check_baseline.json        # 已确认问题的基线（当前为空）
 ├── Makefile                    # 常用任务封装（Windows 可直接用 python 命令）
 ├── LICENSE                     # MIT（不含 docs/、ppts/、manual/ 中的第三方资料）
 └── README.md
@@ -55,24 +82,11 @@ Python数学建模算法与应用/
 
 工作树约 487 MB，其中 94 MB 数据、178 MB 案例数据、91 MB 课件、107 MB 历史资料（另有 `.git` 历史约 307 MB）。克隆前请留意：`data/bitcoin_data.csv`（73 MB）与 `modelit/Object_classification/cifar-10-batches-py/`（178 MB）是主要体积来源，LFS 规则见 `.gitattributes`。
 
-## 目录索引
-
-每个主目录都有一份与当前状态一致的 README；`manual/` 下另有 9 个上游第三方 README（GALib、模拟退火工具箱），保持原样不改写。
-
-| 目录 | README | 内容 |
-| --- | --- | --- |
-| `notebooks/` | [`notebooks/README.md`](notebooks/README.md) | 43 个 notebook 的索引、数据依赖与待修项（含 35 篇教材实现的融合去向） |
-| `data/` | [`data/README.md`](data/README.md) | 数据字典：体积、引用方、缺失引用 |
-| `docs/` | [`docs/README.md`](docs/README.md) | 教材章节索引、与 notebook 的主题对照 |
-| `ppts/` | [`ppts/README.md`](ppts/README.md) | 21 个课件的章节与体积 |
-| `manual/` | [`manual/README.md`](manual/README.md) | 31 类历史资料清单与使用约定 |
-| `modelit/` | [`modelit/README.md`](modelit/README.md) | 3 个案例的运行方式与已知缺陷 |
-
 ## 环境要求
 
-- **Python 3.10 或 3.11**（`pyproject.toml` 已声明 `requires-python >=3.10,<3.12`）。3.12 及以上与当前 `numpy<2`、`pmdarima` 组合不兼容，3.9 及以下不在支持范围。
+- **Python 3.10 或 3.11**：`pyproject.toml` 声明 `requires-python >=3.10,<3.12`。3.12 及以上与当前 `numpy<2`、`pmdarima` 组合不兼容，3.9 及以下不在支持范围。
 - **JupyterLab**（已列入依赖）或 VS Code + Jupyter 扩展。
-- 依赖清单只维护在 `pyproject.toml`：直接依赖 17 个，`ml` 可选组（torch / tensorflow / prophet / neuralprophet / apyori）仅供 10、19、26、29、30、43 号 notebook 使用。
+- 依赖清单只维护在 `pyproject.toml`：直接依赖 17 个；`ml` 可选组（torch / tensorflow / prophet / neuralprophet / apyori）仅供 10、19、26、29、30、43 号 notebook 使用。
 
 ## 快速开始
 
@@ -93,23 +107,24 @@ jupyter lab
 
 使用 [uv](https://docs.astral.sh/uv/) 时：`uv sync --extra dev`。
 
-内核工作目录应为 notebook 所在目录（JupyterLab 与 VS Code 默认如此），因此 notebook 里的 `../data/xxx` 才能正确解析。仓库根目录不是合法的工作目录。
+> **内核工作目录**：应为 notebook 所在目录（JupyterLab 与 VS Code 默认如此），这样 `../data/xxx` 才能正确解析；不要从仓库根目录启动内核。
 
 ## 在线浏览与导航页
 
-根目录 `index.html` 是单文件静态导航页，无后端、无外部依赖：
+根目录 `index.html` 是单文件静态导航页，无后端、无外部依赖。主要功能：
 
-- 浏览 43 篇 notebook 的模块、代码量、数据依赖与 H2/H3 结构；
-- 预览 `.ipynb`（Markdown、代码与文本输出，图片按需展开）；
-- 数据、教材 PDF、课件、历史资料与案例的统一索引；
-- 工具集：环境命令生成、数据 HEAD 自检、notebook 全文检索、依赖反查、引用复制。
+- **浏览**：43 篇 notebook 的模块、代码量、数据依赖与 H2/H3 结构；支持按模块、状态筛选，按编号/标题/代码量/体积排序，以及“随机一篇”。
+- **预览**：`.ipynb` 的 Markdown、代码与文本输出；支持章节跳转、按单元筛选、逐单元复制代码、图片按需展开并记住显示偏好。
+- **索引**：数据文件、教材 PDF、课件、历史资料、独立案例的统一入口；数据文件支持 HTTP HEAD 可访问性校验。
+- **工具**：环境命令生成、notebook 全文检索、依赖反查、引用路径检查与 Markdown 链接复制。
+- **文档**：README、版式规范、数据字典、教材索引、许可证等 Markdown 在页内直接渲染；`Ctrl/⌘ K` 全局检索，`Esc` 关闭弹层。
 
 ```bash
 python scripts/build_index.py
 python scripts/build_index.py --repo-url https://github.com/yohoten/Mathematical-Modeling-Atlas
 ```
 
-未显式传参时脚本会从 `origin` 自动读取仓库地址，因此直接重跑也不会把顶栏链接退回占位符。页面内嵌清单由脚本扫描仓库生成，篇数或文件变化后重跑即可。预览与检索需要 HTTP 访问：GitHub Pages 部署后直接可用；直接双击 `file://` 打开时仅浏览功能可用。
+未显式传参时脚本会从 `origin` 自动读取仓库地址，因此直接重跑也不会把顶栏链接退回占位符。页面内嵌清单由脚本扫描仓库生成，篇数或文件变化后重跑即可。预览与检索需要 HTTP 访问：GitHub Pages 部署后直接可用；直接双击 `file://` 打开时仅浏览功能可用。仓库根已包含 `.nojekyll`，Pages 不会执行 Jekyll 转换。
 
 ## 规范与自动化门禁
 
@@ -197,7 +212,7 @@ df = pd.read_csv(DATA / "basketball.csv")
 
 ## 已知事项与待办
 
-按检查器规则归类，均已进入 `.check_baseline.json` 或 WARN 清单：
+按检查器规则归类，当前无 ERROR 基线；以下为 WARN / INFO 待办。
 
 **图片**
 
@@ -216,7 +231,6 @@ df = pd.read_csv(DATA / "basketball.csv")
 - `manual/` 522 文件 / 107 MB 为教材配套 MATLAB/C 代码与旧课件，**只读归档，不承诺可运行**；是否移出主仓（改为单独 release 或 LFS）待决策。
 - 35 篇教材参考实现（MIT，2020，Zhanghan Wang）已按主题并入 01—43 的对应小节，原教材归档目录已移出项目；其中 21 篇主题在主干中空缺，整理为 31—43 号。逐篇去向与上游许可见 [`THIRD-PARTY.md`](THIRD-PARTY.md)。
 - 新增的 31—43 号尚未执行（`execution_count` 为空）；其中 10、19、43 号的部分单元依赖 `tensorflow`，需先安装 `.[ml]` 再整篇运行。
-- 仓库已纳入 Git 管理；首次推送到远端前请确认 LFS 策略，否则一次提交会写入数百 MB 二进制历史。
 
 ## 贡献指南
 
@@ -224,7 +238,8 @@ df = pd.read_csv(DATA / "basketball.csv")
 2. 顶部元信息的模块、数据、依赖与实际代码一致；数据只写真实读取的文件。
 3. 提交前 `Restart & Run All`，删除空单元、报错堆栈与个人路径。
 4. 运行 `python scripts/check_project.py`，确保没有新增 ERROR；修好既往问题后从 `.check_baseline.json` 删除对应条目。
-5. 不提交 `.ipynb_checkpoints/`、`output/` 运行产物与超过 5 MB 且未走 LFS 的文件。
+5. 修改目录结构或 notebook 后运行 `python scripts/build_index.py`，同步刷新 `index.html`。
+6. 不提交 `.ipynb_checkpoints/`、`output/` 运行产物与超过 5 MB 且未走 LFS 的文件。
 
 ## 许可证与第三方资料
 

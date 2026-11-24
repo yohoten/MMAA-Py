@@ -177,6 +177,18 @@ def is_ignored(rel: str) -> bool:
         return False
 
 
+def tracked_paths() -> tuple[set[str], bool]:
+    """已纳入 Git 的路径集合；第二个返回值表示 Git 是否可用。"""
+    try:
+        proc = subprocess.run(["git", "ls-files", "-z"], cwd=ROOT,
+                              capture_output=True, timeout=30)
+        if proc.returncode != 0:
+            return set(), False
+        return {p for p in proc.stdout.decode("utf-8", "replace").split("\0") if p}, True
+    except (OSError, subprocess.SubprocessError):
+        return set(), False
+
+
 def detect_repo_url() -> str:
     """从 git origin 推断仓库地址，避免页面顶栏留下占位链接。"""
     try:
@@ -193,19 +205,25 @@ def detect_repo_url() -> str:
 
 
 def build_manifest(repo_url: str) -> dict:
+    tracked, has_git = tracked_paths()
+
+    def published(rel: str) -> bool:
+        """GitHub Pages 只会发布已入库且未被忽略的文件。"""
+        return (not has_git) or (rel.replace("\\", "/") in tracked and not is_ignored(rel))
+
     nb_dir = ROOT / "notebooks"
     notebooks = sorted(
-        (notebook_entry(p) for p in nb_dir.glob("*.ipynb")),
+        (notebook_entry(p) for p in nb_dir.glob("*.ipynb") if published(f"notebooks/{p.name}")),
         key=lambda x: x["num"],
     )
 
     data_files = []
     for p in sorted((ROOT / "data").glob("*")):
-        if p.is_file() and p.suffix.lower() != ".md":
+        if p.is_file() and p.suffix.lower() != ".md" and published(f"data/{p.name}"):
             data_files.append({"name": p.name, "path": f"data/{p.name}", "key": p.name,
                                "kind": "root", "size": round(p.stat().st_size / 1024, 1)})
     for p in sorted((ROOT / "data" / "textbook").glob("*")):
-        if p.is_file() and p.suffix.lower() != ".md":
+        if p.is_file() and p.suffix.lower() != ".md" and published(f"data/textbook/{p.name}"):
             data_files.append({"name": p.name, "path": f"data/textbook/{p.name}", "key": f"textbook/{p.name}",
                                "kind": "textbook", "size": round(p.stat().st_size / 1024, 1)})
 
@@ -218,6 +236,8 @@ def build_manifest(repo_url: str) -> dict:
     docs = []
     cn_num = {"一": 1, "二": 2, "三": 3, "四": 4, "五": 5, "六": 6, "七": 7, "八": 8, "九": 9, "十": 10}
     for p in sorted((ROOT / "docs").glob("*.pdf")):
+        if not published(f"docs/{p.name}"):
+            continue
         name = p.stem
         order = 999
         m = re.match(r"第\s*(\d+)\s*章\s*(.*)$", name)
@@ -239,6 +259,8 @@ def build_manifest(repo_url: str) -> dict:
 
     ppts = []
     for p in sorted((ROOT / "ppts").glob("*.pptx")):
+        if not published(f"ppts/{p.name}"):
+            continue
         m = re.match(r"(\d+)[_-](.+)$", p.stem)
         chapter, topic = (m.group(1), m.group(2)) if m else ("—", p.stem)
         ppts.append({"file": p.name, "path": f"ppts/{p.name}", "chapter": chapter,
@@ -247,7 +269,7 @@ def build_manifest(repo_url: str) -> dict:
     manual_root = ROOT / "manual"
     manual_cats = []
     for d in sorted((p for p in manual_root.iterdir() if p.is_dir()), key=lambda p: p.name):
-        files = [f for f in d.rglob("*") if f.is_file()]
+        files = [f for f in d.rglob("*") if f.is_file() and published(str(f.relative_to(ROOT)))]
         manual_cats.append({"name": d.name, "files": len(files),
                             "size": round(sum(f.stat().st_size for f in files) / 1024 / 1024, 2)})
     manual_files = sum(c["files"] for c in manual_cats)
@@ -260,7 +282,7 @@ def build_manifest(repo_url: str) -> dict:
     }
     cases = []
     for d in sorted((p for p in (ROOT / "modelit").iterdir() if p.is_dir()), key=lambda p: p.name):
-        files = [f for f in d.rglob("*") if f.is_file()]
+        files = [f for f in d.rglob("*") if f.is_file() and published(str(f.relative_to(ROOT)))]
         cases.append({"name": d.name, "files": len(files),
                       "size": round(sum(f.stat().st_size for f in files) / 1024 / 1024, 2),
                       "note": notes.get(d.name, ""),
@@ -444,6 +466,7 @@ pre{font-family:var(--mono);font-size:12.5px;line-height:1.6;background:var(--co
 .modal.open{display:block}
 .modal-panel{display:flex;flex-direction:column;height:94vh;max-width:1120px;margin:0 auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden}
 .modal-actions{display:flex;align-items:center;gap:10px}
+.modal-actions .input{width:180px;min-height:30px}
 .modal-body{padding:18px 22px 40px;overflow:auto}
 .switch{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:12px;cursor:pointer}
 .nb-meta{color:var(--muted);font-size:11.5px;padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:6px}
@@ -566,6 +589,7 @@ progress{width:100%;height:6px}
     <header class="modal-head">
       <div><p class="eyebrow">Notebook 预览</p><h2 id="modalTitle"></h2></div>
       <div class="modal-actions">
+        <input id="previewFind" class="input" type="search" placeholder="仅看命中单元…" aria-label="在当前 notebook 中筛选单元">
         <label class="switch"><input type="checkbox" id="imgToggle"> 显示图片</label>
         <button class="icon-btn" data-close="modal" aria-label="关闭预览">×</button>
       </div>
@@ -982,6 +1006,13 @@ python scripts/build_index.py --repo-url https://github.com/yohoten/Mathematical
     </section>
   </div>
   <section class="card">
+    <h2>键盘与交互</h2>
+    <div class="small muted">
+      <p><kbd>Ctrl/⌘ K</kbd> 打开全局检索 · <kbd>Esc</kbd> 关闭弹层 · <kbd>↑</kbd>/<kbd>↓</kbd> 选择结果 · <kbd>Enter</kbd> 打开。</p>
+      <p>Notebook 列表可按编号、标题、代码量或体积排序，也可从当前筛选结果随机打开一篇；预览弹窗支持按单元筛选、章节跳转与逐单元复制代码，图片显示状态会被记住。</p>
+    </div>
+  </section>
+  <section class="card">
     <h2>口径与边界</h2>
     <p class="small">篇数与体积由脚本扫描得出：notebook ${M.repo.counts.notebooks} 篇、数据 ${M.repo.counts.data} 个、PDF ${M.repo.counts.docs} 份、课件 ${M.repo.counts.ppts} 个、历史资料 ${fmt(M.repo.counts.manual)} 个文件、案例 ${M.repo.counts.modelit} 个文件。工作树约 ${M.repo.sizeMB} MB（不含 .git）。</p>
     <p class="small">质量门禁读取 scripts/check_project.py 的汇总；ERROR ${M.checks.error}（基线内 ${M.checks.baseline}，基线外 ${M.checks.outside}）、WARN ${M.checks.warn}、INFO ${M.checks.info}。${M.checks.baseline ? `基线记录 ${M.checks.baseline} 条已确认问题。` : '基线为空，当前没有豁免项。'}</p>
@@ -1160,18 +1191,53 @@ function countImages(nb){
   (nb.cells || []).forEach(c => (c.outputs || []).forEach(o => { if(o.data && o.data['image/png']) n++; }));
   return n;
 }
-function renderCells(nb){
-  return `<div class="nb-meta">${nb.cells.length} 个单元 · ${countImages(nb)} 张输出图片 · ${nb.nbformat}.${nb.nbformat_minor}</div>` +
-    nb.cells.map(c => {
-      if(c.cell_type === 'markdown') return `<div class="md">${mdToHtml(srcOf(c))}</div>`;
-      if(c.cell_type !== 'code') return '';
-      return `<div class="cell"><div class="cell-head">In [${c.execution_count == null ? ' ' : c.execution_count}]</div><pre class="code"><code>${esc(srcOf(c))}</code></pre>${outputHtml(c.outputs || [])}</div>`;
-    }).join('');
+function cellText(c){
+  let t = srcOf(c);
+  (c.outputs || []).forEach(o => {
+    if(o.output_type === 'stream') t += asText(o.text);
+    else if(o.output_type === 'error') t += asText(o.traceback);
+    else{ const d = o.data || {}; t += asText(d['text/plain']) + asText(d['text/html']); }
+  });
+  return t.toLowerCase();
+}
+function renderCells(nb, query = ''){
+  const q = String(query || '').trim().toLowerCase();
+  const cells = nb.cells || [];
+  const shown = q
+    ? cells.map((c, i) => cellText(c).includes(q) ? i : -1).filter(i => i >= 0)
+    : cells.map((_, i) => i);
+  let toc = '';
+  if(!q){
+    const heads = [];
+    cells.forEach((c, i) => {
+      if(c.cell_type !== 'markdown') return;
+      srcOf(c).split('\n').forEach(line => {
+        const m = line.match(/^##\s+(.+)$/);
+        if(m && heads.length < 16) heads.push([i, m[1].trim()]);
+      });
+    });
+    if(heads.length){
+      toc = `<div class="preview-toc">${heads.map(([i, text]) =>
+        `<button class="btn small" data-jump="cell-${i}" title="跳到该小节">${esc(text)}</button>`).join('')}</div>`;
+    }
+  }
+  const body = shown.map(i => {
+    const c = cells[i];
+    if(c.cell_type === 'markdown') return `<div class="md" id="cell-${i}">${mdToHtml(srcOf(c))}</div>`;
+    if(c.cell_type !== 'code') return '';
+    return `<div class="cell" id="cell-${i}"><div class="cell-head"><span>In [${c.execution_count == null ? ' ' : c.execution_count}]</span><button class="btn small" data-copy-code="${i}">复制代码</button></div><pre class="code"><code>${esc(srcOf(c))}</code></pre>${outputHtml(c.outputs || [])}</div>`;
+  }).join('');
+  const meta = q
+    ? `命中 ${shown.length} 个单元 · 共 ${cells.length} 个`
+    : `${cells.length} 个单元 · ${countImages(nb)} 张输出图片 · ${nb.nbformat}.${nb.nbformat_minor}`;
+  return `<div class="nb-meta">${esc(meta)}</div>${toc}${body || '<p class="muted">没有匹配的单元。</p>'}`;
 }
 async function previewNotebook(num){
   const n = M.notebooks.find(x => x.num === num);
   if(!n) return;
   state.currentNb = num;
+  state.previewQuery = '';
+  $('#previewFind').value = '';
   $('#modalTitle').textContent = `${pad(n.num)} ${n.title}`;
   $('#imgToggle').checked = state.showImages;
   openLayer('modal');
@@ -1185,7 +1251,7 @@ async function previewNotebook(num){
       nb = JSON.parse(await res.text());
       state.cache[num] = nb;
     }
-    body.innerHTML = renderCells(nb);
+    body.innerHTML = renderCells(nb, state.previewQuery);
   }catch(err){
     body.innerHTML = `<div class="callout bad">无法读取 <code>${esc(n.path)}</code>：${esc(err.message)}。<br><br>预览依赖 fetch 同源读取。请通过 HTTP 打开本页，例如在仓库根运行 <code>python -m http.server 8000</code> 后访问 <code>http://localhost:8000/</code>；直接双击 file:// 打开时浏览器会拦截。GitHub Pages 部署后可直接使用。</div>`;
   }
@@ -1359,6 +1425,19 @@ document.addEventListener('click', e => {
   if(pv){ previewNotebook(Number(pv.dataset.preview)); return; }
   const close = t.closest('[data-close]');
   if(close){ closeLayer(close.dataset.close); return; }
+  const jump = t.closest('[data-jump]');
+  if(jump){
+    const el = document.getElementById(jump.dataset.jump);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    return;
+  }
+  const copyCode = t.closest('[data-copy-code]');
+  if(copyCode){
+    const nb = state.cache[state.currentNb];
+    const c = nb && nb.cells && nb.cells[Number(copyCode.dataset.copyCode)];
+    if(c) copyText(srcOf(c));
+    return;
+  }
   const copy = t.closest('[data-copy]');
   if(copy){ copyText(copy.dataset.copy); return; }
   const copyEl = t.closest('[data-copy-el]');
@@ -1406,18 +1485,13 @@ document.addEventListener('change', e => {
   if(t.id === 'nbModule'){ state.nbModule = t.value; paintNbRows(); }
   if(t.id === 'nbStatus'){ state.nbStatus = t.value; paintNbRows(); }
   if(t.id === 'nbSort'){ state.nbSort = t.value; paintNbRows(); }
-  if(t.id === 'previewFind'){
-    state.previewQuery = t.value;
-    const nb = state.cache[state.currentNb];
-    if(nb) $('#modalBody').innerHTML = renderCells(nb, state.previewQuery);
-  }
   if(t.id === 'dataKind'){ state.dataKind = t.value; paintDataRows(); }
   if(t.id === 'envOs' || t.id === 'envMl'){ refreshEnv(); }
   if(t.id === 'imgToggle'){
     state.showImages = t.checked;
     try{ localStorage.setItem('index-images', t.checked ? '1' : '0'); }catch(e){}
     const nb = state.cache[state.currentNb];
-    if(nb) $('#modalBody').innerHTML = renderCells(nb);
+    if(nb) $('#modalBody').innerHTML = renderCells(nb, state.previewQuery);
   }
 });
 document.addEventListener('keydown', e => {

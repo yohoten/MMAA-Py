@@ -12,9 +12,9 @@
 | --- | --- | --- |
 | 实践 notebook | 43 篇（01—43） | [`notebooks/README.md`](notebooks/README.md) |
 | 数据文件 | 28 个（含教材数据 10 个） | [`data/README.md`](data/README.md) |
-| 教材正文 | 35 份 PDF | [`docs/README.md`](docs/README.md) |
+| 教材正文 | 38 份 PDF | [`docs/README.md`](docs/README.md) |
 | 授课课件 | 21 个 | [`ppts/README.md`](ppts/README.md) |
-| 历史资料 | 522 个文件（只读归档） | [`manual/README.md`](manual/README.md) |
+| 历史资料 | 516 个文件（只读归档） | [`manual/README.md`](manual/README.md) |
 | 独立案例 | 3 个专题 | [`modelit/README.md`](modelit/README.md) |
 
 ## 目录
@@ -53,11 +53,11 @@ Python数学建模算法与应用/
 │   └── 43.机器学习补充方法.ipynb
 ├── data/                       # 28 个数据文件（含 data/textbook/ 10 个教材数据）
 │   └── README.md               # 数据字典：体积、引用方、缺失项
-├── docs/                       # 教材正文：30 章 + 4 篇附录 + 参考文献（35 个 PDF / 8.5 MB）
+├── docs/                       # 教材正文：30 章 + 4 篇附录 + 参考文献 + 3 本扩展读物（38 个 PDF / 52 MB）
 │   └── README.md               # 章节索引、与 notebook 的主题对照、使用约定
 ├── ppts/                       # 章节课件 21 个（20 章，04 章分上下册，91 MB）
 │   └── README.md               # 课件清单与体积
-├── manual/                     # 历史 MATLAB / C 资料归档（522 文件 / 107 MB，只读）
+├── manual/                     # 历史 MATLAB / C 资料归档（516 文件 / 107 MB，只读）
 │   └── README.md               # 31 类专题清单；上游第三方 README 保持原样
 ├── modelit/                    # 独立建模案例（19 文件 / 178 MB）
 │   ├── README.md               # 案例说明与运行方式
@@ -80,7 +80,7 @@ Python数学建模算法与应用/
 └── README.md
 ```
 
-工作树约 487 MB，其中 94 MB 数据、178 MB 案例数据、91 MB 课件、107 MB 历史资料（另有 `.git` 历史约 307 MB）。克隆前请留意：`data/bitcoin_data.csv`（73 MB）与 `modelit/Object_classification/cifar-10-batches-py/`（178 MB）是主要体积来源，LFS 规则见 `.gitattributes`。
+工作树约 531 MB，其中 94 MB 数据、52 MB 教材正文、178 MB 案例数据、91 MB 课件、107 MB 历史资料（另有 `.git` 历史）。克隆前请留意：`data/bitcoin_data.csv`（73 MB）、`modelit/Object_classification/cifar-10-batches-py/`（178 MB）与新增的教材扩展读物是主要体积来源，LFS 规则见 `.gitattributes`。
 
 ## 环境要求
 
@@ -124,7 +124,7 @@ python scripts/build_index.py
 python scripts/build_index.py --repo-url https://github.com/yohoten/Mathematical-Modeling-Atlas
 ```
 
-未显式传参时脚本会从 `origin` 自动读取仓库地址，因此直接重跑也不会把顶栏链接退回占位符。页面内嵌清单由脚本扫描仓库生成，篇数或文件变化后重跑即可。预览与检索需要 HTTP 访问：GitHub Pages 部署后直接可用；直接双击 `file://` 打开时仅浏览功能可用。仓库根已包含 `.nojekyll`，Pages 不会执行 Jekyll 转换。
+未显式传参时脚本会从 `origin` 自动读取仓库地址，因此直接重跑也不会把顶栏链接退回占位符。页面内嵌清单只统计**已纳入 Git 且未被忽略**的文件，避免 Pages 上出现本地草稿的死链；新增文件提交后重跑脚本即可。预览与检索需要 HTTP 访问：GitHub Pages 部署后直接可用；直接双击 `file://` 打开时仅浏览功能可用。仓库根已包含 `.nojekyll`，Pages 不会执行 Jekyll 转换。
 
 ## 规范与自动化门禁
 
@@ -228,7 +228,7 @@ df = pd.read_csv(DATA / "basketball.csv")
 
 - `modelit/Monte_Carlo_simulation/Simple_betting_system.py` 内容已损坏（`def rolupice（）`、`if roll =- 100` 等），无法执行；同名可用文件在 `modelit/Markov_chain/`。建议合并为单一案例目录。
 - `modelit/Markov_chain/output/` 留有 5 个运行产物，按 `.gitignore` 本不该入库。
-- `manual/` 522 文件 / 107 MB 为教材配套 MATLAB/C 代码与旧课件，**只读归档，不承诺可运行**；是否移出主仓（改为单独 release 或 LFS）待决策。
+- `manual/` 516 文件 / 107 MB 为教材配套 MATLAB/C 代码与旧课件，**只读归档，不承诺可运行**；是否移出主仓（改为单独 release 或 LFS）待决策。
 - 35 篇教材参考实现（MIT，2020，Zhanghan Wang）已按主题并入 01—43 的对应小节，原教材归档目录已移出项目；其中 21 篇主题在主干中空缺，整理为 31—43 号。逐篇去向与上游许可见 [`THIRD-PARTY.md`](THIRD-PARTY.md)。
 - 新增的 31—43 号尚未执行（`execution_count` 为空）；其中 10、19、43 号的部分单元依赖 `tensorflow`，需先安装 `.[ml]` 再整篇运行。
 

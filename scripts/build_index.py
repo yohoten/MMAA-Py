@@ -282,7 +282,7 @@ def build_manifest(repo_url: str) -> dict:
     }
     cases = []
     for d in sorted((p for p in (ROOT / "modelit").iterdir() if p.is_dir()), key=lambda p: p.name):
-        files = [f for f in d.rglob("*") if f.is_file() and published(str(f.relative_to(ROOT)))]
+        files = [f for f in d.rglob("*") if f.is_file()]
         cases.append({"name": d.name, "files": len(files),
                       "size": round(sum(f.stat().st_size for f in files) / 1024 / 1024, 2),
                       "note": notes.get(d.name, ""),

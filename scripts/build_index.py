@@ -286,6 +286,7 @@ def build_manifest(repo_url: str) -> dict:
                 "ppts": len(ppts),
                 "manual": manual_files,
                 "modelit": modelit_files,
+                "textbook": sum(1 for d in data_files if d["kind"] == "textbook"),
                 "modules": len(module_list),
             },
         },
@@ -295,7 +296,8 @@ def build_manifest(repo_url: str) -> dict:
         "docs": docs,
         "ppts": ppts,
         "manual": {"files": manual_files, "sizeMB": manual_size, "categories": manual_cats},
-        "modelit": {"files": modelit_files, "cases": cases, "localOnly": modelit_local_only},
+        "modelit": {"files": modelit_files, "cases": cases, "localOnly": modelit_local_only,
+                    "sizeMB": round(sum(c["size"] for c in cases), 1)},
         "checks": run_checks(),
     }
 
@@ -568,7 +570,7 @@ const pad = n => String(n).padStart(2, '0');
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt = n => new Intl.NumberFormat('zh-CN').format(n);
 const size = kb => kb >= 1024 ? (kb / 1024).toFixed(1) + ' MB' : Math.round(kb) + ' KB';
-const state = {view:'overview', nbQuery:'', nbModule:'all', nbStatus:'all', dataQuery:'', dataKind:'all', showImages:false, cache:{}, palette:[], pIdx:0};
+const state = {view:'overview', nbQuery:'', nbModule:'all', nbStatus:'all', dataQuery:'', dataKind:'all', showImages:false, currentNb:0, cache:{}, palette:[], pIdx:0};
 
 const NAV = [['overview','概览'],['notebooks','Notebooks'],['data','数据'],['docs','文档'],['ppts','课件'],['manual','历史资料'],['modelit','案例'],['tools','工具'],['about','关于']];
 
@@ -630,16 +632,16 @@ RENDER.overview = () => {
     <div class="hero-actions">
       <button class="btn primary" data-view="notebooks">浏览 ${c.notebooks} 篇 notebook</button>
       <button class="btn" data-view="tools">打开工具集</button>
-      <a class="btn ghost" href="THIRD-PARTY.md">教材来源与许可</a>
+      <button class="btn ghost" data-doc="THIRD-PARTY.md">教材来源与许可</button>
     </div>
   </section>
   <div class="kpis">
     <div class="kpi"><span>Notebooks</span><strong>${c.notebooks}</strong><small>${c.modules} 类方法 · 01—${pad(c.notebooks)}</small></div>
-    <div class="kpi"><span>数据文件</span><strong>${c.data}</strong><small>含教材数据 10 个</small></div>
+    <div class="kpi"><span>数据文件</span><strong>${c.data}</strong><small>含教材数据 ${c.textbook} 个</small></div>
     <div class="kpi"><span>教材 PDF</span><strong>${c.docs}</strong><small>30 章 + 附录 + 参考文献</small></div>
     <div class="kpi"><span>课件</span><strong>${c.ppts}</strong><small>20 章，04 章分册</small></div>
     <div class="kpi"><span>历史资料</span><strong>${fmt(c.manual)}</strong><small>文件 · ${M.manual.sizeMB} MB</small></div>
-    <div class="kpi"><span>独立案例</span><strong>${M.modelit.cases.length}</strong><small>${M.modelit.localOnly ? '本地目录 · 未随仓库发布' : fmt(c.modelit) + ' 个文件 · 178 MB'}</small></div>
+    <div class="kpi"><span>独立案例</span><strong>${M.modelit.cases.length}</strong><small>${M.modelit.localOnly ? '本地目录 · 未随仓库发布' : fmt(c.modelit) + ' 个文件 · ' + M.modelit.sizeMB + ' MB'}</small></div>
   </div>
   <div class="grid-2">
     <section class="card">
@@ -949,11 +951,23 @@ python scripts/build_index.py --repo-url https://github.com/yohoten/Mathematical
   <section class="card">
     <h2>口径与边界</h2>
     <p class="small">篇数与体积由脚本扫描得出：notebook ${M.repo.counts.notebooks} 篇、数据 ${M.repo.counts.data} 个、PDF ${M.repo.counts.docs} 份、课件 ${M.repo.counts.ppts} 个、历史资料 ${fmt(M.repo.counts.manual)} 个文件、案例 ${M.repo.counts.modelit} 个文件。工作树约 ${M.repo.sizeMB} MB（不含 .git）。</p>
-    <p class="small">质量门禁读取 scripts/check_project.py 的汇总；ERROR ${M.checks.error}（基线内 ${M.checks.baseline}，基线外 ${M.checks.outside}）、WARN ${M.checks.warn}、INFO ${M.checks.info}。基线是已确认的历史问题，不代表新代码可以新增 ERROR。</p>
+    <p class="small">质量门禁读取 scripts/check_project.py 的汇总；ERROR ${M.checks.error}（基线内 ${M.checks.baseline}，基线外 ${M.checks.outside}）、WARN ${M.checks.warn}、INFO ${M.checks.info}。${M.checks.baseline ? `基线记录 ${M.checks.baseline} 条已确认问题。` : '基线为空，当前没有豁免项。'}</p>
+  </section>
+  <section class="card">
+    <h2>仓库文档</h2>
+    <p class="small muted">点击在页内渲染 Markdown，无需离开导航页（Pages 下也可直接使用）。</p>
+    <div class="actions">
+      <button class="btn small" data-doc="README.md">README</button>
+      <button class="btn small" data-doc="notebooks/README.md">notebooks/README</button>
+      <button class="btn small" data-doc="notebooks/STYLE.md">版式规范</button>
+      <button class="btn small" data-doc="data/README.md">数据字典</button>
+      <button class="btn small" data-doc="docs/README.md">教材索引</button>
+      <button class="btn small" data-doc="THIRD-PARTY.md">许可与去向</button>
+    </div>
   </section>
   <section class="card">
     <h2>许可与第三方</h2>
-    <p class="small">原创代码与文字采用 <a href="LICENSE">MIT License</a>。docs/ 教材 PDF、ppts/ 课件、manual/ 配套代码版权归原作者/出版方，不随 MIT 授权发布。35 篇教材练习稿（MIT，2020，Zhanghan Wang）的逐篇去向与许可全文见 <a href="THIRD-PARTY.md">THIRD-PARTY.md</a>。</p>
+    <p class="small">原创代码与文字采用 <a href="LICENSE">MIT License</a>。docs/ 教材 PDF、ppts/ 课件、manual/ 配套代码版权归原作者/出版方，不随 MIT 授权发布。35 篇教材练习稿（MIT，2020，Zhanghan Wang）的逐篇去向与许可全文见 <button class="btn small" data-doc="THIRD-PARTY.md">THIRD-PARTY.md</button>。</p>
   </section>`;
 
 function openLayer(id){
@@ -1124,6 +1138,7 @@ function renderCells(nb){
 async function previewNotebook(num){
   const n = M.notebooks.find(x => x.num === num);
   if(!n) return;
+  state.currentNb = num;
   $('#modalTitle').textContent = `${pad(n.num)} ${n.title}`;
   $('#imgToggle').checked = state.showImages;
   openLayer('modal');
@@ -1143,6 +1158,19 @@ async function previewNotebook(num){
   }
 }
 
+async function openDoc(path){
+  $('#drawerKicker').textContent = '仓库文档 · Markdown';
+  $('#drawerTitle').textContent = path.split('/').pop();
+  $('#drawerBody').innerHTML = '<p class="muted">正在读取文档…</p>';
+  openLayer('drawer');
+  try{
+    const res = await fetch(encodeURI(path), {cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    $('#drawerBody').innerHTML = `<div class="md">${mdToHtml(await res.text())}</div>`;
+  }catch(err){
+    $('#drawerBody').innerHTML = `<div class="callout bad">无法读取 <code>${esc(path)}</code>：${esc(err.message)}。请通过 HTTP 或 GitHub Pages 打开本页。</div>`;
+  }
+}
 function toast(msg){
   const el = $('#toast');
   el.textContent = msg;
@@ -1290,6 +1318,8 @@ document.addEventListener('click', e => {
   const t = e.target;
   const nav = t.closest('[data-view]');
   if(nav){ go(nav.dataset.view); return; }
+  const doc = t.closest('[data-doc]');
+  if(doc){ openDoc(doc.dataset.doc); return; }
   const nb = t.closest('[data-nb]');
   if(nb){ openNotebook(Number(nb.dataset.nb)); return; }
   const pv = t.closest('[data-preview]');
@@ -1336,8 +1366,8 @@ document.addEventListener('change', e => {
   if(t.id === 'envOs' || t.id === 'envMl'){ refreshEnv(); }
   if(t.id === 'imgToggle'){
     state.showImages = t.checked;
-    const num = Number(($('#modalTitle').textContent || '').slice(0, 2));
-    const nb = state.cache[num];
+    try{ localStorage.setItem('index-images', t.checked ? '1' : '0'); }catch(e){}
+    const nb = state.cache[state.currentNb];
     if(nb) $('#modalBody').innerHTML = renderCells(nb);
   }
 });
@@ -1367,8 +1397,14 @@ function applyTheme(theme){
 function initTheme(){
   let saved = null;
   try{ saved = localStorage.getItem('index-theme'); }catch(e){}
-  if(saved){ document.documentElement.dataset.theme = saved; return; }
-  if(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.dataset.theme = 'dark';
+  if(saved) document.documentElement.dataset.theme = saved;
+  else if(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.dataset.theme = 'dark';
+  try{
+    if(localStorage.getItem('index-images') === '1'){
+      state.showImages = true;
+      $('#imgToggle').checked = true;
+    }
+  }catch(e){}
 }
 $('#themeBtn').addEventListener('click', () => {
   applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');

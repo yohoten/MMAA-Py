@@ -1,0 +1,10 @@
+{
+  "说明": "仓库当前已知问题基线；修复后请删除对应条目。由 scripts/check_project.py 生成。",
+  "entries": [
+    "R002|notebooks/28.Floyd算法求解最短路径问题 .ipynb|文件名在 .ipynb 前含空格，应删除",
+    "R007|notebooks/30.基于LSTM与Prophet的时间序列预测与对比.ipynb|代码单元 1 含绝对路径 `F:/`；改用相对仓库根的路径",
+    "R007|notebooks/30.基于LSTM与Prophet的时间序列预测与对比.ipynb|代码单元 22 含绝对路径 `F:/`；改用相对仓库根的路径",
+    "R009|notebooks/07.基于线性判别分析的分类预测.ipynb|代码单元 10 引用缺失文件 `./experiment/data/data.xlsx`",
+    "R009|notebooks/09.基于因子分析的学生成绩排序.ipynb|代码单元 9 引用缺失文件 `../data/score.xlsx`"
+  ]
+}

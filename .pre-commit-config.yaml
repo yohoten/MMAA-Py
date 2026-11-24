@@ -1,0 +1,48 @@
+# 安装：python -m pip install -e ".[dev]" && pre-commit install
+# 手动全量运行：pre-commit run --all-files
+minimum_pre_commit_version: "3.7.0"
+default_language_version:
+  python: python3.11
+
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        args: [--fix]
+        types_or: [python, pyi]
+      - id: ruff-format
+        types_or: [python, pyi]
+
+  - repo: https://github.com/nbQA-dev/nbQA
+    rev: 1.8.7
+    hooks:
+      - id: nbqa-ruff
+        args: [--fix]
+        additional_dependencies: [ruff==0.6.9]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: \.(pdf|ppt|pptx|doc|docx|xls|xlsx|png|jpe?g|gif|zip|rar)$
+      - id: end-of-file-fixer
+        exclude: \.(pdf|ppt|pptx|doc|docx|xls|xlsx|png|jpe?g|gif|zip|rar)$
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: mixed-line-ending
+        args: [--fix=lf]
+        exclude: \.(ipynb|bat|cmd|ps1|pdf|ppt|pptx|doc|docx|xls|xlsx)$
+      - id: check-added-large-files
+        # 超过 5 MB 的文件必须走 Git LFS（LFS 指针本身很小，不会被拦）。
+        args: [--maxkb=5120]
+
+  - repo: local
+    hooks:
+      - id: project-check
+        name: 仓库规范检查（数据路径 / 命名 / 依赖声明）
+        entry: python scripts/check_project.py
+        language: system
+        pass_filenames: false
+        files: \.(ipynb|py|md|toml|ya?ml)$

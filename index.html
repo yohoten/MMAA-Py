@@ -1,0 +1,1074 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Python 数学建模算法与应用 · 项目导航</title>
+<meta name="description" content="43 个 Python 数学建模 notebook、27 个数据文件、35 份教材 PDF 与 21 个课件的浏览与检索入口。">
+<style>
+:root{
+  --bg:#f5f6f8; --panel:#ffffff; --panel-2:#fafbfc; --ink:#141a22; --muted:#5c6776;
+  --line:#dde2e8; --line-strong:#c6cdd6; --accent:#0e6b5c; --accent-2:#0a5449;
+  --accent-soft:#e7f2ef; --ok:#1f6b3a; --ok-soft:#e8f3ec; --warn:#8a5a00; --warn-soft:#fbf1dd;
+  --err:#a12d24; --err-soft:#fbeae8; --code:#f2f4f7;
+  --sans:"Segoe UI",-apple-system,BlinkMacSystemFont,"Noto Sans SC","Microsoft YaHei",sans-serif;
+  --mono:"Cascadia Code",ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;
+  --radius:6px; --topbar:60px; --side:236px;
+}
+[data-theme="dark"]{
+  --bg:#0f1419; --panel:#151c23; --panel-2:#1a222b; --ink:#e6edf3; --muted:#9aa7b4;
+  --line:#26313c; --line-strong:#36434f; --accent:#5cc9b4; --accent-2:#8adccb;
+  --accent-soft:#16302b; --ok:#7ad19a; --ok-soft:#152c1f; --warn:#e0b25f; --warn-soft:#2e2617;
+  --err:#f08a80; --err-soft:#331b19; --code:#0f171f;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--panel);padding:8px 12px;z-index:99}
+.skip:focus{left:8px}
+.topbar{position:sticky;top:0;z-index:50;height:var(--topbar);display:grid;grid-template-columns:auto minmax(220px,1fr) auto;gap:18px;align-items:center;padding:0 22px;background:var(--panel);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.brand-mark{display:grid;place-items:center;width:30px;height:30px;border:1px solid var(--line-strong);border-radius:4px;font:600 15px/1 var(--mono);color:var(--accent)}
+.brand-text{display:flex;flex-direction:column;line-height:1.2}
+.brand-text strong{font-size:14px;letter-spacing:.01em}
+.brand-text small{color:var(--muted);font-size:11.5px}
+.search-open{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:620px;width:100%;padding:7px 10px;background:var(--panel-2);border:1px solid var(--line);border-radius:var(--radius);color:var(--muted);cursor:pointer;font-size:13px}
+.search-open:hover{border-color:var(--line-strong);color:var(--ink)}
+kbd{font:11px/1 var(--mono);padding:3px 5px;border:1px solid var(--line-strong);border-bottom-width:2px;border-radius:3px;color:var(--muted);background:var(--panel)}
+.top-actions{display:flex;align-items:center;gap:8px}
+.icon-btn{display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--line);background:var(--panel);border-radius:var(--radius);cursor:pointer;font-size:16px}
+.icon-btn:hover{border-color:var(--line-strong)}
+.shell{display:grid;grid-template-columns:var(--side) minmax(0,1fr);max-width:1440px;margin:0 auto}
+.sidebar{position:sticky;top:var(--topbar);height:calc(100vh - var(--topbar));overflow:auto;padding:18px 14px 24px;border-right:1px solid var(--line)}
+#nav{display:flex;flex-direction:column;gap:2px}
+.nav-item{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;padding:8px 10px;background:none;border:0;border-radius:4px;cursor:pointer;color:var(--muted);font-size:13.5px;text-align:left}
+.nav-item b{font:11.5px/1 var(--mono);color:var(--muted)}
+.nav-item:hover{background:var(--panel-2);color:var(--ink)}
+.nav-item.active{background:var(--accent-soft);color:var(--accent);box-shadow:inset 2px 0 0 var(--accent)}
+.nav-item.active b{color:var(--accent)}
+.side-foot{margin-top:22px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:11.5px;line-height:1.7}
+#main{min-width:0;padding:30px 34px 72px;outline:none}
+.eyebrow{margin:0 0 6px;color:var(--muted);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+h1{font-size:27px;line-height:1.25;margin:0 0 8px;letter-spacing:-.01em;font-weight:650}
+h2{font-size:17px;margin:0 0 10px;font-weight:620}
+h3{font-size:14.5px;margin:20px 0 8px;font-weight:620}
+p{margin:0 0 10px}
+.lede{color:var(--muted);max-width:760px;font-size:14.5px}
+.hero{padding:6px 0 22px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.hero h1{font-size:31px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:10px;margin:18px 0 22px}
+.kpi{padding:14px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}
+.kpi span{display:block;color:var(--muted);font-size:11.5px;letter-spacing:.04em}
+.kpi strong{display:block;margin-top:2px;font:600 24px/1.2 var(--mono);font-variant-numeric:tabular-nums}
+.kpi small{color:var(--muted);font-size:11.5px}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:14px}
+.card{padding:18px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:14px}
+.card > :last-child{margin-bottom:0}
+.bar-row{display:grid;grid-template-columns:110px minmax(0,1fr) 28px;gap:10px;align-items:center;margin:7px 0;font-size:12.5px}
+.bar{height:6px;background:var(--panel-2);border:1px solid var(--line);border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);opacity:.75}
+.bar-row b{font:12px/1 var(--mono);text-align:right;color:var(--muted)}
+.checks{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.checks div{padding:10px;background:var(--panel-2);border:1px solid var(--line);border-radius:4px}
+.checks span{display:block;color:var(--muted);font-size:10.5px;letter-spacing:.1em}
+.checks strong{display:block;font:600 20px/1.3 var(--mono)}
+.checks small{color:var(--muted);font-size:11px}
+.ok{color:var(--ok)} .warn{color:var(--warn)} .bad{color:var(--err)}
+pre{font-family:var(--mono);font-size:12.5px;line-height:1.6;background:var(--code);border:1px solid var(--line);border-radius:4px;padding:12px;overflow:auto;margin:0 0 10px}
+.tree{color:var(--muted);background:var(--panel-2)}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 12px}
+.input{min-height:34px;padding:6px 9px;background:var(--panel);border:1px solid var(--line);border-radius:4px;color:var(--ink);font:13px var(--sans)}
+.input[type=search]{min-width:260px;flex:1 1 260px}
+.toolbar-note{margin-left:auto;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+.btn{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:5px 11px;background:var(--panel);border:1px solid var(--line-strong);border-radius:4px;cursor:pointer;font-size:12.5px;color:var(--ink);text-decoration:none}
+.btn:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{background:var(--accent-2);color:#fff}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--muted)}
+.btn.small{min-height:26px;padding:2px 8px;font-size:11.5px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel)}
+.table{width:100%;border-collapse:collapse;font-size:13px}
+.table th{padding:9px 10px;text-align:left;font:600 10.5px/1.4 var(--sans);letter-spacing:.09em;text-transform:uppercase;color:var(--muted);background:var(--panel-2);border-bottom:1px solid var(--line);white-space:nowrap}
+.table td{padding:8px 10px;border-top:1px solid var(--line);vertical-align:top}
+.table tbody tr:hover{background:var(--panel-2)}
+.table tbody tr[data-nb]{cursor:pointer}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+.mono{font-family:var(--mono)}
+.row-title{display:block;font-weight:560}
+.row-sub{display:block;color:var(--muted);font-size:11px;font-family:var(--mono)}
+.badge{display:inline-flex;align-items:center;padding:1px 7px;border:1px solid var(--line-strong);border-radius:999px;font-size:11px;color:var(--muted);white-space:nowrap}
+.badge.accent{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.badge.ok{border-color:var(--ok);color:var(--ok);background:var(--ok-soft)}
+.badge.warn{border-color:var(--warn);color:var(--warn);background:var(--warn-soft)}
+.badge.bad{border-color:var(--err);color:var(--err);background:var(--err-soft)}
+.chips{display:flex;flex-wrap:wrap;gap:4px}
+.drawer{position:fixed;inset:0;z-index:70;display:none;background:rgba(10,14,18,.42)}
+.drawer.open{display:block}
+.drawer-panel{position:absolute;top:0;right:0;height:100%;width:min(560px,100%);background:var(--panel);border-left:1px solid var(--line);display:flex;flex-direction:column;animation:slide .18s ease-out}
+@keyframes slide{from{transform:translateX(18px);opacity:.6}to{transform:none;opacity:1}}
+.drawer-head,.modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.drawer-head h2,.modal-head h2{margin:0;font-size:18px}
+.drawer-body{padding:18px;overflow:auto}
+.meta-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-bottom:14px}
+.meta-grid div{background:var(--panel);padding:9px 10px}
+.meta-grid span{display:block;color:var(--muted);font-size:10.5px;letter-spacing:.06em}
+.meta-grid b{font:13px/1.5 var(--mono)}
+.actions{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+.outline{margin:0;padding-left:20px;color:var(--muted);font-size:12.5px}
+.outline li{margin:2px 0}
+.outline li.l2{color:var(--ink);font-weight:560;list-style:decimal}
+.outline li.l3{list-style:circle}
+.modal{position:fixed;inset:0;z-index:80;display:none;background:rgba(10,14,18,.5);padding:3vh 2vw}
+.modal.open{display:block}
+.modal-panel{display:flex;flex-direction:column;height:94vh;max-width:1120px;margin:0 auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.modal-actions{display:flex;align-items:center;gap:10px}
+.modal-body{padding:18px 22px 40px;overflow:auto}
+.switch{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:12px;cursor:pointer}
+.nb-meta{color:var(--muted);font-size:11.5px;padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.cell{border-bottom:1px solid var(--line);padding:12px 0}
+.cell-head{font:11px/1.4 var(--mono);color:var(--muted);margin-bottom:5px}
+.cell pre.code{margin:0;background:var(--code);border-color:var(--line)}
+.out{margin-top:8px;padding:8px 10px;background:var(--panel-2);border-left:3px solid var(--line-strong);font:12.5px/1.6 var(--mono);white-space:pre-wrap;overflow:auto;max-height:420px}
+.out.bad{border-left-color:var(--err);color:var(--err)}
+.out img{max-width:100%;height:auto;background:#fff;border:1px solid var(--line);margin:4px 0}
+.md{padding:2px 0 8px}
+.md h1,.md h2,.md h3,.md h4{margin:14px 0 8px;line-height:1.35}
+.md h1{font-size:20px} .md h2{font-size:17px} .md h3{font-size:15px} .md h4{font-size:14px}
+.md p{margin:0 0 9px}
+.md ul,.md ol{margin:0 0 9px;padding-left:22px}
+.md li{margin:2px 0}
+.md code{font:12px/1.5 var(--mono);background:var(--code);border:1px solid var(--line);border-radius:3px;padding:0 4px}
+.md pre.code{margin:8px 0;padding:10px}
+.md blockquote{margin:8px 0;padding:6px 12px;border-left:3px solid var(--accent);color:var(--muted);background:var(--panel-2)}
+.md hr{border:0;border-top:1px solid var(--line);margin:14px 0}
+.md-table{width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0}
+.md-table th,.md-table td{border:1px solid var(--line);padding:5px 7px;text-align:left}
+.md-table th{background:var(--panel-2)}
+.callout{padding:12px 14px;border:1px solid var(--warn);border-left-width:4px;background:var(--warn-soft);border-radius:4px;color:var(--ink);margin:10px 0}
+.callout.bad{border-color:var(--err);background:var(--err-soft)}
+.callout code{font-family:var(--mono);font-size:12px}
+.palette{position:fixed;inset:0;z-index:90;display:none;background:rgba(10,14,18,.45);padding:12vh 16px 0}
+.palette.open{display:block}
+.palette-panel{max-width:620px;margin:0 auto;background:var(--panel);border:1px solid var(--line-strong);border-radius:8px;overflow:hidden}
+#paletteInput{width:100%;padding:13px 15px;border:0;border-bottom:1px solid var(--line);background:var(--panel);color:var(--ink);font:15px var(--sans);outline:none}
+.palette-list{max-height:52vh;overflow:auto}
+.palette-item{display:grid;grid-template-columns:68px minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;padding:9px 14px;background:none;border:0;border-bottom:1px solid var(--line);cursor:pointer;text-align:left;font-size:13px}
+.palette-item:hover,.palette-item.active{background:var(--accent-soft)}
+.palette-item span:first-child{color:var(--muted);font:10.5px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.palette-item small{color:var(--muted);font-size:11px}
+.palette-hint{margin:0;padding:8px 14px;color:var(--muted);font-size:11px;border-top:1px solid var(--line)}
+.toast{position:fixed;left:50%;bottom:24px;z-index:100;transform:translate(-50%,12px);padding:8px 14px;background:var(--ink);color:var(--bg);border-radius:4px;font-size:12.5px;opacity:0;pointer-events:none;transition:.18s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.case{padding:14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel)}
+.case h3{margin:0 0 4px;font-size:14px}
+.case p{color:var(--muted);font-size:12.5px;margin:0}
+.case .mono{font-size:11px;color:var(--muted)}
+.tool{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+.tool-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tool-note{color:var(--muted);font-size:12px}
+.tool-output{min-height:20px}
+progress{width:100%;height:6px}
+.small{font-size:12px}
+.muted{color:var(--muted)}
+.lock{overflow:hidden}
+@media (max-width:980px){
+  .shell{display:block}
+  .sidebar{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:10px 14px}
+  #nav{flex-direction:row;flex-wrap:wrap}
+  .nav-item{width:auto}
+  .nav-item b{display:none}
+  .side-foot{display:none}
+  #main{padding:20px 16px 56px}
+  .grid-2{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .search-open kbd{display:none}
+  .topbar{grid-template-columns:auto 1fr auto;gap:10px;padding:0 12px}
+  .brand-text small{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+@media print{
+  .topbar,.sidebar,.drawer,.modal,.palette,.toast{display:none!important}
+  #main{padding:0}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳到主要内容</a>
+<header class="topbar">
+  <button class="brand" data-view="overview" aria-label="返回概览">
+    <span class="brand-mark">M</span>
+    <span class="brand-text"><strong>Python 数学建模</strong><small>算法与应用 · 学习仓库</small></span>
+  </button>
+  <button class="search-open" id="searchOpen" aria-label="打开全局搜索">
+    <span>搜索 notebook、数据、文档…</span><kbd>Ctrl K</kbd>
+  </button>
+  <div class="top-actions">
+    <button class="icon-btn" id="themeBtn" aria-label="切换深浅色">◐</button>
+    <a class="btn ghost" id="repoLink" target="_blank" rel="noopener noreferrer" hidden>GitHub</a>
+  </div>
+</header>
+<div class="shell">
+  <aside class="sidebar">
+    <nav id="nav" aria-label="主导航"></nav>
+    <div class="side-foot" id="sideFoot"></div>
+  </aside>
+  <main id="main" tabindex="-1"></main>
+</div>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+    <header class="drawer-head">
+      <div><p class="eyebrow" id="drawerKicker"></p><h2 id="drawerTitle"></h2></div>
+      <button class="icon-btn" data-close="drawer" aria-label="关闭详情">×</button>
+    </header>
+    <div class="drawer-body" id="drawerBody"></div>
+  </div>
+</div>
+
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <header class="modal-head">
+      <div><p class="eyebrow">Notebook 预览</p><h2 id="modalTitle"></h2></div>
+      <div class="modal-actions">
+        <label class="switch"><input type="checkbox" id="imgToggle"> 显示图片</label>
+        <button class="icon-btn" data-close="modal" aria-label="关闭预览">×</button>
+      </div>
+    </header>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<div class="palette" id="palette" aria-hidden="true">
+  <div class="palette-panel" role="dialog" aria-modal="true" aria-label="全局搜索">
+    <input id="paletteInput" type="search" placeholder="输入编号、标题、文件名…" autocomplete="off">
+    <div id="paletteList" class="palette-list" role="listbox"></div>
+    <p class="palette-hint">↑↓ 选择 · Enter 打开 · Esc 关闭</p>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>const DATA = {"generated":"2026-11-23 21:58","repo":{"name":"10-Python数学建模算法与应用","url":"https://github.com/\u003cuser>/\u003crepo>","sizeMB":487.4,"counts":{"notebooks":43,"data":27,"docs":35,"ppts":21,"manual":522,"modelit":19,"modules":14}},"modules":[{"name":"时间序列","count":7},{"name":"图论与网络","count":5},{"name":"多元分析","count":5},{"name":"优化","count":4},{"name":"动态模型","count":4},{"name":"回归分析","count":4},{"name":"综合评价","count":3},{"name":"关联规则","count":2},{"name":"机器学习","count":2},{"name":"模糊数学","count":2},{"name":"灰色系统","count":2},{"name":"数值方法","count":1},{"name":"神经网络","count":1},{"name":"统计推断","count":1}],"notebooks":[{"num":1,"title":"综合评价法：AHP 层次分析法","file":"01.综合评价法—AHP层次分析法.ipynb","path":"notebooks/01.综合评价法—AHP层次分析法.ipynb","module":"综合评价","deps":["numpy"],"code":6,"unexec":0,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 明确问题"},{"level":3,"text":"4.2 构建层次结构"},{"level":3,"text":"4.3 模型建立与求解"},{"level":2,"text":"5. 小结"}],"summary":"当评价对象为单目标时，其评价工作是容易进行的；当评价对象为多目标时，这项工作就困难多了。目标可以细化为指标。可以打这样的比方：在一群人之中要评选个子最高的很容易办到，要评选最胖的也还不难，但要评选一个最高又最胖的，而且是最健康的就不容易了。评价的困难主要有以下两项： 1. 有的指标没有明确的数量表示，甚至只与使用人或评价人的主观感受与经验有关； 2. 不同的方案（也即被评价对象…","size":89.0},{"num":2,"title":"综合评价法：TOPSIS 法","file":"02.综合评价法—TOPSIS法.ipynb","path":"notebooks/02.综合评价法—TOPSIS法.ipynb","module":"综合评价","deps":["numpy"],"code":6,"unexec":0,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 明确问题"},{"level":3,"text":"4.2 构建层次结构"},{"level":3,"text":"4.3 模型建立与求解"},{"level":3,"text":"4.4 理想解法（TOPSIS 原型）"},{"level":2,"text":"5. 小结"}],"summary":"当评价对象为单目标时，其评价工作是容易进行的；当评价对象为多目标时，这项工作就困难多了。目标可以细化为指标。可以打这样的比方：在一群人之中要评选个子最高的很容易办到，要评选最胖的也还不难，但要评选一个最高又最胖的，而且是最健康的就不容易了。评价的困难主要有以下两项： 1. 有的指标没有明确的数量表示，甚至只与使用人或评价人的主观感受与经验有关； 2. 不同的方案（也即被评价对象…","size":61.3},{"num":3,"title":"NetworkX 的基础操作及画图","file":"03.networkx的基础操作及画图.ipynb","path":"notebooks/03.networkx的基础操作及画图.ipynb","module":"图论与网络","deps":["numpy","matplotlib","networkx"],"code":10,"unexec":1,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 图的基本概念"},{"level":3,"text":"4.2 由邻接矩阵创建图"},{"level":3,"text":"4.3 图的矩阵表示与基本运算"},{"level":2,"text":"5. 小结"}],"summary":"图论的研究是运筹学的一个经典而重要的分支，是很多领域研究的基础工具，在交通运输、经济管理和工业工程等都有广泛的应用。对于许多优化问题，可以利用图与网络的固有特性所形成的特定方法来解决，比用数学规划等其他模型求解往往要简单且有效得多。 “工欲善其事，必先利其器”，一个优秀的工具能帮助我们更专注于网络本身，而非费心去选择某种语言去实现算法、绘制图形。NetworkX作为Python…","size":176.2},{"num":4,"title":"基于 NetworkX 的最短路径问题求解","file":"04.基于networkx的最短路径问题求解.ipynb","path":"notebooks/04.基于networkx的最短路径问题求解.ipynb","module":"图论与网络","deps":["numpy","matplotlib","networkx"],"code":10,"unexec":0,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 迪杰斯特拉（Dijkstra）算法"},{"level":3,"text":"4.2 最短路径问题应用"},{"level":2,"text":"5. 小结"}],"summary":"最短路径问题是图论中非常经典的问题之一，旨在寻找图中两项点之间的最短路径。也就是在一个有向或无向的加权图中，找到两个顶点之间的最短路径，即路径上边的权重之和最小的路径。作为一个基本工具，实际应用中的许多优化问题，如管道铺设、线路安排、厂区布局、设备更新等，都可被归结为最短路径问题来解决。","size":148.4},{"num":5,"title":"基于 NetworkX 的最小生成树算法","file":"05.基于networkx的最小生成树算法.ipynb","path":"notebooks/05.基于networkx的最小生成树算法.ipynb","module":"图论与网络","deps":["numpy","pandas","matplotlib","networkx"],"code":8,"unexec":0,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 最小生成树"},{"level":3,"text":"4.2 最小生成树算法"},{"level":3,"text":"4.3 油管铺设问题应用"},{"level":2,"text":"5. 小结"}],"summary":"树是图论中非常重要的一类图，它非常类似于自然界中的树，结构简单、应用广泛，最小生成树问题是其中的经典问题之一。在实际应用中，许多问题的图论模型都是最小生成树，如通信网络建设、有线电缆铺设、加工设备分组等。","size":264.5},{"num":6,"title":"基于 NetworkX 的匹配问题算法","file":"06.基于networkx的匹配问题算法.ipynb","path":"notebooks/06.基于networkx的匹配问题算法.ipynb","module":"图论与网络","deps":["numpy","pandas","matplotlib","networkx"],"code":3,"unexec":0,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 基本概念"},{"level":3,"text":"4.2 最佳匹配问题"},{"level":2,"text":"5. 小结"}],"summary":"匹配问题是运筹学的重要问题之一，也是图论的重要内容，它提供了解决“人员分配问题”和“最优分配问题”一种新的思想。图论中的匹配问题是指在一个图中找到一个边集，使得这些边互不相交，且每个顶点最多只与一条边相连。匹配问题可以应用于很多场景，例如稳定婚姻问题、任务分配问题等等。","size":11.8},{"num":7,"title":"基于线性判别分析的分类预测","file":"07.基于线性判别分析的分类预测.ipynb","path":"notebooks/07.基于线性判别分析的分类预测.ipynb","module":"多元分析","deps":["numpy","pandas","scikit-learn"],"code":15,"unexec":6,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 判别分析"},{"level":3,"text":"4.2 Fisher 线性判别分析（LDA）"},{"level":3,"text":"4.3 马氏距离判别与 Fisher 判别"},{"level":2,"text":"5. 小结"}],"summary":"判别分析是一种分类方法，它是根据已掌握的每个类别的若干样本的数据信息，求出判别函数，再根据判别函数判别位置样本点所属的类别。在医学研究中经常遇到这类问题，例如，临床上常需根据就诊者的各项症状、体征、实验室检查、病例学检查及医学影像学资料等对其作出是否有某种疾病的诊断或对几种可能患有的疾病进行鉴别诊断，有时已初步诊断为某种疾病，还需进一步作出属该类疾病中哪一种或哪一型的判断。","size":70.0},{"num":8,"title":"基于主成分分析的评价分析","file":"08.基于主成分分析的评价分析.ipynb","path":"notebooks/08.基于主成分分析的评价分析.ipynb","module":"多元分析","deps":["numpy","scipy","scikit-learn"],"code":11,"unexec":2,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 主成分分析基本原理"},{"level":3,"text":"4.2 老年病科医疗质量与效率的评价分析"},{"level":3,"text":"4.3 协方差特征值法"},{"level":2,"text":"5. 小结"}],"summary":"数据分析中涉及的变量往往较多，且在高维空间中研究样本的分布规律，势必增加分析问题的复杂性。在多数情况下，这些变量彼此之间存在着一定程度甚至相当高程度的相关性，这就使包含在观测数据中的信息在一定程度上有所重叠，正是这种变量间信息的重叠增加了分析问题的复杂性。 主成分分析就是一种通过降维技术把多个原始变量重新组合成少数几个互不相关的主成分（综合变量）的统计方法。这些主成分能够反映原…","size":63.7},{"num":9,"title":"基于因子分析的学生成绩排序","file":"09.基于因子分析的学生成绩排序.ipynb","path":"notebooks/09.基于因子分析的学生成绩排序.ipynb","module":"多元分析","deps":["numpy","scipy","scikit-learn"],"code":19,"unexec":3,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 因子分析基本原理"},{"level":3,"text":"4.2 学生成绩的因子分析模型"},{"level":3,"text":"4.3 主成分法提取因子"},{"level":2,"text":"5. 小结"}],"summary":"因子分析是主成分分析的推广与发展，旨在将具有复杂关系的变量综合为少数几个因子，以再现原始变量与因子之间的相互关系；根据不同的因子，还可以对变量进行分类，属于多元分析中的一种降维处理方法。例如，一个学生的英语、数学、语文成绩都很好，潜在的共性因子可能是智力水平高。因此，因子分析的过程实际上就是寻找共性因子和个性因子并得到最优解释的过程。本实验主要运用主成分法和主因子法进行因子分析…","size":50.9},{"num":10,"title":"系统聚类和 K 均值聚类","file":"10.系统聚类和K均值聚类.ipynb","path":"notebooks/10.系统聚类和K均值聚类.ipynb","module":"多元分析","deps":["numpy","pandas","matplotlib","scipy","scikit-learn"],"code":12,"unexec":6,"data":["basketball.csv","textbook/15.D 水库年径流与因子特征.txt"],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 距离和相似系数"},{"level":3,"text":"4.2 系统聚类"},{"level":3,"text":"4.3 K 均值聚类"},{"level":3,"text":"4.4 Q 型聚类与树状图"},{"level":2,"text":"5. 小结"}],"summary":"聚类分析是一类将数据所对应的研究对象进行分类的统计方法。这一类方法的共同特点是，事先不知道类别的个数与结构，进行分析的数据是表明对象之间的相似性或相异性的数据，将这些数据看成对对象“距离”远近的一种度量，将距离近的对象归入一类。不同类对象之间的距离较远。","size":121.4},{"num":11,"title":"线性回归分析","file":"11.线性回归分析.ipynb","path":"notebooks/11.线性回归分析.ipynb","module":"回归分析","deps":["numpy","matplotlib","scipy","scikit-learn","statsmodels"],"code":14,"unexec":0,"data":["fire.csv","pressure.csv"],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 一元线性回归分析"},{"level":3,"text":"4.2 多元线性回归分析"},{"level":2,"text":"5. 小结"}],"summary":"回归分析是一种多元统计分析的方法，目的在于了解两个或多个变量间是否相关、相关方向与强度，并建立数学模型以便观察特定变量以预测研究者感兴趣的变量。在实际问题中，一个变量往往受到多个变量的影响，此时需要用两个或两个以上的影响因素作为自变量来解释因变量的变化。当多个变量与因变量之间是线性关系时，所进行的回归分析就是多元线性回归。","size":321.1},{"num":12,"title":"线性回归模型的正则化","file":"12.线性回归模型的正则化.ipynb","path":"notebooks/12.线性回归模型的正则化.ipynb","module":"回归分析","deps":["pandas","scikit-learn"],"code":12,"unexec":0,"data":["regularization.csv"],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 过拟合和正则化"},{"level":3,"text":"4.2 岭回归"},{"level":3,"text":"4.3 LASSO 回归"},{"level":2,"text":"5. 小结"}],"summary":"在处理较为复杂的数据的回归问题时，普通的线性回归算法通常会出现预测精度不够的问题。如果模型中的特征之间有相关关系，就会增加模型的复杂程度。当数据集中的特征之间有较强的线性相关性时，即特征之间出现严重的多重共线性时，用普通最小二乘法估计模型参数，往往参数估计的方差太大，此时，求解出来的模型就很不稳定。 对于数据存在多重共线性和模型过拟合问题，可以选择在损失函数中加上正则项方法来改…","size":94.4},{"num":13,"title":"差分方程的概念和求解","file":"13.差分方程的概念和求解.ipynb","path":"notebooks/13.差分方程的概念和求解.ipynb","module":"动态模型","deps":["sympy"],"code":7,"unexec":2,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 差分方程的概念"},{"level":3,"text":"4.2 差分方程求解"},{"level":3,"text":"4.3 差分方程数值求解"},{"level":2,"text":"5. 小结"}],"summary":"差分方程是在离散时间点上描述研究对象动态变化规律的数学表达式。有的实际问题本身就是以离散形式出现的，也有的是将现实世界中随时间连续的过程离散化。差分方程与微分方程都是描述状态变化问题的机理建模方法，是同一建模问题的两种思维（离散或连续）方式。","size":14.3},{"num":14,"title":"Leslie 种群模型","file":"14.Leslie种群模型.ipynb","path":"notebooks/14.Leslie种群模型.ipynb","module":"动态模型","deps":["numpy","pandas","matplotlib"],"code":8,"unexec":0,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 模型假设"},{"level":3,"text":"4.2 模型建立和求解"},{"level":3,"text":"4.3 Python 实现"},{"level":2,"text":"5. 小结"}],"summary":"莱斯利（Leslie）模型是研究动物种群数量增长的重要模型，这一模型研究了种群中雌性动物的年龄分布和数量增长的规律。 在正常社会条件或自然条件下，生育率和死亡率是与群体的年龄构成息息相关的。我们需要对整个群体按年龄进行层次划分，构建与年龄相联系的人口模型。简单来说，Leslie模型就是一个预测人口按年龄组变化的离散模型。","size":96.6},{"num":15,"title":"模糊数学的基本概念和基本运算","file":"15.模糊数学的基本概念和基本运算.ipynb","path":"notebooks/15.模糊数学的基本概念和基本运算.ipynb","module":"模糊数学","deps":["numpy","scikit-fuzzy"],"code":6,"unexec":2,"data":["textbook/14.D 多层次模糊综合评判数据.txt"],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 模糊数学基本概念"},{"level":3,"text":"4.2 模糊数学的基本运算"},{"level":3,"text":"4.3 模糊综合评判"},{"level":2,"text":"5. 小结"}],"summary":"模糊数学是研究和揭示模糊现象的定量处理方法。模糊性数学发展的主流是在它的应用方面。由于模糊性概念已经找到了模糊集的描述方式，人们运用概念进行判断、评价、推理、决策和控制的过程也可以用模糊性数学的方法来描述。例如模糊聚类分析、模糊模式识别、模糊综合评判、模糊决策与模糊预测、模糊控制、模糊信息处理等。","size":99.4},{"num":16,"title":"模糊 C 均值聚类","file":"16.模糊C均值聚类.ipynb","path":"notebooks/16.模糊C均值聚类.ipynb","module":"模糊数学","deps":["numpy","matplotlib","scikit-fuzzy"],"code":8,"unexec":0,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 模糊 C 均值聚类算法原理"},{"level":3,"text":"4.2 模糊 C 均值聚类算法实现"},{"level":3,"text":"4.3 模糊 C 均值聚类算法 skfuzzy 实现"},{"level":2,"text":"5. 小结"}],"summary":"传统的聚类分析是一种硬划分（例如K-Means聚类），它把每个待辨识的对象严格地划分到某类中，具有“非此即彼”的性质，因此这种类别划分的界限是分明的。然而实际上大多数对象并没有严格的属性，它们在性质和类属方面存在着中介性，具有“亦此亦彼”的性质，因此适合进行软划分。 Zadeh提出的模糊集理论为这种软划分提供了有力的分析工具，人们开始用模糊方法来处理聚类问题，并称之为模糊聚类分…","size":28.7},{"num":17,"title":"灰色关联分析","file":"17.灰色关联分析.ipynb","path":"notebooks/17.灰色关联分析.ipynb","module":"灰色系统","deps":["numpy","pandas","matplotlib"],"code":6,"unexec":1,"data":["textbook/14.D 供应商选择决策.txt"],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 灰色系统与灰色关联度分析"},{"level":3,"text":"4.2 灰色关联度分析算法实现"},{"level":3,"text":"4.3 灰色关联度计算"},{"level":2,"text":"5. 小结"}],"summary":"两个系统之间的因素，随时间或不同对象而变化的关联性大小的量度，称为关联度。两个因素变化即同步变化程度较高，即可谓二者关联程度较高；反之，则较低。因此，灰色关联分析方法，根据因素之间发展趋势的相似相异程度，为衡量因素间关联程度提供了量化的度量。 灰色关联分析的基本思想是根据序列曲线几何形状的相似程度来判断其联系是否紧密。曲线越接近，相应序列之间的关联度就越大，反之就越小。","size":86.2},{"num":18,"title":"灰色 GM 预测模型","file":"18.灰色GM预测模型.ipynb","path":"notebooks/18.灰色GM预测模型.ipynb","module":"灰色系统","deps":["numpy","pandas","matplotlib","scipy","scikit-learn"],"code":11,"unexec":3,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 生成数"},{"level":3,"text":"4.2 灰色 GM 预测模型"},{"level":3,"text":"4.3 GM(1,1) 完整算例"},{"level":2,"text":"5. 小结"}],"summary":"灰色预测是一种对含有不确定因素的系统进行预测的方法。灰色预测通过鉴别系统因素之间发展趋势的相异程度，即进行关联分析，并对原始数据进行生成处理来寻找系统变动的规律，生成有较强规律性的数据序列，然后建立相应的微分方程模型，从而预测事物未来发展趋势的状况。其用等时距观测到的反映预测对象特征的一系列数量值构造灰色预测模型，预测未来某一时刻的特征量，或达到某一特征量的时间。","size":108.8},{"num":19,"title":"人工神经网络","file":"19.人工神经网络.ipynb","path":"notebooks/19.人工神经网络.ipynb","module":"神经网络","deps":["numpy","matplotlib","scikit-learn"],"code":15,"unexec":10,"data":["midge.csv","pressure.csv","textbook/15.D 水库年径流与因子特征.txt"],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":2,"text":"5. 导读"},{"level":3,"text":"5.1 人工神经网络概述"},{"level":3,"text":"5.2 神经网络的基本模型"},{"level":3,"text":"5.3 BP 网络完整实现"},{"level":3,"text":"5.4 sklearn MLPClassifier"},{"level":2,"text":"6. 小结"}],"summary":"人工神经网络(Artificial Neural Network, ANN)是由大量简单的基本元件——神经元，相互连接，通过模拟人的大脑神经处理信息的方式，进行信息并行处理以及自学习能力。 人工神经网络已在模式识别、预测和控制系统等领域得到广泛的应用，它能够用来解决常规计算难以解决的问题。","size":3057.0},{"num":20,"title":"时间序列数据准备","file":"20.时间序列数据准备.ipynb","path":"notebooks/20.时间序列数据准备.ipynb","module":"时间序列","deps":["numpy","pandas","statsmodels"],"code":19,"unexec":2,"data":["bitcoin_data.csv"],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 时间序列数据准备"},{"level":3,"text":"4.2 探索时间序列数据"},{"level":3,"text":"4.3 时间序列数据平稳性检验"},{"level":3,"text":"4.4 时间序列分解"},{"level":3,"text":"4.5 时间序列分析提纲"},{"level":2,"text":"5. 小结"}],"summary":"数据准备是对原始数据进行转换的一种做法，以便数据科学家可以通过机器学习算法运行转化后的数据。时间序列数据集通常需要经过清理和特征工程才能产生有用的见解。 时间序列数据集可能包含缺失值或异常值，因此需要数据准备和清理阶段。由于时间序列数据具有时间特性，因此仅有某些统计方法适用于时间序列数据处理。良好的时间序列数据准备可以产生干净且有组织的数据，从而便于更实用、更准确地预测。","size":320.0},{"num":21,"title":"基于移动平均和指数平滑的时间序列预测","file":"21.基于移动平均和指数平滑的时间序列预测.ipynb","path":"notebooks/21.基于移动平均和指数平滑的时间序列预测.ipynb","module":"时间序列","deps":["numpy","pandas","matplotlib"],"code":10,"unexec":0,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 移动平均"},{"level":3,"text":"4.2 指数平滑"},{"level":2,"text":"5. 小结"}],"summary":"时间序列预测法是一种定量分析方法，它是在时间序列变量分析的基础上，运用一定的数学方法建立预测模型，使时间趋势向外延伸，从而预测未来市场的发展变化趋势，确定变量预测值。 本实验主要介绍时间序列预测法中的移动平均和指数平滑。","size":110.7},{"num":22,"title":"基于 ARMA 的平稳时间序列预测","file":"22.基于ARMA的平稳时间序列预测.ipynb","path":"notebooks/22.基于ARMA的平稳时间序列预测.ipynb","module":"时间序列","deps":["numpy","pandas","matplotlib","statsmodels","pmdarima"],"code":14,"unexec":1,"data":["PM_data.csv"],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 序列的平稳性"},{"level":3,"text":"4.2 ARMA 模型"},{"level":2,"text":"5. 小结"}],"summary":"平稳时间序列分为严平稳时间序列与宽平稳时间序列。如果在一个时间序列中，各期数据的联合概率分布与时间 t 无关，则该序列为严平稳时间序列。实际中讨论的平稳时间序列是宽平稳时间序列，指对任意时间下，序列的均值、方差存在并为常数，且自协方差函数与自相关系数只与时间间隔t有关。只有平稳时间序列才可以进行统计分析，因为平稳性保证了时间序列数据都是出自同一分布。 本实验主要介绍平稳时间序列…","size":946.4},{"num":23,"title":"多元线性回归","file":"23.多元线性回归.ipynb","path":"notebooks/23.多元线性回归.ipynb","module":"回归分析","deps":[],"code":0,"unexec":0,"data":[],"sections":[{"level":2,"text":"1. 学习目标"},{"level":2,"text":"2. 内容导览"},{"level":2,"text":"3. 多元线性回归模型"},{"level":3,"text":"3.1 问题的提出"},{"level":3,"text":"3.2 一般形式"},{"level":3,"text":"3.3 矩阵表示法"},{"level":3,"text":"3.4 基本假定"},{"level":3,"text":"3.5 参数估计"},{"level":3,"text":"3.6 参数估计：矩阵形式"},{"level":2,"text":"4. 多元线性回归方程的检验"},{"level":3,"text":"4.1 拟合优度检验：调整后的判定系数"},{"level":3,"text":"4.2 拟合优度检验：估计标准误差"},{"level":3,"text":"4.3 回归方程的显著性检验：F 检验"},{"level":3,"text":"4.4 多元回归方程的预测"},{"level":2,"text":"5. 多重共线性"},{"level":3,"text":"5.1 什么是多重共线性？"},{"level":3,"text":"5.2 多重共线性的识别"},{"level":2,"text":"6. 线性回归模型的正则化"},{"level":3,"text":"6.1 岭回归"},{"level":3,"text":"6.2 岭回归：岭参数的选择"},{"level":3,"text":"6.3 LASSO 回归"},{"level":3,"text":"6.4 岭回归和 LASSO 回归区别"}],"summary":"- 了解多元线性回归模型 - 了解多元线性回归方程的检验 - 了解多重共线性 - 掌握线性回归模型的正则化","size":13.3},{"num":24,"title":"时间序列预测","file":"24.时间序列预测.ipynb","path":"notebooks/24.时间序列预测.ipynb","module":"时间序列","deps":[],"code":0,"unexec":0,"data":[],"sections":[{"level":2,"text":"1. 时间序列概述"},{"level":3,"text":"1.1 时间序列（或称动态数列）"},{"level":3,"text":"1.2 时间序列预测"},{"level":3,"text":"1.3 时间序列的特点"},{"level":3,"text":"1.4 时间序列根据所研究的依据不同，可有不同的分类"},{"level":2,"text":"2. 时间序列特性"},{"level":3,"text":"2.1 时间序列特性"},{"level":3,"text":"2.2 时间序列相关图示例"},{"level":2,"text":"3. 时间序列模型"},{"level":3,"text":"3.1 模型参数说明"}],"summary":"### 1.1 时间序列（或称动态数列） 是指将同一统计指标的数值按其发生的时间先后顺序排列而成的数列。根据观察时间的不同，时间序列中的时间可以是年份、季度、月份或其他任何时间形式。 ### 1.2 时间序列预测 是根据时间序列所反映出来的发展过程、方向和趋势，进行类推或延伸，预测下一时间点或下一时期内的数据，也就是说根据已有的历史数据对未来进行预测。 经济领域的数据大多数以时…","size":15.4},{"num":25,"title":"数据关联规则挖掘","file":"25.数据关联规则挖掘.ipynb","path":"notebooks/25.数据关联规则挖掘.ipynb","module":"关联规则","deps":["numpy","pandas"],"code":2,"unexec":1,"data":[],"sections":[{"level":2,"text":"1. 学习目标"},{"level":2,"text":"2. 内容导览"},{"level":2,"text":"3. 关联规则概念"},{"level":3,"text":"3.1 关联规则概念"},{"level":3,"text":"3.2 项集和频繁项集"},{"level":3,"text":"3.3 支持度、置信度和提升度"},{"level":3,"text":"3.4 关联规则"},{"level":3,"text":"3.5 最小支持度和最小置信度"},{"level":2,"text":"4. 关联规则挖掘"},{"level":3,"text":"4.1 布尔关联规则挖掘"},{"level":3,"text":"4.2 关联规则算法"},{"level":2,"text":"5. Apriori 算法"},{"level":3,"text":"5.1 Apriori 算法具体过程如下"},{"level":3,"text":"5.2 基于频繁项集产生关联规则"},{"level":3,"text":"5.3 Apriori 算法特点"},{"level":3,"text":"5.4 Apriori 关联规则挖掘算法应用举例（一）"},{"level":3,"text":"5.5 Apriori 关联规则挖掘算法应用举例（二）"}],"summary":"- 了解关联规则相关的基本概念 - 掌握关联规则挖掘的基本流程和算法 - 掌握Apriori算法的实现过程","size":237.1},{"num":26,"title":"基于 Apriori 算法的商品关联规则挖掘","file":"26.基于Apriori算法的商品关联规则挖掘.ipynb","path":"notebooks/26.基于Apriori算法的商品关联规则挖掘.ipynb","module":"关联规则","deps":["numpy","pandas","matplotlib","apyori"],"code":10,"unexec":1,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 数据准备"},{"level":3,"text":"4.2 数据预处理和可视化分析"},{"level":3,"text":"4.3 关联规则挖掘"},{"level":2,"text":"5. 小结"}],"summary":"本实验利用某公开线上商品交易数据，通过Apriori算法挖掘商品交易之间的关联规则。 本实验使用的数据来自于Kaggle网站提供的公开数据集，其中包含了2010年12月1日至2011年12月12日期间在英国注册的商店在线零售之间发生的所有交易。具体字段说明如下： - **InvoiceNo**: 发票号。名义变量，每个交易唯一分配的一个6位整数。如果代码以字母 'c' 开头，则…","size":286.1},{"num":27,"title":"基于 ARIMA 算法的餐厅营业额预测分析","file":"27.基于ARIMA算法的餐厅营业额预测分析.ipynb","path":"notebooks/27.基于ARIMA算法的餐厅营业额预测分析.ipynb","module":"时间序列","deps":["pandas","matplotlib","statsmodels"],"code":8,"unexec":0,"data":["arima_data.xlsx"],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 数据准备"},{"level":3,"text":"4.2 数据预处理"},{"level":3,"text":"4.3 ARIMA 模型预测"},{"level":2,"text":"5. 小结"}],"summary":"本实验利用某餐厅菜品销量的时间序列数据，通过ARIMA模型对销量进行时间序列预测。 本实验使用的数据是某家餐厅的营业数据，包含日期和销量两列。日期范围为2015年1月1日至2015年2月6日。 本实验首先对原始时间序列的平稳性进行检验，检验方法包括自相关图和ADF单位根检验等；判断原序列是否为非平稳序列后，需要对数据进行差分；然后再判断差分后的数据是否为平稳序列；如果差分后的数…","size":165.3},{"num":28,"title":"Floyd 算法求解最短路径问题","file":"28.Floyd算法求解最短路径问题 .ipynb","path":"notebooks/28.Floyd算法求解最短路径问题 .ipynb","module":"图论与网络","deps":["numpy"],"code":12,"unexec":0,"data":[],"sections":[{"level":2,"text":"1. 算法描述"},{"level":2,"text":"2. Floyd 算法步骤"},{"level":2,"text":"3. 原理"},{"level":2,"text":"4. 数据结构"},{"level":2,"text":"5. 初始化"},{"level":2,"text":"6. 求解过程"},{"level":2,"text":"7. 示例"}],"summary":"Floyd 算法用于寻找图中每个顶点到其他顶点的最短路径（多源最短路径问题），是一种典型的动态规划算法。在阅读前，请先了解图的数据结构「邻接矩阵」。Floyd 算法通过「贪心」和「动态规划」的思想，求解图中所有顶点对之间的最短路径，时间复杂度为 O(n^3)。它能够处理带权重的图，包括负权重的边，但无法处理包含负权重环的图。","size":22.9},{"num":29,"title":"基于 Prophet 与 NeuralProphet 的时间序列预测","file":"29.基于Prophet与NeuralProphet的时间序列预测.ipynb","path":"notebooks/29.基于Prophet与NeuralProphet的时间序列预测.ipynb","module":"时间序列","deps":[],"code":0,"unexec":0,"data":[],"sections":[{"level":2,"text":"1. 待补充"}],"summary":"本 notebook 目前为占位稿，尚无正文与可执行代码。建议后续补充 Prophet 与 NeuralProphet 的建模步骤、参数说明及预测结果对比。","size":0.7},{"num":30,"title":"基于 LSTM 与 Prophet 的时间序列预测与对比","file":"30.基于LSTM与Prophet的时间序列预测与对比.ipynb","path":"notebooks/30.基于LSTM与Prophet的时间序列预测与对比.ipynb","module":"时间序列","deps":["numpy","pandas","matplotlib","scikit-learn","statsmodels"],"code":24,"unexec":0,"data":[],"sections":[{"level":2,"text":"1. LSTM 模型"},{"level":3,"text":"1.1 什么是 LSTM？"},{"level":3,"text":"1.2 LSTM 单元结构"},{"level":3,"text":"1.3 LSTM 的优势"},{"level":3,"text":"1.4 模型参数说明"},{"level":2,"text":"2. Prophet 模型"},{"level":2,"text":"3. NeuralProphet 模型"},{"level":2,"text":"4. 结果对比"}],"summary":"### 1.1 什么是 LSTM？ **长短期记忆（LSTM）**是一种用于深度学习领域的人工循环神经网络（RNN）架构。与标准前馈神经网络不同，LSTM 具有反馈连接。它不仅可以处理单个数据点（如图像），还可以处理整个数据序列（如语音或视频）。 例如，LSTM 适用于以下任务： - 网络流量分析 - IDS（入侵检测系统）中的异常检测 - 非分段、连续手写识别 - 语音识别 …","size":887.8},{"num":31,"title":"线性规划","file":"31.线性规划.ipynb","path":"notebooks/31.线性规划.ipynb","module":"优化","deps":["scipy"],"code":2,"unexec":2,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 linprog 标准形求解"},{"level":2,"text":"5. 小结"}],"summary":"线性规划在一组线性约束下优化线性目标，是资源分配、生产计划与运输问题的基础模型。本节用 `scipy.optimize.linprog` 求解标准形式，并对照教材算例核对结果。","size":3.7},{"num":32,"title":"整数规划与目标规划","file":"32.整数规划与目标规划.ipynb","path":"notebooks/32.整数规划与目标规划.ipynb","module":"优化","deps":["numpy","pulp"],"code":5,"unexec":5,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 整数规划"},{"level":3,"text":"4.2 目标规划"},{"level":2,"text":"5. 小结"}],"summary":"整数规划要求部分或全部变量取整，目标规划则用偏差变量处理多目标冲突。两者都是线性规划的扩展，常见于排班、选址与多目标决策。","size":7.1},{"num":33,"title":"非线性规划","file":"33.非线性规划.ipynb","path":"notebooks/33.非线性规划.ipynb","module":"优化","deps":["scipy","numpy"],"code":2,"unexec":2,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 非线性规划"},{"level":2,"text":"5. 小结"}],"summary":"当目标函数或约束含非线性项时，需要非线性规划方法。本节用 `scipy.optimize.minimize` 演示无约束与带约束问题的求解。","size":4.0},{"num":34,"title":"插值与拟合","file":"34.插值与拟合.ipynb","path":"notebooks/34.插值与拟合.ipynb","module":"数值方法","deps":["scipy","numpy","matplotlib"],"code":4,"unexec":4,"data":["textbook/15.D 导弹.txt"],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 插值方法：interp1d 与 CubicSpline"},{"level":3,"text":"4.2 三维插值：导弹轨迹"},{"level":2,"text":"5. 小结"}],"summary":"插值要求曲线通过已知点，拟合只要求整体误差最小。两者常用于数据补全、曲线平滑与经验公式提取，教材中分别给出了一维、二维与多项式情形的算例。","size":6.2},{"num":35,"title":"数理统计","file":"35.数理统计.ipynb","path":"notebooks/35.数理统计.ipynb","module":"统计推断","deps":["numpy","matplotlib"],"code":1,"unexec":1,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 数理统计"},{"level":2,"text":"5. 小结"}],"summary":"参数估计与假设检验是统计推断的两条主线：前者估计总体参数及其区间，后者判断关于总体的命题是否成立。","size":2.9},{"num":36,"title":"支持向量机","file":"36.支持向量机.ipynb","path":"notebooks/36.支持向量机.ipynb","module":"机器学习","deps":["numpy","scikit-learn","matplotlib"],"code":4,"unexec":4,"data":["textbook/SVM_data.txt"],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 支持向量机"},{"level":2,"text":"5. 小结"}],"summary":"支持向量机通过最大化间隔寻找分类超平面，并用核函数处理非线性可分问题，适合小样本、高维数据的分类。","size":9.3},{"num":37,"title":"典型相关分析与多维标度","file":"37.典型相关分析与多维标度.ipynb","path":"notebooks/37.典型相关分析与多维标度.ipynb","module":"多元分析","deps":["numpy"],"code":1,"unexec":1,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 典型相关分析"},{"level":3,"text":"4.2 多维标度法"},{"level":2,"text":"5. 小结"}],"summary":"典型相关分析寻找两组变量的线性组合，使二者相关系数最大；多维标度把样本间的距离矩阵还原为低维坐标，用于结构可视化。","size":3.9},{"num":38,"title":"偏最小二乘回归","file":"38.偏最小二乘回归.ipynb","path":"notebooks/38.偏最小二乘回归.ipynb","module":"回归分析","deps":["scikit-learn"],"code":1,"unexec":1,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 偏最小二乘回归分析"},{"level":2,"text":"5. 小结"}],"summary":"当自变量多、彼此共线且样本量小时，偏最小二乘回归通过提取潜变量同时解释自变量与因变量，常用于光谱与化学计量数据。","size":2.9},{"num":39,"title":"智能优化算法","file":"39.智能优化算法.ipynb","path":"notebooks/39.智能优化算法.ipynb","module":"优化","deps":["numpy","pandas","matplotlib"],"code":4,"unexec":4,"data":["textbook/12.D 飞机侦察地理坐标数据.txt"],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 模拟退火算法"},{"level":3,"text":"4.2 遗传算法"},{"level":2,"text":"5. 小结"}],"summary":"模拟退火与遗传算法不依赖梯度，适合组合优化与多峰问题。前者以概率接受劣解跳出局部最优，后者通过选择、交叉、变异迭代种群。","size":11.3},{"num":40,"title":"综合评价扩展方法","file":"40.综合评价扩展方法.ipynb","path":"notebooks/40.综合评价扩展方法.ipynb","module":"综合评价","deps":["numpy","scipy","scikit-learn","pandas"],"code":4,"unexec":4,"data":["textbook/14.D 宏观投资效益.txt","textbook/14.D 医院工作质量统计指标.txt"],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 数据包络分析"},{"level":3,"text":"4.2 主成分分析法"},{"level":3,"text":"4.3 秩和比综合评价法"},{"level":2,"text":"5. 小结"}],"summary":"除 AHP 与 TOPSIS 外，DEA 用投入产出比评价决策单元效率，主成分法用降维合成综合指标，秩和比按秩次排序分档，三者适用于不同的数据条件。","size":9.7},{"num":41,"title":"微分方程模型","file":"41.微分方程模型.ipynb","path":"notebooks/41.微分方程模型.ipynb","module":"动态模型","deps":["matplotlib","numpy","pandas","sympy","scipy"],"code":3,"unexec":3,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 微分方程模型"},{"level":2,"text":"5. 小结"}],"summary":"微分方程描述连续变化的动态系统，常用于人口、传染病与物理过程建模。解析解难以求得时，用数值积分近似。","size":6.3},{"num":42,"title":"马尔可夫预测","file":"42.马尔可夫预测.ipynb","path":"notebooks/42.马尔可夫预测.ipynb","module":"动态模型","deps":["numpy"],"code":2,"unexec":2,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 马尔可夫预测"},{"level":2,"text":"5. 小结"}],"summary":"马尔可夫链用转移概率描述状态演化，适合天气、市场份额等具有无后效性的序列预测。","size":4.2},{"num":43,"title":"机器学习补充方法","file":"43.机器学习补充方法.ipynb","path":"notebooks/43.机器学习补充方法.ipynb","module":"机器学习","deps":["matplotlib","seaborn","numpy","scikit-learn","pandas"],"code":7,"unexec":7,"data":[],"sections":[{"level":2,"text":"1. 问题背景"},{"level":2,"text":"2. 学习目标"},{"level":2,"text":"3. 环境与数据"},{"level":2,"text":"4. 方法与实现"},{"level":3,"text":"4.1 高斯混合模型（GMM）"},{"level":3,"text":"4.2 高斯过程回归"},{"level":3,"text":"4.3 马尔可夫决策过程（价值迭代）"},{"level":2,"text":"5. 小结"}],"summary":"高斯混合模型做概率密度聚类，高斯过程回归给出带不确定性的预测，价值迭代求解马尔可夫决策过程。三者分别代表概率建模、贝叶斯回归与序贯决策的常用工具。","size":17.8}],"data":[{"name":"AirPassengers.csv","path":"data/AirPassengers.csv","key":"AirPassengers.csv","kind":"root","size":1.7,"usedBy":[]},{"name":"arima_data.xlsx","path":"data/arima_data.xlsx","key":"arima_data.xlsx","kind":"root","size":9.7,"usedBy":[27]},{"name":"basketball.csv","path":"data/basketball.csv","key":"basketball.csv","kind":"root","size":3.5,"usedBy":[10]},{"name":"bitcoin_data.csv","path":"data/bitcoin_data.csv","key":"bitcoin_data.csv","kind":"root","size":73067.1,"usedBy":[20]},{"name":"disease_data.xlsx","path":"data/disease_data.xlsx","key":"disease_data.xlsx","kind":"root","size":10.6,"usedBy":[]},{"name":"fa_data.csv","path":"data/fa_data.csv","key":"fa_data.csv","kind":"root","size":4.4,"usedBy":[]},{"name":"fire.csv","path":"data/fire.csv","key":"fire.csv","kind":"root","size":0.1,"usedBy":[11]},{"name":"flight.csv","path":"data/flight.csv","key":"flight.csv","kind":"root","size":2.4,"usedBy":[]},{"name":"midge.csv","path":"data/midge.csv","key":"midge.csv","kind":"root","size":0.2,"usedBy":[19]},{"name":"Oil pipeline.xlsx","path":"data/Oil pipeline.xlsx","key":"Oil pipeline.xlsx","kind":"root","size":9.6,"usedBy":[]},{"name":"Online_Retail.xlsx","path":"data/Online_Retail.xlsx","key":"Online_Retail.xlsx","kind":"root","size":23159.5,"usedBy":[]},{"name":"pca_data.xlsx","path":"data/pca_data.xlsx","key":"pca_data.xlsx","kind":"root","size":5.4,"usedBy":[]},{"name":"PM_data.csv","path":"data/PM_data.csv","key":"PM_data.csv","kind":"root","size":28.0,"usedBy":[22]},{"name":"pressure.csv","path":"data/pressure.csv","key":"pressure.csv","kind":"root","size":0.2,"usedBy":[11,19]},{"name":"regularization.csv","path":"data/regularization.csv","key":"regularization.csv","kind":"root","size":1.4,"usedBy":[12]},{"name":"rule1.xlsx","path":"data/rule1.xlsx","key":"rule1.xlsx","kind":"root","size":4.7,"usedBy":[]},{"name":"tr.xlsx","path":"data/tr.xlsx","key":"tr.xlsx","kind":"root","size":9.6,"usedBy":[]},{"name":"12.D 遗传算法初步结果.txt","path":"data/textbook/12.D 遗传算法初步结果.txt","key":"textbook/12.D 遗传算法初步结果.txt","kind":"textbook","size":124.6,"usedBy":[]},{"name":"12.D 飞机侦察地理坐标数据.txt","path":"data/textbook/12.D 飞机侦察地理坐标数据.txt","key":"textbook/12.D 飞机侦察地理坐标数据.txt","kind":"textbook","size":1.8,"usedBy":[39]},{"name":"14.D 供应商选择决策.txt","path":"data/textbook/14.D 供应商选择决策.txt","key":"textbook/14.D 供应商选择决策.txt","kind":"textbook","size":0.3,"usedBy":[17]},{"name":"14.D 医院工作质量统计指标.txt","path":"data/textbook/14.D 医院工作质量统计指标.txt","key":"textbook/14.D 医院工作质量统计指标.txt","kind":"textbook","size":0.3,"usedBy":[40]},{"name":"14.D 多层次模糊综合评判数据.txt","path":"data/textbook/14.D 多层次模糊综合评判数据.txt","key":"textbook/14.D 多层次模糊综合评判数据.txt","kind":"textbook","size":0.4,"usedBy":[15]},{"name":"14.D 宏观投资效益.txt","path":"data/textbook/14.D 宏观投资效益.txt","key":"textbook/14.D 宏观投资效益.txt","kind":"textbook","size":0.4,"usedBy":[40]},{"name":"15.D 导弹.txt","path":"data/textbook/15.D 导弹.txt","key":"textbook/15.D 导弹.txt","kind":"textbook","size":0.4,"usedBy":[34]},{"name":"15.D 水库年径流与因子特征.txt","path":"data/textbook/15.D 水库年径流与因子特征.txt","key":"textbook/15.D 水库年径流与因子特征.txt","kind":"textbook","size":0.5,"usedBy":[10,19]},{"name":"SVM_data.txt","path":"data/textbook/SVM_data.txt","key":"textbook/SVM_data.txt","kind":"textbook","size":2.2,"usedBy":[36]},{"name":"遗传算法初步结果.txt","path":"data/textbook/遗传算法初步结果.txt","key":"textbook/遗传算法初步结果.txt","kind":"textbook","size":14.7,"usedBy":[]}],"docs":[{"file":"第01章  线性规划.pdf","path":"docs/第01章  线性规划.pdf","chapter":"01","topic":"线性规划","size":188.2},{"file":"第02章  整数规划.pdf","path":"docs/第02章  整数规划.pdf","chapter":"02","topic":"整数规划","size":199.1},{"file":"第03章  非线性规划.pdf","path":"docs/第03章  非线性规划.pdf","chapter":"03","topic":"非线性规划","size":258.4},{"file":"第04章  动态规划.pdf","path":"docs/第04章  动态规划.pdf","chapter":"04","topic":"动态规划","size":204.5},{"file":"第05章  图与网络.pdf","path":"docs/第05章  图与网络.pdf","chapter":"05","topic":"图与网络","size":481.7},{"file":"第06章 排队论.pdf","path":"docs/第06章 排队论.pdf","chapter":"06","topic":"排队论","size":390.5},{"file":"第07章 对策论.pdf","path":"docs/第07章 对策论.pdf","chapter":"07","topic":"对策论","size":176.6},{"file":"第08章  层次分析法.pdf","path":"docs/第08章  层次分析法.pdf","chapter":"08","topic":"层次分析法","size":164.8},{"file":"第09章 插值与拟合.pdf","path":"docs/第09章 插值与拟合.pdf","chapter":"09","topic":"插值与拟合","size":283.0},{"file":"第10章 数据的统计描述和分析.pdf","path":"docs/第10章 数据的统计描述和分析.pdf","chapter":"10","topic":"数据的统计描述和分析","size":183.8},{"file":"第11章 方差分析.pdf","path":"docs/第11章 方差分析.pdf","chapter":"11","topic":"方差分析","size":168.0},{"file":"第12章 回归分析.pdf","path":"docs/第12章 回归分析.pdf","chapter":"12","topic":"回归分析","size":273.9},{"file":"第13章 微分方程建模.pdf","path":"docs/第13章 微分方程建模.pdf","chapter":"13","topic":"微分方程建模","size":195.1},{"file":"第14章 稳定状态模型.pdf","path":"docs/第14章 稳定状态模型.pdf","chapter":"14","topic":"稳定状态模型","size":197.2},{"file":"第15章 常微分方程的解法.pdf","path":"docs/第15章 常微分方程的解法.pdf","chapter":"15","topic":"常微分方程的解法","size":171.2},{"file":"第16章 差分方程模型.pdf","path":"docs/第16章 差分方程模型.pdf","chapter":"16","topic":"差分方程模型","size":196.0},{"file":"第17章 马氏链模型.pdf","path":"docs/第17章 马氏链模型.pdf","chapter":"17","topic":"马氏链模型","size":160.9},{"file":"第18章 变分法模型.pdf","path":"docs/第18章 变分法模型.pdf","chapter":"18","topic":"变分法模型","size":172.9},{"file":"第19章 神经网络模型.pdf","path":"docs/第19章 神经网络模型.pdf","chapter":"19","topic":"神经网络模型","size":182.5},{"file":"第20章 偏微分方程的数值解.pdf","path":"docs/第20章 偏微分方程的数值解.pdf","chapter":"20","topic":"偏微分方程的数值解","size":430.2},{"file":"第21章 目标规划.pdf","path":"docs/第21章 目标规划.pdf","chapter":"21","topic":"目标规划","size":176.5},{"file":"第22章  模糊数学模型.pdf","path":"docs/第22章  模糊数学模型.pdf","chapter":"22","topic":"模糊数学模型","size":449.2},{"file":"第23章  现代优化算法.pdf","path":"docs/第23章  现代优化算法.pdf","chapter":"23","topic":"现代优化算法","size":257.6},{"file":"第24章   时间序列模型.pdf","path":"docs/第24章   时间序列模型.pdf","chapter":"24","topic":"时间序列模型","size":285.5},{"file":"第25章  存贮论.pdf","path":"docs/第25章  存贮论.pdf","chapter":"25","topic":"存贮论","size":352.8},{"file":"第26章  经济与金融中的优化问题.pdf","path":"docs/第26章  经济与金融中的优化问题.pdf","chapter":"26","topic":"经济与金融中的优化问题","size":417.4},{"file":"第27章  生产与服务运作管理中的优化问题.pdf","path":"docs/第27章  生产与服务运作管理中的优化问题.pdf","chapter":"27","topic":"生产与服务运作管理中的优化问题","size":277.3},{"file":"第28章  灰色系统理论及其应用.pdf","path":"docs/第28章  灰色系统理论及其应用.pdf","chapter":"28","topic":"灰色系统理论及其应用","size":346.3},{"file":"第29章  多元分析.pdf","path":"docs/第29章  多元分析.pdf","chapter":"29","topic":"多元分析","size":575.8},{"file":"第30章  偏最小二乘回归.pdf","path":"docs/第30章  偏最小二乘回归.pdf","chapter":"30","topic":"偏最小二乘回归","size":167.2},{"file":"附录一  Matlab入门.pdf","path":"docs/附录一  Matlab入门.pdf","chapter":"附录一","topic":"Matlab入门","size":194.2},{"file":"附录二  Matlab在线性代数中的应用.pdf","path":"docs/附录二  Matlab在线性代数中的应用.pdf","chapter":"附录二","topic":"Matlab在线性代数中的应用","size":84.3},{"file":"附录三  运筹学的LINGO软件.pdf","path":"docs/附录三  运筹学的LINGO软件.pdf","chapter":"附录三","topic":"运筹学的LINGO软件","size":336.3},{"file":"附录四  判别分析.pdf","path":"docs/附录四  判别分析.pdf","chapter":"附录四","topic":"判别分析","size":69.6},{"file":"参考文献.pdf","path":"docs/参考文献.pdf","chapter":"参考文献","topic":"引用文献","size":78.8}],"ppts":[{"file":"01_Python语言快速入门.pptx","path":"ppts/01_Python语言快速入门.pptx","chapter":"01","topic":"Python语言快速入门","size":6007.0},{"file":"02_数据处理与可视化.pptx","path":"ppts/02_数据处理与可视化.pptx","chapter":"02","topic":"数据处理与可视化","size":7128.6},{"file":"03_Python在高等数学和线性代数中的应用.pptx","path":"ppts/03_Python在高等数学和线性代数中的应用.pptx","chapter":"03","topic":"Python在高等数学和线性代数中的应用","size":5650.1},{"file":"04_概率论与数理统计-1.pptx","path":"ppts/04_概率论与数理统计-1.pptx","chapter":"04","topic":"概率论与数理统计-1","size":4751.1},{"file":"04_概率论与数理统计-2.pptx","path":"ppts/04_概率论与数理统计-2.pptx","chapter":"04","topic":"概率论与数理统计-2","size":5040.5},{"file":"05_线性规划.pptx","path":"ppts/05_线性规划.pptx","chapter":"05","topic":"线性规划","size":3158.8},{"file":"06_整数规划与非线性规划.pptx","path":"ppts/06_整数规划与非线性规划.pptx","chapter":"06","topic":"整数规划与非线性规划","size":3288.1},{"file":"07_插值与拟合.pptx","path":"ppts/07_插值与拟合.pptx","chapter":"07","topic":"插值与拟合","size":4273.9},{"file":"08_微分方程模型.pptx","path":"ppts/08_微分方程模型.pptx","chapter":"08","topic":"微分方程模型","size":4073.5},{"file":"09_综合评价方法.pptx","path":"ppts/09_综合评价方法.pptx","chapter":"09","topic":"综合评价方法","size":3928.3},{"file":"10_图论模型.pptx","path":"ppts/10_图论模型.pptx","chapter":"10","topic":"图论模型","size":7271.0},{"file":"11_多元分析.pptx","path":"ppts/11_多元分析.pptx","chapter":"11","topic":"多元分析","size":6133.2},{"file":"12_回归分析.pptx","path":"ppts/12_回归分析.pptx","chapter":"12","topic":"回归分析","size":3570.2},{"file":"13_差分方程模型.pptx","path":"ppts/13_差分方程模型.pptx","chapter":"13","topic":"差分方程模型","size":4114.7},{"file":"14_模糊数学.pptx","path":"ppts/14_模糊数学.pptx","chapter":"14","topic":"模糊数学","size":3669.2},{"file":"15_灰色系统预测.pptx","path":"ppts/15_灰色系统预测.pptx","chapter":"15","topic":"灰色系统预测","size":2961.4},{"file":"16_Monte Carlo模拟.pptx","path":"ppts/16_Monte Carlo模拟.pptx","chapter":"16","topic":"Monte Carlo模拟","size":2680.8},{"file":"17_智能算法.pptx","path":"ppts/17_智能算法.pptx","chapter":"17","topic":"智能算法","size":3419.1},{"file":"18_时间序列分析.pptx","path":"ppts/18_时间序列分析.pptx","chapter":"18","topic":"时间序列分析","size":4472.2},{"file":"19_支持向量机.pptx","path":"ppts/19_支持向量机.pptx","chapter":"19","topic":"支持向量机","size":2360.7},{"file":"20_数字图像处理.pptx","path":"ppts/20_数字图像处理.pptx","chapter":"20","topic":"数字图像处理","size":5501.4}],"manual":{"files":522,"sizeMB":107.2,"categories":[{"name":"Floyd算法","files":2,"size":0.01},{"name":"dijkstra","files":1,"size":0.02},{"name":"主成分","files":1,"size":2.01},{"name":"优化模型","files":3,"size":1.33},{"name":"分治算法","files":3,"size":0.02},{"name":"初等基础模型","files":7,"size":7.36},{"name":"动态规划","files":3,"size":0.06},{"name":"回归","files":2,"size":9.72},{"name":"图论","files":45,"size":21.73},{"name":"层次分析法","files":4,"size":2.5},{"name":"微分差分方程","files":6,"size":8.97},{"name":"插值与拟合","files":1,"size":0.86},{"name":"搜索算法","files":1,"size":0.02},{"name":"数理统计","files":10,"size":3.0},{"name":"权重与熵权法","files":21,"size":8.47},{"name":"概率模型","files":1,"size":0.78},{"name":"概率算法","files":1,"size":0.01},{"name":"模拟退火算法","files":2,"size":0.01},{"name":"灰色预测","files":3,"size":0.31},{"name":"神经网络","files":2,"size":0.33},{"name":"简单函数优化的遗传算法","files":10,"size":0.01},{"name":"类比法","files":1,"size":0.02},{"name":"线性规划","files":1,"size":1.16},{"name":"组合算法","files":1,"size":0.05},{"name":"聚类算法","files":1,"size":0.06},{"name":"蒙特卡洛","files":10,"size":3.39},{"name":"贪婪算法","files":3,"size":0.08},{"name":"遗传算法","files":240,"size":3.32},{"name":"遗传退火法","files":120,"size":2.81},{"name":"配套资料","files":14,"size":26.01},{"name":"预测方法","files":2,"size":2.73}]},"modelit":{"files":19,"cases":[{"name":"Markov_chain","files":8,"size":0.35,"note":"马尔可夫链与赌博模拟；gamble.py 缺随机种子，gamble_A.py 可运行"},{"name":"Monte_Carlo_simulation","files":2,"size":0.03,"note":"脚本已损坏，仅保留历史结果图；可运行版本在 Markov_chain/"},{"name":"Object_classification","files":9,"size":177.7,"note":"CIFAR-10 图像分类，依赖 torch 与 GPU"}]},"checks":{"error":5,"baseline":5,"outside":0,"warn":121,"info":21,"ok":true}};</script>
+<script>
+'use strict';
+const M = DATA;
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const pad = n => String(n).padStart(2, '0');
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = n => new Intl.NumberFormat('zh-CN').format(n);
+const size = kb => kb >= 1024 ? (kb / 1024).toFixed(1) + ' MB' : Math.round(kb) + ' KB';
+const state = {view:'overview', nbQuery:'', nbModule:'all', nbStatus:'all', dataQuery:'', dataKind:'all', showImages:false, cache:{}, palette:[], pIdx:0};
+
+const NAV = [['overview','概览'],['notebooks','Notebooks'],['data','数据'],['docs','文档'],['ppts','课件'],['manual','历史资料'],['modelit','案例'],['tools','工具'],['about','关于']];
+
+function navCount(id){
+  if(id === 'notebooks') return M.notebooks.length;
+  if(id === 'data') return M.data.length;
+  if(id === 'docs') return M.docs.length;
+  if(id === 'ppts') return M.ppts.length;
+  if(id === 'manual') return M.manual.files;
+  if(id === 'modelit') return M.modelit.cases.length;
+  return '';
+}
+function renderNav(){
+  $('#nav').innerHTML = NAV.map(([id,label]) => {
+    const c = navCount(id);
+    return `<button class="nav-item${state.view===id?' active':''}" data-view="${id}"><span>${label}</span>${c!==''?`<b>${fmt(c)}</b>`:''}</button>`;
+  }).join('');
+  $('#sideFoot').innerHTML = `${M.repo.counts.notebooks} 篇 notebook · ${M.repo.counts.modules} 类方法<br>生成于 ${esc(M.generated)}<br>ERROR 基线外 ${M.checks.outside} · WARN ${M.checks.warn}`;
+}
+
+function go(view, push = true){
+  if(!NAV.some(x => x[0] === view)) view = 'overview';
+  state.view = view;
+  if(push && location.hash !== '#' + view) location.hash = view;
+  renderNav();
+  const render = RENDER[view] || RENDER.overview;
+  $('#main').innerHTML = render();
+  window.scrollTo(0, 0);
+  if(AFTER[view]) AFTER[view]();
+  $('#main').focus({preventScroll:true});
+}
+
+function statusOf(n){
+  if(!n.code) return ['讲义',''];
+  if(!n.unexec) return ['已执行','ok'];
+  if(n.unexec === n.code) return ['未执行','warn'];
+  return ['部分未执行','warn'];
+}
+function badge(text, kind = ''){
+  return `<span class="badge ${kind}">${esc(text)}</span>`;
+}
+function dataChips(n){
+  if(!n.data.length) return '<span class="muted small">无外部数据</span>';
+  return `<span class="chips">${n.data.slice(0,3).map(d => `<span class="badge">${esc(d.split('/').pop())}</span>`).join('')}${n.data.length>3?`<span class="badge">+${n.data.length-3}</span>`:''}</span>`;
+}
+
+const RENDER = {};
+const AFTER = {};
+
+RENDER.overview = () => {
+  const c = M.repo.counts;
+  const max = Math.max(...M.modules.map(m => m.count), 1);
+  const chk = M.checks;
+  return `
+  <section class="hero">
+    <p class="eyebrow">数学建模 · Python 实践仓库</p>
+    <h1>从教材公式到可复现的 notebook</h1>
+    <p class="lede">${c.notebooks} 篇 notebook 覆盖综合评价、图论、多元统计、回归、动态模型、模糊与灰色系统、神经网络、时间序列、关联规则、优化、数值方法与机器学习；35 篇教材练习稿已按主题融合，数据、文档与课件可在此统一检索。</p>
+    <div class="hero-actions">
+      <button class="btn primary" data-view="notebooks">浏览 ${c.notebooks} 篇 notebook</button>
+      <button class="btn" data-view="tools">打开工具集</button>
+      <a class="btn ghost" href="THIRD-PARTY.md">教材来源与许可</a>
+    </div>
+  </section>
+  <div class="kpis">
+    <div class="kpi"><span>Notebooks</span><strong>${c.notebooks}</strong><small>${c.modules} 类方法 · 01—${pad(c.notebooks)}</small></div>
+    <div class="kpi"><span>数据文件</span><strong>${c.data}</strong><small>含教材数据 10 个</small></div>
+    <div class="kpi"><span>教材 PDF</span><strong>${c.docs}</strong><small>30 章 + 附录 + 参考文献</small></div>
+    <div class="kpi"><span>课件</span><strong>${c.ppts}</strong><small>20 章，04 章分册</small></div>
+    <div class="kpi"><span>历史资料</span><strong>${fmt(c.manual)}</strong><small>文件 · ${M.manual.sizeMB} MB</small></div>
+    <div class="kpi"><span>独立案例</span><strong>${M.modelit.cases.length}</strong><small>${fmt(c.modelit)} 个文件 · 178 MB</small></div>
+  </div>
+  <div class="grid-2">
+    <section class="card">
+      <h2>方法分布</h2>
+      ${M.modules.map(m => `<div class="bar-row"><span>${esc(m.name)}</span><div class="bar"><i style="width:${(m.count/max*100).toFixed(1)}%"></i></div><b>${m.count}</b></div>`).join('')}
+    </section>
+    <section class="card">
+      <h2>质量门禁</h2>
+      <div class="checks">
+        <div><span>ERROR</span><strong class="${chk.outside ? 'bad' : 'ok'}">${chk.error}</strong><small>基线内 ${chk.baseline} · 基线外 ${chk.outside}</small></div>
+        <div><span>WARN</span><strong class="warn">${chk.warn}</strong><small>执行状态、内嵌图等</small></div>
+        <div><span>INFO</span><strong class="muted">${chk.info}</strong><small>提示项</small></div>
+      </div>
+      <p class="small muted" style="margin-top:12px">${chk.ok ? '检查器通过：基线外无新增 ERROR。' : '检查器未通过，请运行 scripts/check_project.py 查看详情。'} 基线记录 ${chk.baseline} 条已确认问题。</p>
+      <pre class="small">python scripts/check_project.py</pre>
+    </section>
+  </div>
+  <section class="card">
+    <h2>快速开始</h2>
+    <pre id="quickCmds">py -3.11 -m venv .venv
+.venv\\Scripts\\activate
+python -m pip install -r requirements.txt
+python scripts/check_project.py
+jupyter lab</pre>
+    <div class="tool-row">
+      <button class="btn" data-copy-el="quickCmds">复制命令</button>
+      <button class="btn ghost" data-view="tools">按需安装 ml 依赖</button>
+      <span class="tool-note">内核工作目录须为 notebooks/，相对路径 ../data 才能解析。</span>
+    </div>
+  </section>
+  <section class="card">
+    <h2>仓库结构</h2>
+    <pre class="tree">notebooks/    ${c.notebooks} 篇（01—${pad(c.notebooks)}），含教材实现融合
+data/         ${c.data} 个数据文件（data/textbook/ 为教材数据）
+docs/         ${c.docs} 份教材 PDF
+ppts/         ${c.ppts} 个授课课件
+manual/       ${fmt(c.manual)} 个历史资料文件
+modelit/      ${M.modelit.cases.length} 个独立案例
+scripts/      check_project.py · merge_textbook.py · build_index.py
+THIRD-PARTY.md  上游 MIT 许可与逐篇去向</pre>
+  </section>`;
+};
+
+RENDER.notebooks = () => `
+  <header class="page-head">
+    <p class="eyebrow">Notebooks</p>
+    <h1>${M.notebooks.length} 篇实践索引</h1>
+    <p class="lede">按模块与执行状态筛选；点击任意行查看结构、数据依赖与预览。</p>
+  </header>
+  <div class="toolbar">
+    <input id="nbQuery" class="input" type="search" placeholder="搜索编号、标题、数据文件…" value="${esc(state.nbQuery)}">
+    <select id="nbModule" class="input" aria-label="按模块筛选">
+      <option value="all">全部模块</option>
+      ${M.modules.map(m => `<option value="${esc(m.name)}"${state.nbModule===m.name?' selected':''}>${esc(m.name)}（${m.count}）</option>`).join('')}
+    </select>
+    <select id="nbStatus" class="input" aria-label="按状态筛选">
+      ${[['all','全部状态'],['done','已执行'],['partial','部分未执行'],['none','未执行']].map(([v,t]) => `<option value="${v}"${state.nbStatus===v?' selected':''}>${t}</option>`).join('')}
+    </select>
+    <span class="toolbar-note" id="nbCount"></span>
+  </div>
+  <div class="table-wrap">
+    <table class="table">
+      <thead><tr><th>编号</th><th>主题</th><th>模块</th><th class="num">代码</th><th>数据</th><th>状态</th></tr></thead>
+      <tbody id="nbRows"></tbody>
+    </table>
+  </div>`;
+
+function filteredNotebooks(){
+  const q = state.nbQuery.trim().toLowerCase();
+  return M.notebooks.filter(n => {
+    if(state.nbModule !== 'all' && n.module !== state.nbModule) return false;
+    const st = statusOf(n)[0];
+    if(state.nbStatus === 'done' && st !== '已执行') return false;
+    if(state.nbStatus === 'partial' && st !== '部分未执行') return false;
+    if(state.nbStatus === 'none' && st !== '未执行') return false;
+    if(!q) return true;
+    return (`${n.num} ${n.title} ${n.module} ${n.data.join(' ')}`).toLowerCase().includes(q);
+  });
+}
+function paintNbRows(){
+  const list = filteredNotebooks();
+  const tbody = $('#nbRows');
+  if(!tbody) return;
+  tbody.innerHTML = list.map(n => {
+    const [st, kind] = statusOf(n);
+    return `<tr data-nb="${n.num}" tabindex="0">
+      <td class="mono">${pad(n.num)}</td>
+      <td><span class="row-title">${esc(n.title)}</span><span class="row-sub">${esc(n.file)}</span></td>
+      <td>${badge(n.module)}</td>
+      <td class="num">${n.code}</td>
+      <td>${dataChips(n)}</td>
+      <td>${badge(st, kind)}</td>
+    </tr>`;
+  }).join('') || '<tr><td colspan="6" class="muted">没有匹配的 notebook。</td></tr>';
+  $('#nbCount').textContent = `${list.length} / ${M.notebooks.length} 篇`;
+}
+AFTER.notebooks = paintNbRows;
+
+RENDER.data = () => `
+  <header class="page-head">
+    <p class="eyebrow">Data</p>
+    <h1>数据字典</h1>
+    <p class="lede">${M.data.length} 个文件，原始数据只读；notebook 内统一以 ../data/ 引用。教材数据位于 data/textbook/。</p>
+  </header>
+  <div class="toolbar">
+    <input id="dataQuery" class="input" type="search" placeholder="搜索文件名或引用编号…" value="${esc(state.dataQuery)}">
+    <select id="dataKind" class="input" aria-label="数据类型">
+      <option value="all">全部</option>
+      <option value="root"${state.dataKind==='root'?' selected':''}>根目录</option>
+      <option value="textbook"${state.dataKind==='textbook'?' selected':''}>教材数据</option>
+    </select>
+    <button class="btn" data-action="verify-data">校验可访问性</button>
+    <span class="toolbar-note" id="dataCount"></span>
+  </div>
+  <div class="callout">校验通过 HTTP HEAD 逐个请求，仅在静态服务（本地 http.server 或 GitHub Pages）下有效；用于确认上传后没有漏传数据文件。引用方仅统计 <code>../data/</code> 相对引用；30 号仍含 2 处绝对路径，未计入。</div>
+  <div class="table-wrap">
+    <table class="table">
+      <thead><tr><th>文件</th><th>类型</th><th class="num">体积</th><th>引用方</th><th>校验</th></tr></thead>
+      <tbody id="dataRows"></tbody>
+    </table>
+  </div>`;
+
+function filteredData(){
+  const q = state.dataQuery.trim().toLowerCase();
+  return M.data.filter(d => {
+    if(state.dataKind !== 'all' && d.kind !== state.dataKind) return false;
+    if(!q) return true;
+    return (`${d.name} ${d.usedBy.join(' ')}`).toLowerCase().includes(q);
+  });
+}
+function paintDataRows(){
+  const tbody = $('#dataRows');
+  if(!tbody) return;
+  const list = filteredData();
+  tbody.innerHTML = list.map((d, i) => `<tr>
+    <td><span class="mono">${esc(d.name)}</span></td>
+    <td>${d.kind === 'textbook' ? badge('教材', 'accent') : badge('根目录')}</td>
+    <td class="num">${size(d.size)}</td>
+    <td>${d.usedBy.length ? d.usedBy.map(n => `<button class="btn small" data-nb="${n}">${pad(n)}</button>`).join(' ') : '<span class="muted">未引用</span>'}</td>
+    <td class="mono" data-verify="${M.data.indexOf(d)}">—</td>
+  </tr>`).join('') || '<tr><td colspan="5" class="muted">没有匹配的数据文件。</td></tr>';
+  $('#dataCount').textContent = `${list.length} / ${M.data.length} 个`;
+}
+AFTER.data = paintDataRows;
+
+RENDER.docs = () => `
+  <header class="page-head">
+    <p class="eyebrow">Documents</p>
+    <h1>教材正文</h1>
+    <p class="lede">${M.docs.length} 份 PDF：30 章正文、4 篇附录与参考文献。只读资料，不参与代码运行。</p>
+  </header>
+  <div class="table-wrap">
+    <table class="table">
+      <thead><tr><th>章</th><th>主题</th><th>文件</th><th class="num">体积</th></tr></thead>
+      <tbody>${M.docs.map(d => `<tr>
+        <td class="mono">${esc(d.chapter)}</td>
+        <td>${esc(d.topic || '—')}</td>
+        <td><a href="${encodeURI(d.path)}" target="_blank" rel="noopener">${esc(d.file)}</a></td>
+        <td class="num">${size(d.size)}</td>
+      </tr>`).join('')}</tbody>
+    </table>
+  </div>`;
+
+RENDER.ppts = () => `
+  <header class="page-head">
+    <p class="eyebrow">Slides</p>
+    <h1>授课课件</h1>
+    <p class="lede">${M.ppts.length} 个 PPTX，覆盖 20 章；按“工具链 → 方法”组织，与教材章序不同。</p>
+  </header>
+  <div class="grid-cards">
+    ${M.ppts.map(p => `<article class="case">
+      <p class="eyebrow">第 ${esc(p.chapter)} 章</p>
+      <h3><a href="${encodeURI(p.path)}" target="_blank" rel="noopener">${esc(p.topic)}</a></h3>
+      <p class="mono">${esc(p.file)} · ${size(p.size)}</p>
+    </article>`).join('')}
+  </div>`;
+
+RENDER.manual = () => `
+  <header class="page-head">
+    <p class="eyebrow">Archive</p>
+    <h1>历史资料</h1>
+    <p class="lede">${fmt(M.manual.files)} 个文件 / ${M.manual.sizeMB} MB，按 ${M.manual.categories.length} 个专题归档；只读，不承诺可运行。</p>
+  </header>
+  <div class="callout">这些是教材配套的 MATLAB / C 源码与旧课件，不参与 CI 与依赖管理。Python 等价实现见 notebooks/ 的对应篇目。</div>
+  <div class="table-wrap">
+    <table class="table">
+      <thead><tr><th>专题目录</th><th class="num">文件</th><th class="num">体积</th></tr></thead>
+      <tbody>${M.manual.categories.map(c => `<tr><td class="mono">${esc(c.name)}</td><td class="num">${fmt(c.files)}</td><td class="num">${c.size} MB</td></tr>`).join('')}</tbody>
+    </table>
+  </div>`;
+
+RENDER.modelit = () => `
+  <header class="page-head">
+    <p class="eyebrow">Cases</p>
+    <h1>独立建模案例</h1>
+    <p class="lede">${M.modelit.cases.length} 个专题 / ${fmt(M.modelit.files)} 个文件，与 notebook 分开维护，强调可直接运行与结果复现。</p>
+  </header>
+  <div class="grid-cards">
+    ${M.modelit.cases.map(c => `<article class="case">
+      <h3>${esc(c.name)}</h3>
+      <p>${esc(c.note || '—')}</p>
+      <p class="mono" style="margin-top:8px">${c.files} 个文件 · ${c.size} MB</p>
+    </article>`).join('')}
+  </div>
+  <section class="card" style="margin-top:14px">
+    <h2>约定</h2>
+    <p class="small muted">一个案例一个目录；随机过程显式传入种子；输出写入案例内 output/；超过 5 MB 的数据走 LFS 或下载脚本。</p>
+  </section>`;
+
+RENDER.tools = () => `
+  <header class="page-head">
+    <p class="eyebrow">Tools</p>
+    <h1>本地工具集</h1>
+    <p class="lede">全部在浏览器内执行，不上传任何文件。预览与检索需要 HTTP 静态服务；GitHub Pages 下直接可用。</p>
+  </header>
+  <div class="grid-2">
+    <section class="card">
+      <h2>环境与安装命令</h2>
+      <div class="tool-row">
+        <select id="envOs" class="input" aria-label="操作系统"><option value="win">Windows</option><option value="unix">macOS / Linux</option></select>
+        <label class="switch"><input type="checkbox" id="envMl"> 安装 ml 可选组</label>
+      </div>
+      <pre id="envCmds" style="margin-top:10px"></pre>
+      <button class="btn" data-action="copy-env">复制命令</button>
+    </section>
+    <section class="card">
+      <h2>数据可访问性</h2>
+      <p class="small muted">对 ${M.data.length} 个数据文件发 HEAD 请求，确认静态托管后路径未失效。</p>
+      <button class="btn" data-action="verify-data">开始校验</button>
+      <div id="verifyOut" class="tool-output small" style="margin-top:10px"></div>
+    </section>
+  </div>
+  <section class="card">
+    <h2>Notebook 全文检索</h2>
+    <div class="tool-row">
+      <input id="ftQuery" class="input" type="search" placeholder="至少 2 个字符，例如 灰色预测、linprog" style="flex:1 1 260px">
+      <select id="ftScope" class="input" aria-label="检索范围"><option value="all">全部模块</option>${M.modules.map(m => `<option value="${esc(m.name)}">${esc(m.name)}</option>`).join('')}</select>
+      <button class="btn primary" data-action="fulltext">检索</button>
+    </div>
+    <progress id="ftBar" value="0" max="1" hidden></progress>
+    <div id="ftResults" class="tool-output" style="margin-top:12px"></div>
+  </section>
+  <div class="grid-2">
+    <section class="card">
+      <h2>依赖反查</h2>
+      <div class="tool-row"><input id="depQuery" class="input" type="search" placeholder="输入库名，如 tensorflow、pulp" style="flex:1"><button class="btn" data-action="dep-search">查找</button></div>
+      <div id="depResults" class="tool-output small" style="margin-top:10px"></div>
+    </section>
+    <section class="card">
+      <h2>路径检查</h2>
+      <div class="tool-row"><input id="pathInput" class="input" type="text" placeholder="notebooks/31.线性规划.ipynb" style="flex:1"><button class="btn" data-action="check-path">检查</button></div>
+      <div id="pathResult" class="tool-output small" style="margin-top:10px"></div>
+    </section>
+  </div>
+  <section class="card">
+    <h2>引用复制</h2>
+    <div class="tool-row">
+      <select id="citeNb" class="input">${M.notebooks.map(n => `<option value="${n.num}">${pad(n.num)} ${esc(n.title)}</option>`).join('')}</select>
+      <button class="btn" data-action="cite">复制 Markdown 链接</button>
+    </div>
+    <p class="tool-note" style="margin-top:8px">输出形如 [31 线性规划](notebooks/31.线性规划.ipynb)，可直接粘贴到 README 或 issue。</p>
+  </section>`;
+
+function envCommands(){
+  const win = ($('#envOs')?.value || 'win') === 'win';
+  const ml = !!$('#envMl')?.checked;
+  const lines = win
+    ? ['py -3.11 -m venv .venv', '.venv\\Scripts\\activate', 'python -m pip install -r requirements.txt']
+    : ['python3.11 -m venv .venv', 'source .venv/bin/activate', 'python -m pip install -r requirements.txt'];
+  if(ml) lines.push('python -m pip install -e ".[ml]"');
+  lines.push('python scripts/check_project.py', 'jupyter lab');
+  return lines.join('\n');
+}
+function refreshEnv(){
+  const el = $('#envCmds');
+  if(el) el.textContent = envCommands();
+}
+AFTER.tools = () => { refreshEnv(); renderDeps(); };
+
+RENDER.about = () => `
+  <header class="page-head">
+    <p class="eyebrow">About</p>
+    <h1>关于这个页面</h1>
+    <p class="lede">单文件静态导航页，数据来自仓库真实文件扫描；无后端、无外部依赖、不收集访问数据。</p>
+  </header>
+  <div class="grid-2">
+    <section class="card">
+      <h2>重新生成</h2>
+      <p class="small muted">仓库结构或篇数变化后，重跑脚本即可刷新内嵌清单：</p>
+      <pre>python scripts/build_index.py
+python scripts/build_index.py --repo-url https://github.com/&lt;user&gt;/&lt;repo&gt;</pre>
+      <p class="small muted">脚本只读取文件名、标题、H2/H3、数据引用与体积，不写入除 index.html 之外的文件。</p>
+    </section>
+    <section class="card">
+      <h2>部署到 GitHub Pages</h2>
+      <ol class="small">
+        <li>把仓库推送到 GitHub，默认分支设为 main。</li>
+        <li>Settings → Pages → Build and deployment → Deploy from a branch。</li>
+        <li>选择 main / (root)，保存后等待发布。</li>
+        <li>访问 https://&lt;user&gt;.github.io/&lt;repo&gt;/。</li>
+      </ol>
+      <p class="small muted">.ipynb 预览、全文检索与数据校验都依赖同源 HTTP，Pages 下可用；直接 file:// 打开时仅浏览功能可用。</p>
+    </section>
+  </div>
+  <section class="card">
+    <h2>口径与边界</h2>
+    <p class="small">篇数与体积由脚本扫描得出：notebook ${M.repo.counts.notebooks} 篇、数据 ${M.repo.counts.data} 个、PDF ${M.repo.counts.docs} 份、课件 ${M.repo.counts.ppts} 个、历史资料 ${fmt(M.repo.counts.manual)} 个文件、案例 ${M.repo.counts.modelit} 个文件。工作树约 ${M.repo.sizeMB} MB（不含 .git）。</p>
+    <p class="small">质量门禁读取 scripts/check_project.py 的汇总；ERROR ${M.checks.error}（基线内 ${M.checks.baseline}，基线外 ${M.checks.outside}）、WARN ${M.checks.warn}、INFO ${M.checks.info}。基线是已确认的历史问题，不代表新代码可以新增 ERROR。</p>
+  </section>
+  <section class="card">
+    <h2>许可与第三方</h2>
+    <p class="small">原创代码与文字采用 <a href="LICENSE">MIT License</a>。docs/ 教材 PDF、ppts/ 课件、manual/ 配套代码版权归原作者/出版方，不随 MIT 授权发布。35 篇教材练习稿（MIT，2020，Zhanghan Wang）的逐篇去向与许可全文见 <a href="THIRD-PARTY.md">THIRD-PARTY.md</a>。</p>
+  </section>`;
+
+function openLayer(id){
+  const el = $('#' + id);
+  el.classList.add('open');
+  el.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('lock');
+  const focusable = el.querySelector('input,button,a');
+  if(focusable) focusable.focus({preventScroll:true});
+}
+function closeLayer(id){
+  const el = $('#' + id);
+  el.classList.remove('open');
+  el.setAttribute('aria-hidden', 'true');
+  if(!$('.drawer.open') && !$('.modal.open') && !$('.palette.open')) document.body.classList.remove('lock');
+}
+
+function openNotebook(num){
+  const n = M.notebooks.find(x => x.num === num);
+  if(!n) return;
+  $('#drawerKicker').textContent = `Notebook ${pad(n.num)} · ${n.module}`;
+  $('#drawerTitle').textContent = n.title;
+  const [st, kind] = statusOf(n);
+  $('#drawerBody').innerHTML = `
+    <div class="meta-grid">
+      <div><span>代码单元</span><b>${n.code}</b></div>
+      <div><span>未执行</span><b>${n.unexec}</b></div>
+      <div><span>体积</span><b>${size(n.size)}</b></div>
+      <div><span>模块</span><b>${esc(n.module)}</b></div>
+      <div><span>状态</span><b>${badge(st, kind)}</b></div>
+      <div><span>编号</span><b>${pad(n.num)}</b></div>
+    </div>
+    <div class="actions">
+      <button class="btn primary" data-preview="${n.num}">预览内容</button>
+      <a class="btn" href="${encodeURI(n.path)}" download>下载 .ipynb</a>
+      <button class="btn" data-copy="${esc(n.path)}">复制路径</button>
+      <button class="btn" data-copy="jupyter lab ${esc(n.path)}">复制启动命令</button>
+      <a class="btn ghost" href="${encodeURI(n.path)}" target="_blank" rel="noopener">原始文件</a>
+    </div>
+    <h3>数据依赖</h3>
+    <p>${n.data.length ? n.data.map(d => `<span class="badge mono">${esc(d)}</span>`).join(' ') : '<span class="muted">无外部数据</span>'}</p>
+    <h3>结构</h3>
+    ${n.sections.length ? `<ol class="outline">${n.sections.map(s => `<li class="l${s.level}">${esc(s.text)}</li>`).join('')}</ol>` : '<p class="muted">无 H2/H3 标题。</p>'}
+    <h3>摘要</h3>
+    <p>${esc(n.summary || '（该篇没有“1. 问题背景”段落）')}</p>
+    <p class="muted small mono">${esc(n.file)}</p>`;
+  openLayer('drawer');
+}
+
+function srcOf(c){ return Array.isArray(c.source) ? c.source.join('') : (c.source || ''); }
+function safeUrl(u){
+  const s = String(u || '').trim();
+  if(/^javascript:/i.test(s)) return '#';
+  if(/^(https?:|mailto:|#|\.{0,2}\/)/i.test(s)) return esc(s);
+  return '#';
+}
+function inlineMd(raw){
+  let s = esc(raw);
+  const codes = [];
+  s = s.replace(/`([^`]+)`/g, (m, c) => { codes.push(`<code>${c}</code>`); return `\u0001${codes.length - 1}\u0001`; });
+  s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+  s = s.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, (m, alt) => `<span class="badge">图片：${alt || '未命名'}</span>`);
+  s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, text, url) => {
+    const href = safeUrl(url);
+    const ext = /^https?:/i.test(url) ? ' target="_blank" rel="noopener noreferrer"' : '';
+    return `<a href="${href}"${ext}>${text}</a>`;
+  });
+  s = s.replace(/\u0001(\d+)\u0001/g, (m, i) => codes[+i]);
+  return s;
+}
+function tableMd(rows){
+  const cells = r => r.trim().replace(/^\||\|$/g, '').split('|').map(x => x.trim());
+  const head = cells(rows[0]);
+  const body = rows.slice(rows[1] && /^\|?\s*:?-{3,}/.test(rows[1]) ? 2 : 1).map(cells);
+  return `<table class="md-table"><thead><tr>${head.map(h => `<th>${inlineMd(h)}</th>`).join('')}</tr></thead><tbody>${body.map(r => `<tr>${r.map(c => `<td>${inlineMd(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+}
+function mdToHtml(src){
+  const blocks = [];
+  let text = String(src || '').replace(/\r\n/g, '\n');
+  text = text.replace(/```[^\n]*\n([\s\S]*?)```/g, (m, code) => {
+    blocks.push(`<pre class="code"><code>${esc(code.replace(/\n$/, ''))}</code></pre>`);
+    return `\n\u0000${blocks.length - 1}\u0000\n`;
+  });
+  const lines = text.split('\n');
+  const out = [];
+  let i = 0;
+  const blank = s => !s.trim();
+  const startsBlock = s => /^(#{1,6}\s|>|\||\s*[-*]\s+|\s*\d+\.\s+|\u0000)/.test(s);
+  while(i < lines.length){
+    const line = lines[i];
+    if(blank(line)){ i++; continue; }
+    let m = line.match(/^\u0000(\d+)\u0000$/);
+    if(m){ out.push(blocks[+m[1]]); i++; continue; }
+    m = line.match(/^(#{1,6})\s+(.*)$/);
+    if(m){ const l = Math.min(m[1].length, 4); out.push(`<h${l}>${inlineMd(m[2])}</h${l}>`); i++; continue; }
+    if(/^\s*([-*_])\1{2,}\s*$/.test(line)){ out.push('<hr>'); i++; continue; }
+    if(/^>\s?/.test(line)){
+      const buf = [];
+      while(i < lines.length && /^>\s?/.test(lines[i])){ buf.push(lines[i].replace(/^>\s?/, '')); i++; }
+      out.push(`<blockquote>${inlineMd(buf.join(' '))}</blockquote>`); continue;
+    }
+    if(/^\|/.test(line)){
+      const rows = [];
+      while(i < lines.length && /^\|/.test(lines[i])){ rows.push(lines[i]); i++; }
+      out.push(tableMd(rows)); continue;
+    }
+    if(/^\s*[-*]\s+/.test(line)){
+      const items = [];
+      while(i < lines.length && /^\s*[-*]\s+/.test(lines[i])){ items.push(lines[i].replace(/^\s*[-*]\s+/, '')); i++; }
+      out.push(`<ul>${items.map(x => `<li>${inlineMd(x)}</li>`).join('')}</ul>`); continue;
+    }
+    if(/^\s*\d+\.\s+/.test(line)){
+      const items = [];
+      while(i < lines.length && /^\s*\d+\.\s+/.test(lines[i])){ items.push(lines[i].replace(/^\s*\d+\.\s+/, '')); i++; }
+      out.push(`<ol>${items.map(x => `<li>${inlineMd(x)}</li>`).join('')}</ol>`); continue;
+    }
+    const buf = [];
+    while(i < lines.length && !blank(lines[i]) && !startsBlock(lines[i])){ buf.push(lines[i]); i++; }
+    if(!buf.length){ i++; continue; }
+    out.push(`<p>${inlineMd(buf.join(' '))}</p>`);
+  }
+  return out.join('\n');
+}
+function outputHtml(outs){
+  return outs.map(o => {
+    if(o.output_type === 'stream') return `<div class="out">${esc((o.text || []).join(''))}</div>`;
+    if(o.output_type === 'error') return `<div class="out bad">${esc((o.traceback || []).join('\n'))}</div>`;
+    const d = o.data || {};
+    let html = '';
+    if(d['text/plain']) html += `<div class="out">${esc((d['text/plain'] || []).join(''))}</div>`;
+    if(d['image/png']){
+      if(state.showImages){
+        const b64 = (d['image/png'] || []).join('');
+        html += `<div class="out"><img loading="lazy" alt="notebook 输出图片" src="data:image/png;base64,${b64}"></div>`;
+      } else {
+        html += `<div class="out muted">[图片输出已折叠，可在右上角开启“显示图片”]</div>`;
+      }
+    }
+    if(d['text/html']) html += `<div class="out muted">[HTML 输出已省略渲染，共 ${(d['text/html'] || []).join('').length} 字符]</div>`;
+    return html;
+  }).join('');
+}
+function countImages(nb){
+  let n = 0;
+  (nb.cells || []).forEach(c => (c.outputs || []).forEach(o => { if(o.data && o.data['image/png']) n++; }));
+  return n;
+}
+function renderCells(nb){
+  return `<div class="nb-meta">${nb.cells.length} 个单元 · ${countImages(nb)} 张输出图片 · ${nb.nbformat}.${nb.nbformat_minor}</div>` +
+    nb.cells.map(c => {
+      if(c.cell_type === 'markdown') return `<div class="md">${mdToHtml(srcOf(c))}</div>`;
+      if(c.cell_type !== 'code') return '';
+      return `<div class="cell"><div class="cell-head">In [${c.execution_count == null ? ' ' : c.execution_count}]</div><pre class="code"><code>${esc(srcOf(c))}</code></pre>${outputHtml(c.outputs || [])}</div>`;
+    }).join('');
+}
+async function previewNotebook(num){
+  const n = M.notebooks.find(x => x.num === num);
+  if(!n) return;
+  $('#modalTitle').textContent = `${pad(n.num)} ${n.title}`;
+  $('#imgToggle').checked = state.showImages;
+  openLayer('modal');
+  const body = $('#modalBody');
+  body.innerHTML = '<p class="muted">正在读取 notebook…</p>';
+  try{
+    let nb = state.cache[num];
+    if(!nb){
+      const res = await fetch(encodeURI(n.path), {cache:'no-store'});
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      nb = JSON.parse(await res.text());
+      state.cache[num] = nb;
+    }
+    body.innerHTML = renderCells(nb);
+  }catch(err){
+    body.innerHTML = `<div class="callout bad">无法读取 <code>${esc(n.path)}</code>：${esc(err.message)}。<br><br>预览依赖 fetch 同源读取。请通过 HTTP 打开本页，例如在仓库根运行 <code>python -m http.server 8000</code> 后访问 <code>http://localhost:8000/</code>；直接双击 file:// 打开时浏览器会拦截。GitHub Pages 部署后可直接使用。</div>`;
+  }
+}
+
+function toast(msg){
+  const el = $('#toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => el.classList.remove('show'), 2200);
+}
+function copyText(text){
+  const done = () => toast('已复制到剪贴板');
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
+  } else fallbackCopy(text, done);
+}
+function fallbackCopy(text, done){
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try{ document.execCommand('copy'); done(); }catch(e){ toast('复制失败，请手动选择'); }
+  ta.remove();
+}
+
+function buildPalette(){
+  const items = [];
+  M.notebooks.forEach(n => items.push({kind:'Notebook', label:`${pad(n.num)} ${n.title}`, meta:n.module, run:() => openNotebook(n.num)}));
+  M.data.forEach(d => items.push({kind:'数据', label:d.name, meta:size(d.size), run:() => { go('data'); state.dataQuery = d.name; const q = $('#dataQuery'); if(q) q.value = d.name; paintDataRows(); }}));
+  M.docs.forEach(d => items.push({kind:'文档', label:`第 ${d.chapter} 章 ${d.topic}`, meta:'PDF', run:() => go('docs')}));
+  M.ppts.forEach(p => items.push({kind:'课件', label:`${p.chapter} ${p.topic}`, meta:'PPTX', run:() => go('ppts')}));
+  return items;
+}
+function openPalette(){
+  state.palette = buildPalette();
+  state.pIdx = 0;
+  $('#paletteInput').value = '';
+  renderPalette('');
+  openLayer('palette');
+  $('#paletteInput').focus();
+}
+function renderPalette(q){
+  const list = state.palette.filter(it => !q || (it.label + ' ' + it.meta).toLowerCase().includes(q.toLowerCase())).slice(0, 40);
+  state.paletteShown = list;
+  state.pIdx = Math.min(state.pIdx, Math.max(list.length - 1, 0));
+  $('#paletteList').innerHTML = list.map((it, i) => `<button class="palette-item${i === state.pIdx ? ' active' : ''}" data-palette="${i}" role="option">
+    <span>${it.kind}</span><span>${esc(it.label)}</span><small>${esc(it.meta || '')}</small>
+  </button>`).join('') || '<p class="muted" style="padding:14px">没有匹配项。</p>';
+}
+function runPalette(i){
+  const it = (state.paletteShown || [])[i];
+  if(!it) return;
+  closeLayer('palette');
+  setTimeout(() => it.run(), 0);
+}
+
+async function verifyData(){
+  const out = $('#verifyOut');
+  if(out) out.textContent = '校验中…';
+  const list = M.data;
+  let next = 0, ok = 0, fail = [];
+  async function worker(){
+    while(next < list.length){
+      const i = next++;
+      const d = list[i];
+      const cell = document.querySelector(`[data-verify="${i}"]`);
+      try{
+        const res = await fetch(encodeURI(d.path), {method:'HEAD', cache:'no-store'});
+        if(res.ok){ ok++; if(cell) cell.textContent = '✓'; }
+        else { fail.push(d.path); if(cell){ cell.textContent = '✗'; cell.classList.add('bad'); } }
+      }catch(e){ fail.push(d.path); if(cell) cell.textContent = '—'; }
+    }
+  }
+  await Promise.all([worker(), worker(), worker()]);
+  const msg = `完成：${ok}/${list.length} 个可访问${fail.length ? `，失败 ${fail.length} 个` : ''}`;
+  if(out) out.innerHTML = `<p class="${fail.length ? 'bad' : 'ok'}">${msg}</p>${fail.length ? `<pre>${esc(fail.join('\n'))}</pre>` : ''}`;
+  toast(msg);
+}
+
+async function fullText(){
+  const q = ($('#ftQuery')?.value || '').trim();
+  if(q.length < 2){ toast('请输入至少 2 个字符'); return; }
+  const scope = $('#ftScope')?.value || 'all';
+  const list = M.notebooks.filter(n => scope === 'all' || n.module === scope);
+  const bar = $('#ftBar'), box = $('#ftResults');
+  bar.hidden = false; bar.max = list.length; bar.value = 0;
+  box.innerHTML = '<p class="muted">正在读取并检索…</p>';
+  const queue = list.slice();
+  const hits = [];
+  let done = 0;
+  async function worker(){
+    while(queue.length){
+      const nb = queue.shift();
+      try{
+        const res = await fetch(encodeURI(nb.path), {cache:'no-store'});
+        if(!res.ok) throw new Error(res.status);
+        const json = JSON.parse(await res.text());
+        const found = [];
+        (json.cells || []).forEach((c, ci) => {
+          const text = srcOf(c);
+          const idx = text.toLowerCase().indexOf(q.toLowerCase());
+          if(idx >= 0) found.push({ci, snippet: text.slice(Math.max(0, idx - 50), idx + q.length + 80).replace(/\s+/g, ' ')});
+        });
+        if(found.length) hits.push({nb, found});
+      }catch(e){ /* 单个失败不阻断 */ }
+      done++; bar.value = done;
+    }
+  }
+  await Promise.all([worker(), worker(), worker()]);
+  box.innerHTML = hits.length
+    ? `<p class="small muted">${hits.length} 篇命中，共 ${hits.reduce((s, h) => s + h.found.length, 0)} 处。</p>` + hits.map(h => `
+      <div class="case" style="margin-bottom:8px">
+        <h3><button class="btn small" data-nb="${h.nb.num}">${pad(h.nb.num)}</button> ${esc(h.nb.title)}</h3>
+        ${h.found.slice(0, 4).map(f => `<p class="small mono muted">单元 ${f.ci}：…${esc(f.snippet)}…</p>`).join('')}
+        ${h.found.length > 4 ? `<p class="small muted">另有 ${h.found.length - 4} 处</p>` : ''}
+      </div>`).join('')
+    : '<p class="muted">没有命中。该功能按原文字符串匹配，不做分词。</p>';
+}
+
+function renderDeps(q){
+  q = (q || '').trim().toLowerCase();
+  const box = $('#depResults');
+  if(!box) return;
+  if(!q){ box.innerHTML = '<p class="muted">输入库名后显示引用它的 notebook。</p>'; return; }
+  const list = M.notebooks.filter(n => n.deps.some(d => d.toLowerCase().includes(q)));
+  box.innerHTML = list.length
+    ? list.map(n => `<p><button class="btn small" data-nb="${n.num}">${pad(n.num)}</button> ${esc(n.title)} <span class="muted">· ${esc(n.deps.join('、'))}</span></p>`).join('')
+    : '<p class="muted">没有 notebook 在元信息中声明该依赖。</p>';
+}
+async function checkPath(){
+  const p = ($('#pathInput')?.value || '').trim();
+  const box = $('#pathResult');
+  if(!p){ box.textContent = '请输入仓库内相对路径。'; return; }
+  box.textContent = '检查中…';
+  try{
+    const res = await fetch(encodeURI(p), {method:'HEAD', cache:'no-store'});
+    box.innerHTML = res.ok
+      ? `<p class="ok">HTTP ${res.status} · 可访问</p><p class="mono small">${esc(p)}</p>`
+      : `<p class="bad">HTTP ${res.status} · 不可访问</p>`;
+  }catch(e){
+    box.innerHTML = `<p class="bad">请求失败：${esc(e.message)}</p><p class="small muted">请通过 HTTP 服务访问，或在 Pages 上测试。</p>`;
+  }
+}
+
+document.addEventListener('click', e => {
+  const t = e.target;
+  const nav = t.closest('[data-view]');
+  if(nav){ go(nav.dataset.view); return; }
+  const nb = t.closest('[data-nb]');
+  if(nb){ openNotebook(Number(nb.dataset.nb)); return; }
+  const pv = t.closest('[data-preview]');
+  if(pv){ previewNotebook(Number(pv.dataset.preview)); return; }
+  const close = t.closest('[data-close]');
+  if(close){ closeLayer(close.dataset.close); return; }
+  const copy = t.closest('[data-copy]');
+  if(copy){ copyText(copy.dataset.copy); return; }
+  const copyEl = t.closest('[data-copy-el]');
+  if(copyEl){ const el = document.getElementById(copyEl.dataset.copyEl); if(el) copyText(el.textContent); return; }
+  const pal = t.closest('[data-palette]');
+  if(pal){ runPalette(Number(pal.dataset.palette)); return; }
+  const act = t.closest('[data-action]');
+  if(act){
+    const a = act.dataset.action;
+    if(a === 'verify-data') verifyData();
+    if(a === 'copy-env') copyText(envCommands());
+    if(a === 'fulltext') fullText();
+    if(a === 'dep-search') renderDeps($('#depQuery')?.value);
+    if(a === 'check-path') checkPath();
+    if(a === 'cite'){
+      const n = M.notebooks.find(x => x.num === Number($('#citeNb')?.value));
+      if(n) copyText(`[${pad(n.num)} ${n.title}](${n.path})`);
+    }
+    return;
+  }
+  if(t.id === 'drawer') closeLayer('drawer');
+  if(t.id === 'modal') closeLayer('modal');
+  if(t.id === 'palette') closeLayer('palette');
+});
+
+document.addEventListener('input', e => {
+  const t = e.target;
+  if(t.id === 'nbQuery'){ state.nbQuery = t.value; paintNbRows(); }
+  if(t.id === 'dataQuery'){ state.dataQuery = t.value; paintDataRows(); }
+  if(t.id === 'paletteInput'){ state.pIdx = 0; renderPalette(t.value); }
+  if(t.id === 'depQuery'){ renderDeps(t.value); }
+});
+document.addEventListener('change', e => {
+  const t = e.target;
+  if(t.id === 'nbModule'){ state.nbModule = t.value; paintNbRows(); }
+  if(t.id === 'nbStatus'){ state.nbStatus = t.value; paintNbRows(); }
+  if(t.id === 'dataKind'){ state.dataKind = t.value; paintDataRows(); }
+  if(t.id === 'envOs' || t.id === 'envMl'){ refreshEnv(); }
+  if(t.id === 'imgToggle'){
+    state.showImages = t.checked;
+    const num = Number(($('#modalTitle').textContent || '').slice(0, 2));
+    const nb = state.cache[num];
+    if(nb) $('#modalBody').innerHTML = renderCells(nb);
+  }
+});
+document.addEventListener('keydown', e => {
+  if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); openPalette(); return; }
+  if(e.key === 'Escape'){
+    if($('.palette.open')) closeLayer('palette');
+    else if($('.modal.open')) closeLayer('modal');
+    else if($('.drawer.open')) closeLayer('drawer');
+    return;
+  }
+  if($('.palette.open')){
+    const list = state.paletteShown || [];
+    if(e.key === 'ArrowDown'){ e.preventDefault(); state.pIdx = Math.min(state.pIdx + 1, list.length - 1); renderPalette($('#paletteInput').value); }
+    if(e.key === 'ArrowUp'){ e.preventDefault(); state.pIdx = Math.max(state.pIdx - 1, 0); renderPalette($('#paletteInput').value); }
+    if(e.key === 'Enter'){ e.preventDefault(); runPalette(state.pIdx); }
+    return;
+  }
+  const row = e.target.closest && e.target.closest('tr[data-nb]');
+  if(row && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); openNotebook(Number(row.dataset.nb)); }
+});
+
+function applyTheme(theme){
+  document.documentElement.dataset.theme = theme;
+  try{ localStorage.setItem('index-theme', theme); }catch(e){}
+}
+function initTheme(){
+  let saved = null;
+  try{ saved = localStorage.getItem('index-theme'); }catch(e){}
+  if(saved){ document.documentElement.dataset.theme = saved; return; }
+  if(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.dataset.theme = 'dark';
+}
+$('#themeBtn').addEventListener('click', () => {
+  applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+});
+$('#searchOpen').addEventListener('click', openPalette);
+if(M.repo.url){
+  const a = $('#repoLink');
+  a.href = M.repo.url;
+  a.hidden = false;
+}
+
+window.addEventListener('hashchange', () => go(location.hash.slice(1) || 'overview', false));
+initTheme();
+renderNav();
+go(location.hash.slice(1) || 'overview', false);
+</script>
+</body>
+</html>

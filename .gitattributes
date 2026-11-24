@@ -1,0 +1,55 @@
+# 行尾与文本规范化：仓库内统一 LF，Windows 批处理保留 CRLF。
+* text=auto eol=lf
+
+*.py    text eol=lf
+*.ipynb text eol=lf
+*.md    text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.toml  text eol=lf
+*.cfg   text eol=lf
+*.txt   text eol=lf
+*.m     text eol=lf
+*.c     text eol=lf
+*.h     text eol=lf
+
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+*.ps1   text eol=crlf
+
+# 二进制资源：不做行尾转换，也不做文本 diff。
+*.pdf   binary
+*.ppt   binary
+*.pptx  binary
+*.doc   binary
+*.docx  binary
+*.xls   binary
+*.xlsx  binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.zip   binary
+*.rar   binary
+
+# ---------------------------------------------------------------------------
+# Git LFS：本机已安装 git-lfs 3.7.1。执行 `git lfs install` 后取消下面注释，
+# 再重新 `git add` 相关文件（需先 `git lfs migrate` 或首次入库前生效）。
+#
+# 建议纳入 LFS 的路径（合计约 470 MB，不入 LFS 会明显拖慢 clone）：
+#   data/bitcoin_data.csv                 73 MB
+#   data/Online_Retail.xlsx               23 MB
+#   ppts/*.pptx                           91 MB
+#   docs/*.pdf                             9 MB
+#   manual/**/*.pdf                       53 MB
+#   manual/**/*.ppt                       44 MB
+#   modelit/Object_classification/cifar-10-batches-py/*   178 MB
+#
+# data/bitcoin_data.csv          filter=lfs diff=lfs merge=lfs -text
+# data/Online_Retail.xlsx        filter=lfs diff=lfs merge=lfs -text
+# ppts/*.pptx                    filter=lfs diff=lfs merge=lfs -text
+# docs/*.pdf                     filter=lfs diff=lfs merge=lfs -text
+# manual/**/*.pdf                filter=lfs diff=lfs merge=lfs -text
+# manual/**/*.ppt                filter=lfs diff=lfs merge=lfs -text
+# modelit/Object_classification/cifar-10-batches-py/**  filter=lfs diff=lfs merge=lfs -text
+# ---------------------------------------------------------------------------

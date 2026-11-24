@@ -1,0 +1,9 @@
+# pip 兼容入口：依赖的唯一来源是 pyproject.toml。
+#
+# 推荐（可复现）：
+#   uv sync --extra dev
+# 或（pip）：
+#   python -m pip install -e ".[dev]"
+#
+# 需要完全锁定的环境时，用 `make lock`（uv lock）生成，不要手工钉传递依赖。
+-e .[dev]

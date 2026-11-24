@@ -199,13 +199,6 @@ df = pd.read_csv(DATA / "basketball.csv")
 
 按检查器规则归类，均已进入 `.check_baseline.json` 或 WARN 清单：
 
-**路径与数据（已修复）**
-
-- 28 号文件名已去掉 `.ipynb` 前的空格，README、缺图清单与内嵌清单引用同步更新（R002）。
-- 30 号两处 `F:/_4.Pycode_integration/...` 已改为 `../data/flight.csv` 与 `../data/AirPassengers.csv`（R007）。
-- 07 号改读仓库内已有的 `../data/disease_data.xlsx`；09 号的 `score.xlsx` 已按同结构数据集补齐，`rule1.csv` 导出已移除，仅保留 `rule1.xlsx`（R009）。替代数据的值与原稿不同，09 号保存的历史输出需重跑更新。
-- 05、25、26 号的 `data/xxx` 已统一为 `../data/xxx`，并消除了 05 号的反斜杠路径（R009 / R008 WARN）。
-
 **图片**
 
 - 7 个 notebook 仍有 16 处 `attachment:` 引用（01 两处、02/03/07/11/25 各一处、19 九处）（R006）。19 号 3.0 MB，主要来自内嵌图片。

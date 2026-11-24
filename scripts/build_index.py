@@ -167,6 +167,31 @@ def working_size_mb() -> float:
     return round(total / 1024 / 1024, 1)
 
 
+def is_ignored(rel: str) -> bool:
+    """路径是否被 .gitignore 排除；被排除的目录不会出现在 GitHub Pages 上。"""
+    try:
+        proc = subprocess.run(["git", "check-ignore", "-q", "--", rel], cwd=ROOT,
+                              capture_output=True, timeout=10)
+        return proc.returncode == 0
+    except (OSError, subprocess.SubprocessError):
+        return False
+
+
+def detect_repo_url() -> str:
+    """从 git origin 推断仓库地址，避免页面顶栏留下占位链接。"""
+    try:
+        proc = subprocess.run(["git", "remote", "get-url", "origin"], cwd=ROOT,
+                              capture_output=True, text=True, timeout=10)
+        url = (proc.stdout or "").strip()
+    except (OSError, subprocess.SubprocessError):
+        return ""
+    if url.startswith("git@github.com:"):
+        url = "https://github.com/" + url.split(":", 1)[1]
+    if url.endswith(".git"):
+        url = url[:-4]
+    return url if url.startswith("https://") else ""
+
+
 def build_manifest(repo_url: str) -> dict:
     nb_dir = ROOT / "notebooks"
     notebooks = sorted(
@@ -238,8 +263,10 @@ def build_manifest(repo_url: str) -> dict:
         files = [f for f in d.rglob("*") if f.is_file()]
         cases.append({"name": d.name, "files": len(files),
                       "size": round(sum(f.stat().st_size for f in files) / 1024 / 1024, 2),
-                      "note": notes.get(d.name, "")})
+                      "note": notes.get(d.name, ""),
+                      "published": not is_ignored(f"modelit/{d.name}")})
     modelit_files = sum(c["files"] for c in cases)
+    modelit_local_only = bool(cases) and all(not c["published"] for c in cases)
 
     modules = {}
     for n in notebooks:
@@ -268,7 +295,7 @@ def build_manifest(repo_url: str) -> dict:
         "docs": docs,
         "ppts": ppts,
         "manual": {"files": manual_files, "sizeMB": manual_size, "categories": manual_cats},
-        "modelit": {"files": modelit_files, "cases": cases},
+        "modelit": {"files": modelit_files, "cases": cases, "localOnly": modelit_local_only},
         "checks": run_checks(),
     }
 
@@ -280,7 +307,7 @@ TEMPLATE = r'''<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>数学建模图谱 · 项目导航</title>
-<meta name="description" content="43 个数学建模 notebook、27 个数据文件、35 份教材 PDF 与 21 个课件的浏览与检索入口。">
+<meta name="description" content="__META_DESC__">
 <style>
 :root{
   --bg:#f5f6f8; --panel:#ffffff; --panel-2:#fafbfc; --ink:#141a22; --muted:#5c6776;
@@ -612,7 +639,7 @@ RENDER.overview = () => {
     <div class="kpi"><span>教材 PDF</span><strong>${c.docs}</strong><small>30 章 + 附录 + 参考文献</small></div>
     <div class="kpi"><span>课件</span><strong>${c.ppts}</strong><small>20 章，04 章分册</small></div>
     <div class="kpi"><span>历史资料</span><strong>${fmt(c.manual)}</strong><small>文件 · ${M.manual.sizeMB} MB</small></div>
-    <div class="kpi"><span>独立案例</span><strong>${M.modelit.cases.length}</strong><small>${fmt(c.modelit)} 个文件 · 178 MB</small></div>
+    <div class="kpi"><span>独立案例</span><strong>${M.modelit.cases.length}</strong><small>${M.modelit.localOnly ? '本地目录 · 未随仓库发布' : fmt(c.modelit) + ' 个文件 · 178 MB'}</small></div>
   </div>
   <div class="grid-2">
     <section class="card">
@@ -650,7 +677,7 @@ data/         ${c.data} 个数据文件（data/textbook/ 为教材数据）
 docs/         ${c.docs} 份教材 PDF
 ppts/         ${c.ppts} 个授课课件
 manual/       ${fmt(c.manual)} 个历史资料文件
-modelit/      ${M.modelit.cases.length} 个独立案例
+modelit/      ${M.modelit.cases.length} 个独立案例${M.modelit.localOnly ? '（本地，未发布）' : ''}
 scripts/      check_project.py · merge_textbook.py · build_index.py
 THIRD-PARTY.md  上游 MIT 许可与逐篇去向</pre>
   </section>`;
@@ -727,7 +754,7 @@ RENDER.data = () => `
     <button class="btn" data-action="verify-data">校验可访问性</button>
     <span class="toolbar-note" id="dataCount"></span>
   </div>
-  <div class="callout">校验通过 HTTP HEAD 逐个请求，仅在静态服务（本地 http.server 或 GitHub Pages）下有效；用于确认上传后没有漏传数据文件。引用方仅统计 <code>../data/</code> 相对引用；30 号仍含 2 处绝对路径，未计入。</div>
+  <div class="callout">校验通过 HTTP HEAD 逐个请求，仅在静态服务（本地 http.server 或 GitHub Pages）下有效；用于确认上传后没有漏传数据文件。引用方仅统计 <code>../data/</code> 相对引用。</div>
   <div class="table-wrap">
     <table class="table">
       <thead><tr><th>文件</th><th>类型</th><th class="num">体积</th><th>引用方</th><th>校验</th></tr></thead>
@@ -809,10 +836,11 @@ RENDER.modelit = () => `
     <p class="eyebrow">Cases</p>
     <h1>独立建模案例</h1>
     <p class="lede">${M.modelit.cases.length} 个专题 / ${fmt(M.modelit.files)} 个文件，与 notebook 分开维护，强调可直接运行与结果复现。</p>
+    ${M.modelit.localOnly ? '<div class="callout warn">此目录被 .gitignore 排除，仅在本地工作树中可见；GitHub Pages 上只保留说明，不提供文件下载。</div>' : ''}
   </header>
   <div class="grid-cards">
     ${M.modelit.cases.map(c => `<article class="case">
-      <h3>${esc(c.name)}</h3>
+      <h3>${esc(c.name)} ${c.published ? '' : '<span class="badge warn">本地</span>'}</h3>
       <p>${esc(c.note || '—')}</p>
       <p class="mono" style="margin-top:8px">${c.files} 个文件 · ${c.size} MB</p>
     </article>`).join('')}
@@ -903,18 +931,19 @@ RENDER.about = () => `
       <h2>重新生成</h2>
       <p class="small muted">仓库结构或篇数变化后，重跑脚本即可刷新内嵌清单：</p>
       <pre>python scripts/build_index.py
-python scripts/build_index.py --repo-url https://github.com/&lt;user&gt;/&lt;repo&gt;</pre>
+python scripts/build_index.py --repo-url https://github.com/yohoten/Mathematical-Modeling-Atlas</pre>
+      <p class="small muted">不带参数时自动读取 <code>git remote get-url origin</code>，顶栏仓库链接不会退回占位符。</p>
       <p class="small muted">脚本只读取文件名、标题、H2/H3、数据引用与体积，不写入除 index.html 之外的文件。</p>
     </section>
     <section class="card">
       <h2>部署到 GitHub Pages</h2>
       <ol class="small">
-        <li>把仓库推送到 GitHub，默认分支设为 main。</li>
+        <li>把仓库推送到 GitHub，默认分支设为 main；仓库根已有 <code>.nojekyll</code>，Pages 不会再做 Jekyll 转换。</li>
         <li>Settings → Pages → Build and deployment → Deploy from a branch。</li>
         <li>选择 main / (root)，保存后等待发布。</li>
-        <li>访问 https://&lt;user&gt;.github.io/&lt;repo&gt;/。</li>
+        <li>访问 https://yohoten.github.io/Mathematical-Modeling-Atlas/。</li>
       </ol>
-      <p class="small muted">.ipynb 预览、全文检索与数据校验都依赖同源 HTTP，Pages 下可用；直接 file:// 打开时仅浏览功能可用。</p>
+      <p class="small muted">.ipynb 预览、全文检索与数据校验都依赖同源 HTTP，Pages 下可用；直接 file:// 打开时仅浏览功能可用。被 <code>.gitignore</code> 排除的目录（当前为 <code>modelit/</code>）不会随 Pages 发布，页面会将它们标注为“本地”。</p>
     </section>
   </div>
   <section class="card">
@@ -1355,9 +1384,16 @@ def main() -> None:
     parser.add_argument("--repo-url", default="", help="GitHub 仓库地址，用于顶栏入口")
     args = parser.parse_args()
 
-    manifest = build_manifest(args.repo_url)
+    repo_url = args.repo_url or detect_repo_url()
+    manifest = build_manifest(repo_url)
     payload = json.dumps(manifest, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
-    html = TEMPLATE.replace("__MANIFEST__", payload)
+    meta_desc = (
+        f"{manifest['repo']['counts']['notebooks']} 个数学建模 notebook、"
+        f"{manifest['repo']['counts']['data']} 个数据文件、"
+        f"{manifest['repo']['counts']['docs']} 份教材 PDF 与 "
+        f"{manifest['repo']['counts']['ppts']} 个课件的浏览与检索入口。"
+    )
+    html = TEMPLATE.replace("__MANIFEST__", payload).replace("__META_DESC__", meta_desc)
     out = ROOT / "index.html"
     out.write_text(html, encoding="utf-8", newline="\n")
     print(f"wrote {out}")

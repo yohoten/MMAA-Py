@@ -1,6 +1,6 @@
 # data 数据字典
 
-`data/` 存放 notebook 与案例使用的输入数据，共 27 个文件 / 约 94 MB（根目录 17 个 + `textbook/` 10 个）。**原始数据只读**：分析产物写各案例 `output/`，不入库。
+`data/` 存放 notebook 与案例使用的输入数据，共 28 个文件 / 约 94 MB（根目录 18 个 + `textbook/` 10 个）。**原始数据只读**：分析产物写各案例 `output/`，不入库。
 
 ## 文件清单
 
@@ -9,13 +9,14 @@
 | `bitcoin_data.csv` | 71.4 MB | 20 | 比特币行情时间序列，供数据准备与平滑/ARMA 演示 |
 | `Online_Retail.xlsx` | 22.6 MB | 26 | 零售交易明细，Apriori 关联规则挖掘 |
 | `PM_data.csv` | 28 KB | 22 | PM2.5 等监测序列，平稳性检验与 ARMA 建模 |
-| `disease_data.xlsx` | 10.6 KB | 无 | 疾病统计数据，当前没有 notebook 引用（可保留为备用） |
+| `disease_data.xlsx` | 10.6 KB | 07 | 健康状态分类：5 项心电指标 + 类别（含 2 个待判样本）；已按 07 号保存的输出校正 7 处小数点转录错误 |
 | `arima_data.xlsx` | 9.7 KB | 27 | 餐厅营业额月度序列，ARIMA 预测 |
 | `tr.xlsx` | 9.6 KB | 25 | 事务表，关联规则演示 |
 | `Oil pipeline.xlsx` | 9.6 KB | 05 | 管道网络边权数据，最小生成树 |
 | `pca_data.xlsx` | 5.4 KB | 08 | 多指标评价数据，主成分分析 |
 | `rule1.xlsx` | 4.7 KB | 25 | 关联规则样例事务表 |
-| `fa_data.csv` | 4.4 KB | 09 | 因子分析样本数据 |
+| `fa_data.csv` | 4.4 KB | 09 | 因子分析样本数据（8 项体能指标） |
+| `score.xlsx` | 6.6 KB | 09 | 52 名学生的六科成绩，索引为 `学生序号`；原 `./experiment/data/score.xlsx` 缺失后按同结构教学数据集补齐，详见下方说明 |
 | `basketball.csv` | 3.5 KB | 10 | 球队技术统计，系统聚类与 K 均值 |
 | `flight.csv` | 2.4 KB | 30 | 航班/客运量序列，LSTM 与 Prophet 对比 |
 | `AirPassengers.csv` | 1.7 KB | 30 | 经典航空客运量月度序列 |
@@ -43,15 +44,14 @@
 | `14.D 医院工作质量统计指标.txt` | 0.3 KB | 40 | 秩和比 / 主成分评价指标 |
 | `14.D 供应商选择决策.txt` | 0.3 KB | 17 | 灰色关联分析的决策矩阵 |
 
-## 被引用但缺失的文件
+## 历史缺失引用的处理
 
-以下路径出现在 notebook 中，仓库内不存在，对应 notebook 目前无法整篇运行（已记入 `.check_baseline.json`）：
-
-| 缺失路径 | 出现位置 | 实际情况 |
-| --- | --- | --- |
-| `data.xlsx`（`./experiment/data/data.xlsx`） | 07 号，代码单元 10 | 需从原始实验目录补入，或改为仓库内现有数据 |
-| `score.xlsx` | 09 号，代码单元 9 | 学生成绩原始表，需补入 |
-| `rule1.csv` | 09 号 | 仓库中只有 `rule1.xlsx`，扩展名不符 |
+| 原引用 | 现状 |
+| --- | --- |
+| `./experiment/data/data.xlsx`（07 号） | 已改指 `../data/disease_data.xlsx`，即同一份健康状态分类数据；转录时丢失的小数点已按 notebook 保存的输出校正 |
+| `../data/score.xlsx`（09 号） | 已补入本目录。原表未随仓库保存，现用同课程的 52 名学生六科成绩表替代，列结构、索引名与学生编号一致；因数据值不同，09 号保存的历史输出需在重跑后更新 |
+| `rule1.csv`（25 号导出） | 25 号只导出 `../data/rule1.xlsx`，不再生成扩展名不符的 CSV |
+| `data/xxx` 根相对路径（05、25、26 号） | 统一改为 `../data/xxx`，内核工作目录固定为 `notebooks/` |
 
 ## 使用约定
 

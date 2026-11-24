@@ -24,7 +24,7 @@ Python数学建模算法与应用/
 │   ├── FIGURE_TODO.csv         # 66 处待回补配图（35 行，按章节定位）
 │   ├── 01.综合评价法—AHP层次分析法.ipynb …
 │   └── 43.机器学习补充方法.ipynb
-├── data/                       # 27 个数据文件（含 data/textbook/ 10 个教材数据）
+├── data/                       # 28 个数据文件（含 data/textbook/ 10 个教材数据）
 │   └── README.md               # 数据字典：体积、引用方、缺失项
 ├── docs/                       # 教材正文：30 章 + 4 篇附录 + 参考文献（35 个 PDF / 8.5 MB）
 │   └── README.md               # 章节索引、与 notebook 的主题对照、使用约定
@@ -106,10 +106,10 @@ jupyter lab
 
 ```bash
 python scripts/build_index.py
-python scripts/build_index.py --repo-url https://github.com/<user>/<repo>
+python scripts/build_index.py --repo-url https://github.com/yohoten/Mathematical-Modeling-Atlas
 ```
 
-页面内嵌清单由脚本扫描仓库生成，篇数或文件变化后重跑即可。预览与检索需要 HTTP 访问：GitHub Pages 部署后直接可用；直接双击 `file://` 打开时仅浏览功能可用。
+未显式传参时脚本会从 `origin` 自动读取仓库地址，因此直接重跑也不会把顶栏链接退回占位符。页面内嵌清单由脚本扫描仓库生成，篇数或文件变化后重跑即可。预览与检索需要 HTTP 访问：GitHub Pages 部署后直接可用；直接双击 `file://` 打开时仅浏览功能可用。
 
 ## 规范与自动化门禁
 
@@ -121,7 +121,7 @@ python scripts/build_index.py --repo-url https://github.com/<user>/<repo>
 | `make check` / `make lint` / `make fmt` | 等价封装（Windows 未装 make 时直接用上面的 python 命令） |
 | `pre-commit install` | 提交前自动跑 ruff、nbqa 与规范检查 |
 
-检查器只依赖标准库，在 3.10+ 上可直接运行；问题分 ERROR（阻断）、WARN（应修）、INFO（提示）三级。已有 `.check_baseline.json` 记录当前的 4 条已知 ERROR，因此门禁当天即可用：修好一条就从基线里删一条，而不是无限期豁免。
+检查器只依赖标准库，在 3.10+ 上可直接运行；问题分 ERROR（阻断）、WARN（应修）、INFO（提示）三级。原先记录在 `.check_baseline.json` 中的 5 条 ERROR 已全部修复，基线现为空；后续新增 ERROR 会直接阻断检查。
 
 规则清单见 `scripts/check_project.py` 顶部的 `RULES`。其中最关键的几条：
 
@@ -199,12 +199,12 @@ df = pd.read_csv(DATA / "basketball.csv")
 
 按检查器规则归类，均已进入 `.check_baseline.json` 或 WARN 清单：
 
-**路径与数据**
+**路径与数据（已修复）**
 
-- `28.Floyd算法求解最短路径问题 .ipynb` 的文件名在 `.ipynb` 前多一个空格（R002），改名时需同步 README 与正文引用。
-- `notebooks/30.基于LSTM与Prophet的时间序列预测与对比.ipynb` 有 2 处 `F:/_4.Pycode_integration/...` 绝对路径（R007），应改为 `../data/flight.csv` 与 `../data/AirPassengers.csv`。
-- `07` 号引用 `./experiment/data/data.xlsx`、`09` 号引用 `../data/score.xlsx`，两者仓库内不存在（R009）；`09` 另引用 `rule1.csv`，实际文件为 `data/rule1.xlsx`。
-- `05`、`25`、`26` 使用 `data/xxx` 根相对路径（R009 WARN），仅在仓库根启动内核时有效。
+- 28 号文件名已去掉 `.ipynb` 前的空格，README、缺图清单与内嵌清单引用同步更新（R002）。
+- 30 号两处 `F:/_4.Pycode_integration/...` 已改为 `../data/flight.csv` 与 `../data/AirPassengers.csv`（R007）。
+- 07 号改读仓库内已有的 `../data/disease_data.xlsx`；09 号的 `score.xlsx` 已按同结构数据集补齐，`rule1.csv` 导出已移除，仅保留 `rule1.xlsx`（R009）。替代数据的值与原稿不同，09 号保存的历史输出需重跑更新。
+- 05、25、26 号的 `data/xxx` 已统一为 `../data/xxx`，并消除了 05 号的反斜杠路径（R009 / R008 WARN）。
 
 **图片**
 
@@ -223,7 +223,7 @@ df = pd.read_csv(DATA / "basketball.csv")
 - `manual/` 522 文件 / 107 MB 为教材配套 MATLAB/C 代码与旧课件，**只读归档，不承诺可运行**；是否移出主仓（改为单独 release 或 LFS）待决策。
 - 35 篇教材参考实现（MIT，2020，Zhanghan Wang）已按主题并入 01—43 的对应小节，原教材归档目录已移出项目；其中 21 篇主题在主干中空缺，整理为 31—43 号。逐篇去向与上游许可见 [`THIRD-PARTY.md`](THIRD-PARTY.md)。
 - 新增的 31—43 号尚未执行（`execution_count` 为空）；其中 10、19、43 号的部分单元依赖 `tensorflow`，需先安装 `.[ml]` 再整篇运行。
-- 仓库根目录尚未 `git init`。首次入库前请先决定 LFS 策略，否则一次提交会写入约 470 MB 二进制历史。
+- 仓库已纳入 Git 管理；首次推送到远端前请确认 LFS 策略，否则一次提交会写入数百 MB 二进制历史。
 
 ## 贡献指南
 

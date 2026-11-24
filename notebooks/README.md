@@ -19,11 +19,11 @@
 | 02 | 综合评价法：TOPSIS 法 | 6 | 无（内置判断矩阵） | 缺图 7、内嵌图 1 |
 | 03 | NetworkX 的基础操作及画图 | 10 | 无 | 缺图 5、内嵌图 1、未执行 1 |
 | 04 | 基于 NetworkX 的最短路径问题求解 | 10 | 无 | 缺图 3 |
-| 05 | 基于 NetworkX 的最小生成树算法 | 8 | `Oil pipeline.xlsx` | 缺图 6、反斜杠路径 |
+| 05 | 基于 NetworkX 的最小生成树算法 | 8 | `Oil pipeline.xlsx` | 缺图 6 |
 | 06 | 基于 NetworkX 的匹配问题算法 | 3 | 无 | 缺图 7 |
-| 07 | 基于线性判别分析的分类预测 | 15 | `data.xlsx`（缺失） | 缺图 2、内嵌图 1、未执行 6 |
+| 07 | 基于线性判别分析的分类预测 | 15 | `disease_data.xlsx` | 缺图 2、内嵌图 1、未执行 6 |
 | 08 | 基于主成分分析的评价分析 | 11 | `pca_data.xlsx` | 缺图 2、未执行 2 |
-| 09 | 基于因子分析的学生成绩排序 | 19 | `fa_data.csv`、`score.xlsx`（缺失） | 缺图 1、未执行 3 |
+| 09 | 基于因子分析的学生成绩排序 | 19 | `fa_data.csv`、`score.xlsx` | 缺图 1、未执行 3、历史输出待重跑 |
 | 10 | 系统聚类和 K 均值聚类 | 12 | `basketball.csv`、`textbook/15.D 水库年径流与因子特征.txt` | 缺图 2、未执行 6 |
 | 11 | 线性回归分析 | 14 | `fire.csv`、`pressure.csv` | 内嵌图 1 |
 | 12 | 线性回归模型的正则化 | 12 | `regularization.csv` | 缺图 2 |
@@ -42,9 +42,9 @@
 | 25 | 数据关联规则挖掘 | 2 | `tr.xlsx`、`rule1.xlsx` | 缺图 6、内嵌图 1、未执行 1 |
 | 26 | 基于 Apriori 算法的商品关联规则挖掘 | 10 | `Online_Retail.xlsx` | 未执行 1 |
 | 27 | 基于 ARIMA 算法的餐厅营业额预测分析 | 8 | `arima_data.xlsx` | — |
-| 28 | Floyd 算法求解最短路径问题 | 12 | 无 | 缺图 1、文件名尾随空格 |
+| 28 | Floyd 算法求解最短路径问题 | 12 | 无 | 缺图 1 |
 | 29 | 基于 Prophet 与 NeuralProphet 的时间序列预测 | 0 | 无 | 占位稿，待补 |
-| 30 | 基于 LSTM 与 Prophet 的时间序列预测与对比 | 24 | `flight.csv`、`AirPassengers.csv` | 2 处绝对路径 |
+| 30 | 基于 LSTM 与 Prophet 的时间序列预测与对比 | 24 | `flight.csv`、`AirPassengers.csv` | — |
 | 31 | 线性规划 | 2 | 无（内置算例） | 未执行 2 |
 | 32 | 整数规划与目标规划 | 5 | 无 | 未执行 5 |
 | 33 | 非线性规划 | 2 | 无 | 未执行 2 |

@@ -549,6 +549,164 @@ progress{width:100%;height:6px}
   .topbar,.sidebar,.drawer,.modal,.palette,.toast{display:none!important}
   #main{padding:0}
 }
+/* ===== Atlas 2026 visual refresh ===== */
+:root{
+  --bg:#f2f1ec; --panel:#fffefa; --panel-2:#f8f7f2; --ink:#17201d; --muted:#65706a;
+  --line:#e2e0d6; --line-strong:#c9c6b9; --accent:#0b6b57; --accent-2:#084f42;
+  --accent-soft:#e4f0eb; --gold:#a97d2c; --gold-soft:#f7eeda;
+  --ok:#226b3d; --ok-soft:#e8f3ec; --warn:#8a5a00; --warn-soft:#fbf1dd;
+  --err:#a12d24; --err-soft:#fbeae8; --code:#f4f3ee;
+  --topbar-bg:rgba(250,249,245,.86);
+  --shadow:0 1px 2px rgba(23,32,29,.04),0 10px 30px rgba(23,32,29,.055);
+  --shadow-hover:0 2px 5px rgba(23,32,29,.06),0 18px 42px rgba(23,32,29,.10);
+  --radius:14px; --topbar:64px; --side:244px;
+}
+[data-theme="dark"]{
+  --bg:#0d1211; --panel:#141b19; --panel-2:#19211f; --ink:#e8efeb; --muted:#9aa8a2;
+  --line:#26302d; --line-strong:#394640; --accent:#6fd3bb; --accent-2:#9ae4d2;
+  --accent-soft:#142e28; --gold:#d4ab63; --gold-soft:#2e2617;
+  --ok:#7ad19a; --ok-soft:#152c1f; --warn:#e0b25f; --warn-soft:#2e2617;
+  --err:#f08a80; --err-soft:#331b19; --code:#0f1715;
+  --topbar-bg:rgba(13,18,17,.87);
+  --shadow:0 1px 2px rgba(0,0,0,.22),0 10px 30px rgba(0,0,0,.22);
+  --shadow-hover:0 2px 7px rgba(0,0,0,.28),0 20px 46px rgba(0,0,0,.34);
+}
+body{
+  font-size:14.5px;
+  background:
+    radial-gradient(1100px 520px at 88% -12%, rgba(11,107,87,.10), transparent 62%),
+    radial-gradient(760px 420px at -12% 28%, rgba(169,125,44,.055), transparent 65%),
+    linear-gradient(180deg,#f7f6f2 0%,var(--bg) 34%);
+}
+[data-theme="dark"] body{
+  background:
+    radial-gradient(1100px 520px at 88% -12%, rgba(111,211,187,.08), transparent 62%),
+    radial-gradient(760px 420px at -12% 28%, rgba(212,171,99,.045), transparent 65%),
+    var(--bg);
+}
+::selection{background:var(--accent-soft);color:var(--ink)}
+.topbar{box-shadow:0 1px 0 rgba(23,32,29,.02)}
+.brand-mark{width:36px;height:36px;border-radius:10px;font-size:16px;box-shadow:0 4px 12px rgba(11,107,87,.18)}
+.brand-text strong{font-size:14.5px}
+.search-open{border-radius:10px;background:var(--panel);box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
+.sidebar{padding-top:22px}
+.nav-item{padding:10px 12px;border-radius:9px}
+.nav-item.active{box-shadow:inset 3px 0 0 var(--accent),0 1px 2px rgba(23,32,29,.03)}
+#main{padding:34px 38px 80px}
+.hero{
+  display:grid;grid-template-columns:minmax(0,1fr) 286px;gap:26px;align-items:center;
+  min-height:292px;padding:38px 40px 34px;border-radius:20px;
+  background:linear-gradient(135deg,rgba(255,254,250,.98),rgba(247,250,248,.92));
+  border-color:var(--line);box-shadow:var(--shadow);margin-bottom:24px;
+}
+[data-theme="dark"] .hero{background:linear-gradient(135deg,rgba(20,27,25,.98),rgba(16,24,22,.94))}
+.hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle at 1px 1px,var(--line) 1px,transparent 0);
+  background-size:26px 26px;opacity:.5;
+  -webkit-mask-image:linear-gradient(118deg,#000 0%,rgba(0,0,0,.55) 42%,transparent 78%);
+  mask-image:linear-gradient(118deg,#000 0%,rgba(0,0,0,.55) 42%,transparent 78%);
+}
+.hero::after{
+  content:"";position:absolute;right:-130px;top:-155px;width:390px;height:390px;border-radius:50%;
+  background:radial-gradient(circle,var(--accent-soft) 0%,transparent 66%);opacity:.9;pointer-events:none;
+}
+.hero-copy{position:relative;z-index:2;min-width:0}
+.hero .eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.hero h1{font-size:clamp(30px,3.7vw,45px);line-height:1.13;letter-spacing:-.035em;margin:0 0 14px;font-weight:700;max-width:760px}
+.hero h1 .accent{color:var(--accent);position:relative;white-space:nowrap}
+.hero h1 .accent::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:6px;border-radius:4px;background:var(--accent-soft);z-index:-1}
+.hero .lede{max-width:690px;font-size:14.8px;line-height:1.82;color:var(--muted);margin-bottom:0}
+.hero-actions{margin-top:20px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.hero-meta span{display:inline-flex;align-items:baseline;gap:4px;padding:4px 9px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.42);color:var(--muted);font-size:11.5px}
+[data-theme="dark"] .hero-meta span{background:rgba(255,255,255,.025)}
+.hero-meta b{font:600 12px/1 var(--mono);color:var(--ink)}
+.hero-meta .hero-meta-ok{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+.hero-aside{position:relative;z-index:1;height:246px;display:grid;place-items:center}
+.atlas-ring{position:absolute;border:1px solid var(--line-strong);border-radius:50%;opacity:.6}
+.atlas-ring.r1{width:224px;height:224px;transform:rotate(-18deg) scaleY(.72)}
+.atlas-ring.r2{width:174px;height:174px;transform:rotate(34deg) scaleX(.72);border-style:dashed;opacity:.45}
+.atlas-core{position:relative;display:grid;place-items:center;width:132px;height:132px;border-radius:50%;color:#fff;background:linear-gradient(145deg,var(--accent),var(--accent-2));box-shadow:0 20px 42px rgba(11,107,87,.26),inset 0 1px 0 rgba(255,255,255,.26)}
+.atlas-core span,.atlas-core small{font:600 8px/1 var(--mono);letter-spacing:.22em;opacity:.72}
+.atlas-core strong{font:700 52px/1 "Cambria Math","STIX Two Math",serif;margin:1px 0}
+.atlas-tag{position:absolute;padding:4px 9px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--muted);font-size:10.5px;box-shadow:var(--shadow);letter-spacing:.04em}
+.atlas-tag.t1{top:18px;right:8px}.atlas-tag.t2{left:0;top:96px}.atlas-tag.t3{right:24px;bottom:18px}.atlas-tag.t4{left:34px;bottom:34px}
+.kpis{gap:12px;margin:20px 0 24px}
+.kpi{padding:18px 18px 16px;border-radius:14px;overflow:hidden}
+.kpi::before{left:18px;right:auto;width:34px;height:3px;border-radius:3px;opacity:.85}
+.kpi::after{content:"";position:absolute;right:-34px;bottom:-46px;width:116px;height:116px;border-radius:50%;background:var(--accent-soft);opacity:.62;transition:transform .3s ease;pointer-events:none}
+.kpi:hover::after{transform:scale(1.18)}
+.kpi:nth-child(2)::before{background:var(--gold)}
+.kpi:nth-child(3)::before{background:var(--ink);opacity:.38}
+.kpi strong{position:relative;z-index:1;margin-top:5px;font-size:27px;letter-spacing:-.02em}
+.kpi span,.kpi small{position:relative;z-index:1}
+.grid-2{gap:16px;margin-bottom:16px}
+.card{padding:20px;border-radius:14px}
+.card > h2{display:flex;align-items:center;gap:9px;margin-bottom:13px}
+.card > h2::before{content:"";width:3px;height:15px;border-radius:2px;background:var(--accent);flex:0 0 auto}
+.card:hover{border-color:var(--line-strong)}
+.btn{border-radius:8px}
+.btn.primary{box-shadow:0 6px 16px rgba(11,107,87,.16)}
+.table-wrap{border-radius:14px}
+.table th{top:0;background:var(--panel-2);font-size:10px;letter-spacing:.11em}
+.table td{padding:9px 11px}
+.table tbody tr{transition:background .12s ease}
+.table tbody tr:hover{background:var(--accent-soft)}
+.md{font-size:14.5px;line-height:1.82;max-width:920px}
+.md h1,.md h2,.md h3,.md h4{letter-spacing:-.015em}
+.md h1{padding-bottom:8px;border-bottom:1px solid var(--line)}
+.md h2{padding-bottom:5px;border-bottom:1px solid var(--line)}
+.md a{border-bottom:1px solid color-mix(in srgb,var(--accent) 28%,transparent)}
+.md blockquote{border-radius:0 8px 8px 0;padding:9px 14px}
+.md pre.code{border-radius:8px;padding:12px 14px;line-height:1.65}
+.md-table{border-radius:8px;overflow:hidden}
+.md-table th{font-weight:600;color:var(--ink)}
+.md-table tbody tr:nth-child(even){background:var(--panel-2)}
+.out{border-radius:0 6px 6px 0}
+.modal-panel{border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.22)}
+.drawer-panel{box-shadow:-20px 0 60px rgba(0,0,0,.16)}
+.cell{border-bottom-color:var(--line);padding:14px 0}
+.cell-head{margin-bottom:7px}
+.preview-toc{gap:6px;padding-top:2px}
+.preview-toc .btn{max-width:290px}
+.case{border-radius:12px;padding:16px}
+/* MathML rendering */
+math{font-family:"Cambria Math","STIX Two Math","Latin Modern Math","Times New Roman",serif;font-size:1.06em;color:var(--ink);line-height:1.25}
+.math-inline{display:inline-block;vertical-align:-.12em;max-width:100%;padding:0 1px}
+.math-inline math{display:inline}
+.math-display{position:relative;margin:14px 0;padding:14px 46px 14px 16px;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;background:linear-gradient(100deg,var(--panel-2),var(--panel));overflow:hidden}
+.math-display .math-scroll{overflow-x:auto;overflow-y:hidden;padding:2px 0 1px;scrollbar-width:thin}
+.math-display math{display:block;margin:0 auto;font-size:1.12em;min-width:max-content}
+.math-tag{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted);font:11px/1 var(--mono);white-space:nowrap}
+.math-copy{position:absolute;right:8px;top:7px;z-index:2;padding:2px 6px;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--muted);font:9.5px/1.4 var(--mono);letter-spacing:.05em;cursor:pointer;opacity:0;transition:opacity .12s,color .12s,border-color .12s}
+.math-display:hover .math-copy,.math-copy:focus-visible{opacity:1}
+.math-copy:hover{color:var(--accent);border-color:var(--accent)}
+.math-broken{border-left-color:var(--warn);padding-right:16px}
+.math-broken pre{margin:0;white-space:pre-wrap;color:var(--warn);background:transparent;border:0;padding:0;font-size:12px}
+.math-broken small{display:block;margin-top:6px;color:var(--muted);font-size:11px}
+.math-broken.math-inline{display:inline;padding:0 3px;border:1px solid var(--warn);border-radius:3px}
+.math-unknown{color:var(--warn);font-family:var(--mono);font-size:.9em}
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr;padding:26px 22px 24px;min-height:0}
+  .hero-aside{display:none}
+  #main{padding:22px 16px 58px}
+  .hero h1{font-size:clamp(28px,7vw,38px)}
+  .hero h1 .accent{white-space:normal}
+}
+@media (max-width:560px){
+  .hero{padding:22px 18px}
+  .hero .lede{font-size:13.8px}
+  .hero-meta{gap:6px}
+  .hero-meta span{padding:3px 7px;font-size:10.5px}
+  .kpis{grid-template-columns:1fr 1fr;gap:8px}
+  .kpi{padding:14px 13px}
+  .kpi strong{font-size:23px}
+  .math-display{padding:12px 34px 12px 12px;margin:11px 0}
+  .math-tag{right:8px;font-size:10px}
+  .math-copy{opacity:1;top:4px;right:4px}
+}
 </style>
 </head>
 <body>
@@ -673,13 +831,30 @@ RENDER.overview = () => {
   const chk = M.checks;
   return `
   <section class="hero">
-    <p class="eyebrow">数学建模 · Python 实践仓库</p>
-    <h1>从教材公式到可复现的 notebook</h1>
-    <p class="lede">${c.notebooks} 篇 notebook 覆盖综合评价、图论、多元统计、回归、动态模型、模糊与灰色系统、神经网络、时间序列、关联规则、优化、数值方法与机器学习；35 篇教材练习稿已按主题融合，数据、文档与课件可在此统一检索。</p>
-    <div class="hero-actions">
-      <button class="btn primary" data-view="notebooks">浏览 ${c.notebooks} 篇 notebook</button>
-      <button class="btn" data-view="tools">打开工具集</button>
-      <button class="btn ghost" data-doc="THIRD-PARTY.md">教材来源与许可</button>
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="eyebrow-dot"></span>数学建模 · Python 实践仓库</p>
+      <h1>把数学公式，变成<span class="accent">可复现的答案</span></h1>
+      <p class="lede">${c.notebooks} 篇 notebook 覆盖综合评价、图论、多元统计、回归、动态模型、模糊与灰色系统、神经网络、时间序列、关联规则、优化、数值方法与机器学习；35 篇教材练习稿已按主题融合，数据、文档与课件可在此统一检索。每一个公式，都能沿着代码回到可运行的单元。</p>
+      <div class="hero-actions">
+        <button class="btn primary" data-view="notebooks">浏览 ${c.notebooks} 篇 notebook</button>
+        <button class="btn" data-view="tools">打开工具集</button>
+        <button class="btn ghost" data-doc="THIRD-PARTY.md">教材来源与许可</button>
+      </div>
+      <div class="hero-meta" aria-label="仓库摘要">
+        <span><b>${c.notebooks}</b> notebooks</span>
+        <span><b>${c.modules}</b> 类方法</span>
+        <span><b>${c.data}</b> 个数据文件</span>
+        <span class="hero-meta-ok">纯静态 · 离线可读</span>
+      </div>
+    </div>
+    <div class="hero-aside" aria-hidden="true">
+      <div class="atlas-ring r1"></div>
+      <div class="atlas-ring r2"></div>
+      <div class="atlas-core"><span>MODEL</span><strong>∑</strong><small>ATLAS</small></div>
+      <span class="atlas-tag t1">评价</span>
+      <span class="atlas-tag t2">预测</span>
+      <span class="atlas-tag t3">优化</span>
+      <span class="atlas-tag t4">图论</span>
     </div>
   </section>
   <div class="kpis">
@@ -1010,6 +1185,7 @@ python scripts/build_index.py --repo-url https://github.com/yohoten/Mathematical
     <div class="small muted">
       <p><kbd>Ctrl/⌘ K</kbd> 打开全局检索 · <kbd>Esc</kbd> 关闭弹层 · <kbd>↑</kbd>/<kbd>↓</kbd> 选择结果 · <kbd>Enter</kbd> 打开。</p>
       <p>Notebook 列表可按编号、标题、代码量或体积排序，也可从当前筛选结果随机打开一篇；预览弹窗支持按单元筛选、章节跳转与逐单元复制代码，图片显示状态会被记住。</p>
+      <p><b>公式：</b>Notebook / Markdown 中的 <code>$...$</code> 与 <code>$$...$$</code>（以及 <code>\(...\)</code>、<code>\[...\]</code>）使用浏览器原生 MathML 渲染，不依赖 CDN 或外部字体；块公式悬停可复制 TeX 源码。</p>
     </div>
   </section>
   <section class="card">
@@ -1096,10 +1272,336 @@ function safeUrl(u){
   if(/^(https?:|mailto:|#|\.{0,2}\/)/i.test(s)) return esc(s);
   return '#';
 }
+/* Offline LaTeX → MathML. No CDN, no external fonts: keeps index.html a single file. */
+const MATH_GREEK = {
+  alpha:'α', beta:'β', gamma:'γ', delta:'δ', epsilon:'ε', varepsilon:'ε', zeta:'ζ', eta:'η',
+  theta:'θ', vartheta:'ϑ', iota:'ι', kappa:'κ', lambda:'λ', mu:'μ', nu:'ν', xi:'ξ', omicron:'ο',
+  pi:'π', varpi:'ϖ', rho:'ρ', varrho:'ϱ', sigma:'σ', varsigma:'ς', tau:'τ', upsilon:'υ', phi:'φ',
+  varphi:'ϕ', chi:'χ', psi:'ψ', omega:'ω', Gamma:'Γ', Delta:'Δ', Theta:'Θ', Lambda:'Λ', Xi:'Ξ',
+  Pi:'Π', Sigma:'Σ', Upsilon:'Υ', Phi:'Φ', Psi:'Ψ', Omega:'Ω'
+};
+const MATH_OPS = {
+  pm:'±', mp:'∓', times:'×', div:'÷', cdot:'⋅', ast:'∗', star:'⋆', circ:'∘', bullet:'•',
+  le:'≤', leq:'≤', ge:'≥', geq:'≥', ne:'≠', neq:'≠', approx:'≈', sim:'∼', simeq:'≃',
+  equiv:'≡', propto:'∝', infty:'∞', partial:'∂', nabla:'∇', forall:'∀', exists:'∃',
+  in:'∈', notin:'∉', ni:'∋', subset:'⊂', subseteq:'⊆', supset:'⊃', supseteq:'⊇',
+  cup:'∪', cap:'∩', setminus:'∖', emptyset:'∅', varnothing:'∅',
+  to:'→', rightarrow:'→', leftarrow:'←', leftrightarrow:'↔', Rightarrow:'⇒', Leftarrow:'⇐',
+  leftrightarrows:'⇆', mapsto:'↦', triangleq:'≜',
+  ldots:'…', dots:'…', cdots:'⋯', vdots:'⋮', ddots:'⋱',
+  langle:'⟨', rangle:'⟩', lfloor:'⌊', rfloor:'⌋', lceil:'⌈', rceil:'⌉',
+  sum:'∑', prod:'∏', coprod:'∐', int:'∫', iint:'∬', iiint:'∭', oint:'∮',
+  perp:'⊥', parallel:'∥', angle:'∠', therefore:'∴', because:'∵'
+};
+const MATH_FUNCS = new Set(['sin','cos','tan','cot','sec','csc','arcsin','arccos','arctan','sinh','cosh','tanh','log','ln','exp','lim','max','min','sup','inf','det','dim','ker','arg','gcd','Pr','mod']);
+const MATH_SPACES = {',':'0.1667em',':':'0.2222em',';':'0.2778em','!':'-0.1667em',' ':'0.25em',quad:'1em',qquad:'2em'};
+const MATHML_LARGE = /^<mo>(?:∑|∏|∐|∫|∬|∭|∮|lim|max|min|sup|inf|det|gcd|Pr|mod)<\/mo>$/;
+const MATH_DELIMS = {'(':'(',')':')','[':'[',']':']','{':'{','}':'}','|':'|','.':'', '\\':'‖'};
+
+function mathText(s){ return esc(String(s == null ? '' : s).replace(/\s+/g, ' ')).replace(/ /g, '\u00a0'); }
+function mathAttr(s){ return esc(s).replace(/\n/g, '&#10;'); }
+
+function renderMath(tex, display){
+  const raw = String(tex == null ? '' : tex).trim();
+  if(!raw) return '';
+  let tag = '';
+  const body = raw
+    .replace(/\\tag\*?\{([^{}]*)\}/g, (m, t) => { if(!tag) tag = t; return ''; })
+    .replace(/\\label\{[^{}]*\}/g, '')
+    .replace(/\\(?:nonumber|notag)\b/g, '');
+  try{
+    const node = new TeXParser(body).parseAll();
+    const math = `<math xmlns="http://www.w3.org/1998/Math/MathML" display="${display ? 'block' : 'inline'}">${node}</math>`;
+    if(display){
+      return `<div class="math-display" data-tex="${mathAttr(raw)}"><button type="button" class="math-copy" data-math-copy title="复制 LaTeX 源码">TeX</button><div class="math-scroll">${math}</div>${tag ? `<span class="math-tag">(${esc(tag)})</span>` : ''}</div>`;
+    }
+    return `<span class="math-inline" title="${mathAttr(raw)}">${math}</span>`;
+  }catch(err){
+    if(display) return `<div class="math-display math-broken" data-tex="${mathAttr(raw)}"><button type="button" class="math-copy" data-math-copy>TeX</button><pre>${esc(raw)}</pre><small>公式解析失败，已保留源码</small></div>`;
+    return `<code class="math-broken math-inline" title="${mathAttr(err.message || '公式解析失败')}">${esc(raw)}</code>`;
+  }
+}
+
+class TeXParser {
+  constructor(src){ this.s = String(src || ''); this.i = 0; }
+  parseAll(){ return this.parseSeq() || '<mrow></mrow>'; }
+  parseSeq(stop){
+    const out = [];
+    while(this.i < this.s.length){
+      this.skip();
+      if(this.i >= this.s.length) break;
+      if(stop && this.s[this.i] === stop) break;
+      if(this.s.startsWith('\\end{', this.i)) break;
+      const atom = this.parseAtom();
+      if(atom) out.push(atom);
+    }
+    return `<mrow>${out.join('')}</mrow>`;
+  }
+  skip(){ while(this.i < this.s.length && /\s/.test(this.s[this.i])) this.i++; }
+  parseAtom(){
+    let base = this.parseBase();
+    if(!base) return '';
+    let sub = '', sup = '';
+    while(true){
+      this.skip();
+      const rest = this.s.slice(this.i);
+      const noop = rest.match(/^\\(?:limits|nolimits|displaystyle|textstyle|scriptstyle|scriptscriptstyle)(?![A-Za-z])/);
+      if(noop){ this.i += noop[0].length; continue; }
+      const c = this.s[this.i];
+      if(c === '_' || c === '^'){
+        this.i++;
+        const arg = this.parseArg();
+        if(c === '_') sub = arg; else sup = arg;
+      }else if(c === "'"){
+        let primes = '';
+        while(this.s[this.i] === "'"){ primes += '′'; this.i++; }
+        sup += `<mo>${primes}</mo>`;
+      }else break;
+    }
+    if(sub && sup) return MATHML_LARGE.test(base) ? `<munderover>${base}${sub}${sup}</munderover>` : `<msubsup>${base}${sub}${sup}</msubsup>`;
+    if(sub) return MATHML_LARGE.test(base) ? `<munder>${base}${sub}</munder>` : `<msub>${base}${sub}</msub>`;
+    if(sup) return MATHML_LARGE.test(base) ? `<mover>${base}${sup}</mover>` : `<msup>${base}${sup}</msup>`;
+    return base;
+  }
+  parseBase(){
+    this.skip();
+    if(this.i >= this.s.length) return '';
+    const c = this.s[this.i];
+    if(c === '{'){ this.i++; const n = this.parseSeq('}'); if(this.s[this.i] === '}') this.i++; return n; }
+    if(c === '}') return '';
+    if(c === '\\') return this.parseCommand();
+    if(c === '&'){ this.i++; return ''; }
+    if(c === '$'){ this.i++; return ''; }
+    if(c === '~'){ this.i++; return '<mspace width="0.25em"/>'; }
+    if(c === "'"){ this.i++; return '<mo>′</mo>'; }
+    if(/[0-9]/.test(c) || (c === '.' && /[0-9]/.test(this.s[this.i + 1] || ''))) return this.readNumber();
+    if(/[A-Za-z]/.test(c)) return this.readLetter();
+    if(/[\u3400-\u9fff]/.test(c)) return this.readCJK();
+    this.i++;
+    return this.mathChar(c);
+  }
+  readNumber(){
+    const start = this.i;
+    if(this.s[this.i] === '.') this.i++;
+    while(this.i < this.s.length && /[0-9.]/.test(this.s[this.i])) this.i++;
+    return `<mn>${esc(this.s.slice(start, this.i))}</mn>`;
+  }
+  readLetter(){
+    const word = (this.s.slice(this.i).match(/^[A-Za-z]+/) || [''])[0];
+    if(word && MATH_FUNCS.has(word)){ this.i += word.length; return `<mo>${word}</mo>`; }
+    this.i++;
+    return `<mi>${esc(word[0] || '')}</mi>`;
+  }
+  readCJK(){
+    const start = this.i;
+    while(this.i < this.s.length && /[\u3400-\u9fff，。；：、]/.test(this.s[this.i])) this.i++;
+    return `<mtext>${mathText(this.s.slice(start, this.i))}</mtext>`;
+  }
+  mathChar(c){
+    if(c === '<') return '<mo>&lt;</mo>';
+    if(c === '>') return '<mo>&gt;</mo>';
+    if(c === '-') return '<mo>−</mo>';
+    if(c === '*') return '<mo>∗</mo>';
+    if(/[，。；：、]/.test(c)) return `<mtext>${esc(c)}</mtext>`;
+    return `<mo>${esc(c)}</mo>`;
+  }
+  parseArg(){
+    this.skip();
+    if(this.i >= this.s.length) return '';
+    const c = this.s[this.i];
+    if(c === '{'){ this.i++; const n = this.parseSeq('}'); if(this.s[this.i] === '}') this.i++; return n; }
+    if(c === '\\') return this.parseCommand();
+    this.i++;
+    if(/[0-9]/.test(c)){ this.i--; return this.readNumber(); }
+    if(/[A-Za-z]/.test(c)){ this.i--; return this.readLetter(); }
+    if(/[\u3400-\u9fff]/.test(c)){ this.i--; return this.readCJK(); }
+    return this.mathChar(c);
+  }
+  readGroupRaw(){
+    this.skip();
+    if(this.s[this.i] !== '{') return '';
+    this.i++;
+    let depth = 0, start = this.i;
+    while(this.i < this.s.length){
+      const c = this.s[this.i];
+      if(c === '{') depth++;
+      else if(c === '}'){
+        if(depth === 0){ const r = this.s.slice(start, this.i); this.i++; return r; }
+        depth--;
+      }
+      this.i++;
+    }
+    return this.s.slice(start);
+  }
+  readBracketRaw(){
+    this.skip();
+    if(this.s[this.i] !== '[') return '';
+    this.i++;
+    let depth = 0, start = this.i;
+    while(this.i < this.s.length){
+      const c = this.s[this.i];
+      if(c === '[') depth++;
+      else if(c === ']'){
+        if(depth === 0){ const r = this.s.slice(start, this.i); this.i++; return r; }
+        depth--;
+      }
+      this.i++;
+    }
+    return this.s.slice(start);
+  }
+  parseDelimiter(){
+    this.skip();
+    if(this.i >= this.s.length) return '';
+    if(this.s[this.i] === '\\'){
+      this.i++;
+      if(this.i >= this.s.length) return '';
+      if(/[A-Za-z]/.test(this.s[this.i])){
+        const m = this.s.slice(this.i).match(/^[A-Za-z]+/); this.i += m[0].length; return MATH_DELIMS[m[0]] || m[0];
+      }
+      const c = this.s[this.i++]; return MATH_DELIMS[c] == null ? c : MATH_DELIMS[c];
+    }
+    const c = this.s[this.i++]; return MATH_DELIMS[c] == null ? c : MATH_DELIMS[c];
+  }
+  delimiter(c){ return c ? `<mo fence="true" stretchy="true">${esc(c)}</mo>` : ''; }
+  accent(mark, arg){
+    return `<mover accent="true">${arg}<mo>${mark}</mo></mover>`;
+  }
+  parseCommand(){
+    this.i++;
+    if(this.i >= this.s.length) return '<mo>\\</mo>';
+    let name;
+    if(/[A-Za-z]/.test(this.s[this.i])){
+      const m = this.s.slice(this.i).match(/^[A-Za-z]+/);
+      name = m[0]; this.i += name.length;
+    }else{
+      name = this.s[this.i]; this.i++;
+    }
+    if(MATH_GREEK[name]) return `<mi>${MATH_GREEK[name]}</mi>`;
+    if(MATH_OPS[name]) return `<mo>${MATH_OPS[name]}</mo>`;
+    if(MATH_SPACES[name] != null) return `<mspace width="${MATH_SPACES[name]}"/>`;
+    if(MATH_FUNCS.has(name)) return `<mo>${name}</mo>`;
+    switch(name){
+      case 'frac': case 'dfrac': case 'tfrac': {
+        const a = this.parseArg(), b = this.parseArg();
+        return `<mfrac>${a}${b}</mfrac>`;
+      }
+      case 'sqrt': {
+        let index = '';
+        this.skip();
+        if(this.s[this.i] === '['){ const raw = this.readBracketRaw(); index = new TeXParser(raw).parseAll(); }
+        const a = this.parseArg();
+        return index ? `<mroot>${a}${index}</mroot>` : `<msqrt>${a}</msqrt>`;
+      }
+      case 'text': case 'textrm': case 'textnormal': case 'mbox':
+        return `<mtext>${mathText(this.readGroupRaw())}</mtext>`;
+      case 'mathrm': return `<mtext mathvariant="normal">${mathText(this.readGroupRaw())}</mtext>`;
+      case 'mathbf': return `<mtext mathvariant="bold">${mathText(this.readGroupRaw())}</mtext>`;
+      case 'mathit': return `<mtext mathvariant="italic">${mathText(this.readGroupRaw())}</mtext>`;
+      case 'mathsf': return `<mtext mathvariant="sans-serif">${mathText(this.readGroupRaw())}</mtext>`;
+      case 'mathtt': return `<mtext mathvariant="monospace">${mathText(this.readGroupRaw())}</mtext>`;
+      case 'mathcal': return `<mtext mathvariant="script">${mathText(this.readGroupRaw())}</mtext>`;
+      case 'mathbb': return `<mtext mathvariant="double-struck">${mathText(this.readGroupRaw())}</mtext>`;
+      case 'mathfrak': return `<mtext mathvariant="fraktur">${mathText(this.readGroupRaw())}</mtext>`;
+      case 'operatorname': case 'operatorname*': return `<mi mathvariant="normal">${mathText(this.readGroupRaw())}</mi>`;
+      case 'hat': case 'widehat': return this.accent('^', this.parseArg());
+      case 'bar': case 'overline': return this.accent('¯', this.parseArg());
+      case 'tilde': case 'widetilde': return this.accent('~', this.parseArg());
+      case 'vec': return this.accent('→', this.parseArg());
+      case 'dot': return this.accent('˙', this.parseArg());
+      case 'ddot': return this.accent('¨', this.parseArg());
+      case 'underline': return `<munder accentunder="true">${this.parseArg()}<mo>_</mo></munder>`;
+      case 'overset': { const over = this.parseArg(), base = this.parseArg(); return `<mover>${base}${over}</mover>`; }
+      case 'underset': { const under = this.parseArg(), base = this.parseArg(); return `<munder>${base}${under}</munder>`; }
+      case 'stackrel': { const over = this.parseArg(), base = this.parseArg(); return `<mover>${base}${over}</mover>`; }
+      case 'binom': { const a = this.parseArg(), b = this.parseArg(); return `<mrow><mo>(</mo><mfrac linethickness="0">${a}${b}</mfrac><mo>)</mo></mrow>`; }
+      case 'left': return this.delimiter(this.parseDelimiter());
+      case 'right': return this.delimiter(this.parseDelimiter());
+      case 'big': case 'Big': case 'bigg': case 'Bigg': case 'bigl': case 'Bigl': case 'biggl': case 'Biggl': case 'bigr': case 'Bigr': case 'biggr': case 'Biggr':
+        return this.delimiter(this.parseDelimiter());
+      case 'begin': return this.parseEnvironment(this.readGroupRaw());
+      case 'end': this.readGroupRaw(); return '';
+      case 'limits': case 'nolimits': case 'displaystyle': case 'textstyle': case 'scriptstyle': case 'scriptscriptstyle': return '';
+      case 'tag': case 'label': this.readGroupRaw(); return '';
+      case 'color': this.readGroupRaw(); return this.parseArg();
+      case 'textcolor': this.readGroupRaw(); return this.parseArg();
+      case 'hspace': this.readGroupRaw(); return '<mspace width="1em"/>';
+      case 'phantom': return `<mphantom>${this.parseArg()}</mphantom>`;
+      case 'boxed': return `<menclose notation="box">${this.parseArg()}</menclose>`;
+      case 'not': return `<mo>≠</mo>`;
+      case 'pmod': { const a = this.parseArg(); return `<mo>(</mo><mo>mod</mo><mspace width="0.25em"/>${a}<mo>)</mo>`; }
+      case 'mod': return '<mo>mod</mo>';
+      case '\\': return '<mspace linebreak="newline"/>';
+      case '{': case '}': case '|': case '&': case '%': case '#': case '_': case '$': return `<mo>${esc(name)}</mo>`;
+      default:
+        if(/^[A-Za-z]$/.test(name)) return `<mi>${esc(name)}</mi>`;
+        return `<mtext class="math-unknown">\\${esc(name)}</mtext>`;
+    }
+  }
+  parseEnvironment(name){
+    let spec = '';
+    if(name === 'array'){
+      this.skip();
+      if(this.s[this.i] === '{') spec = this.readGroupRaw();
+    }
+    const raw = this.readEnvBody(name);
+    const rows = this.splitTop(raw, '\\\\').map(r => r.trim()).filter(Boolean);
+    const cells = rows.map(r => this.splitTop(r, '&').map(c => c.trim()));
+    const cols = Math.max(1, ...cells.map(r => r.length));
+    let align = Array.from({length: cols}, () => 'center');
+    if(name === 'cases' || name === 'aligned' || name === 'align' || name === 'split') align = Array.from({length: cols}, () => 'left');
+    if(name === 'array') align = Array.from({length: cols}, (_, i) => ({l:'left',c:'center',r:'right'}[spec[i]] || 'center'));
+    const table = `<mtable columnalign="${align.join(' ')}" rowspacing="0.35em" columnspacing="0.9em">${cells.map(r => `<mtr>${r.map(c => `<mtd>${new TeXParser(c).parseAll()}</mtd>`).join('')}</mtr>`).join('')}</mtable>`;
+    const delims = {bmatrix:['[',']'], pmatrix:['(',')'], vmatrix:['|','|'], Vmatrix:['‖','‖'], Bmatrix:['{','}'], matrix:['',''], cases:['{','']};
+    const d = delims[name];
+    if(!d) return table;
+    return `<mrow>${this.delimiter(d[0])}${table}${this.delimiter(d[1])}</mrow>`;
+  }
+  readEnvBody(name){
+    const open = '\\begin{' + name + '}';
+    const close = '\\end{' + name + '}';
+    let depth = 1, start = this.i;
+    while(this.i < this.s.length){
+      if(this.s.startsWith(open, this.i)){ depth++; this.i += open.length; continue; }
+      if(this.s.startsWith(close, this.i)){
+        depth--;
+        if(depth === 0){ const body = this.s.slice(start, this.i); this.i += close.length; return body; }
+        this.i += close.length; continue;
+      }
+      this.i++;
+    }
+    throw new Error('未闭合的环境：' + name);
+  }
+  splitTop(s, sep){
+    const parts = [];
+    let start = 0, brace = 0, env = 0;
+    for(let i = 0; i < s.length; i++){
+      if(s.startsWith('\\begin{', i)){ env++; i += 6; continue; }
+      if(s.startsWith('\\end{', i)){ env = Math.max(0, env - 1); i += 4; continue; }
+      const c = s[i];
+      if(c === '\\'){
+        if(sep === '\\\\' && s[i + 1] === '\\' && brace === 0 && env === 0){
+          parts.push(s.slice(start, i)); i++; start = i + 1; continue;
+        }
+        i++; continue;
+      }
+      if(c === '{') brace++;
+      else if(c === '}') brace--;
+      else if(sep === '&' && c === '&' && brace === 0 && env === 0){ parts.push(s.slice(start, i)); start = i + 1; }
+    }
+    parts.push(s.slice(start));
+    return parts;
+  }
+}
+
 function inlineMd(raw){
-  let s = esc(raw);
-  const codes = [];
-  s = s.replace(/`([^`]+)`/g, (m, c) => { codes.push(`<code>${c}</code>`); return `\u0001${codes.length - 1}\u0001`; });
+  const tokens = [];
+  let s = String(raw == null ? '' : raw);
+  s = s.replace(/`([^`]+)`/g, (m, c) => { tokens.push(`<code>${esc(c)}</code>`); return `\u0001${tokens.length - 1}\u0001`; });
+  s = s.replace(/\\\(([\s\S]+?)\\\)|(?<!\$)\$(?![\s$])([^$\n]+?)(?<![\s$])\$(?!\$)/g, (m, paren, dollar) => {
+    tokens.push(renderMath(paren != null ? paren : dollar, false));
+    return `\u0001${tokens.length - 1}\u0001`;
+  });
+  s = esc(s);
   s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
   s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
   s = s.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, (m, alt) => `<span class="badge">图片：${alt || '未命名'}</span>`);
@@ -1108,7 +1610,7 @@ function inlineMd(raw){
     const ext = /^https?:/i.test(url) ? ' target="_blank" rel="noopener noreferrer"' : '';
     return `<a href="${href}"${ext}>${text}</a>`;
   });
-  s = s.replace(/\u0001(\d+)\u0001/g, (m, i) => codes[+i]);
+  s = s.replace(/\u0001(\d+)\u0001/g, (m, i) => tokens[+i]);
   return s;
 }
 function tableMd(rows){
@@ -1122,6 +1624,10 @@ function mdToHtml(src){
   let text = String(src || '').replace(/\r\n/g, '\n');
   text = text.replace(/```[^\n]*\n([\s\S]*?)```/g, (m, code) => {
     blocks.push(`<pre class="code"><code>${esc(code.replace(/\n$/, ''))}</code></pre>`);
+    return `\n\u0000${blocks.length - 1}\u0000\n`;
+  });
+  text = text.replace(/\$\$([\s\S]+?)\$\$|\\\[([\s\S]+?)\\\]/g, (m, dollars, brackets) => {
+    blocks.push(renderMath(dollars != null ? dollars : brackets, true));
     return `\n\u0000${blocks.length - 1}\u0000\n`;
   });
   const lines = text.split('\n');
@@ -1438,6 +1944,8 @@ document.addEventListener('click', e => {
     if(c) copyText(srcOf(c));
     return;
   }
+  const mathCopy = t.closest('[data-math-copy]');
+  if(mathCopy){ copyText(mathCopy.dataset.tex || ''); return; }
   const copy = t.closest('[data-copy]');
   if(copy){ copyText(copy.dataset.copy); return; }
   const copyEl = t.closest('[data-copy-el]');
